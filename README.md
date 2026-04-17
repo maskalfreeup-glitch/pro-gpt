@@ -1,46 +1,24 @@
-# Astro Starter Kit: Basics
+# ProGPT
 
-```sh
-npm create astro@latest -- --template basics
-```
+Rank your brand inside ChatGPT & AI search.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+We build AEO (Answer Engine Optimisation) + GEO systems that make your brand show up inside AI-generated answers.
 
-## 🚀 Project Structure
+## 🌐 Live
+https://progpt.store
 
-Inside of your Astro project, you'll see the following folders and files:
+## 🚀 What this is
+This is the core frontend for ProGPT — a system designed to help brands gain visibility inside AI search environments like ChatGPT.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+## ⚡ Stack
+- Astro
+- Cloudflare Pages
+- Gumroad & Web3 integrations (in progress)
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## 🧠 Vision
+Search is shifting from Google → AI answers.
 
-## 🧞 Commands
+We help brands win that shift.
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 📩 Contact
+DM / Email / (add later)
