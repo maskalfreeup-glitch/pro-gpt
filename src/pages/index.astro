@@ -1,366 +1,191 @@
 ---
-// ProGPT Landing Page
-// Help brands rank inside ChatGPT & AI search results
 ---
 
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>ProGPT - Rank inside ChatGPT & AI Search</title>
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProGPT — Rank inside AI search</title>
 
-		body {
-			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-			background-color: #0a0a0a;
-			color: #ffffff;
-			line-height: 1.6;
-		}
+    <style>
+      :root {
+        --bg: #0a0a0a;
+        --text: #ffffff;
+        --muted: #a0a0a0;
+        --accent: #7c5cff;
+        --card: #141414;
+      }
 
-		/* Hero Section */
-		.hero-section {
-			background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-			padding: 100px 20px;
-			text-align: center;
-			min-height: 100vh;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-		}
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      }
 
-		.hero-title {
-			font-size: 4rem;
-			font-weight: 700;
-			margin-bottom: 20px;
-			background: linear-gradient(135deg, #ffffff 0%, #b0b0b0 100%);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text;
-		}
+      body {
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
 
-		.hero-subtitle {
-			font-size: 1.5rem;
-			color: #a0a0a0;
-			margin-bottom: 40px;
-			max-width: 600px;
-			margin-left: auto;
-			margin-right: auto;
-		}
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
 
-		.cta-button {
-			display: inline-block;
-			background-color: #2563eb;
-			color: #ffffff;
-			padding: 16px 40px;
-			border: none;
-			border-radius: 8px;
-			text-decoration: none;
-			font-weight: 600;
-			font-size: 1.1rem;
-			cursor: pointer;
-			transition: all 0.3s ease;
-			margin: 10px;
-		}
+      h1 {
+        font-size: 3rem;
+        line-height: 1.2;
+      }
 
-		.cta-button:hover {
-			background-color: #1d4ed8;
-			transform: translateY(-2px);
-			box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
-		}
+      h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
 
-		/* How It Works Section */
-		.how-it-works {
-			background-color: #111111;
-			padding: 80px 20px;
-		}
+      p {
+        color: var(--muted);
+        margin: 1rem 0;
+      }
 
-		.section-title {
-			font-size: 3rem;
-			font-weight: 700;
-			margin-bottom: 50px;
-			text-align: center;
-			color: #ffffff;
-		}
+      .hero {
+        text-align: center;
+        padding: 6rem 2rem;
+      }
 
-		.steps-container {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-			gap: 40px;
-			max-width: 1200px;
-			margin: 0 auto;
-		}
+      .cta-button {
+        display: inline-block;
+        margin-top: 1.5rem;
+        padding: 0.9rem 1.5rem;
+        background: var(--accent);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+      }
 
-		.step {
-			background-color: #1a1a1a;
-			padding: 40px;
-			border-radius: 12px;
-			border: 1px solid #2a2a2a;
-			transition: all 0.3s ease;
-		}
+      .section {
+        padding: 4rem 0;
+        text-align: center;
+      }
 
-		.step:hover {
-			border-color: #2563eb;
-			box-shadow: 0 10px 40px rgba(37, 99, 235, 0.1);
-		}
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
 
-		.step-number {
-			display: inline-block;
-			width: 50px;
-			height: 50px;
-			background-color: #2563eb;
-			color: #ffffff;
-			border-radius: 50%;
-			text-align: center;
-			line-height: 50px;
-			font-weight: 700;
-			font-size: 1.5rem;
-			margin-bottom: 20px;
-		}
+      .card {
+        background: var(--card);
+        padding: 1.5rem;
+        border-radius: 12px;
+      }
 
-		.step-title {
-			font-size: 1.5rem;
-			font-weight: 600;
-			margin-bottom: 15px;
-			color: #ffffff;
-		}
+      form {
+        margin-top: 2rem;
+      }
 
-		.step-description {
-			color: #a0a0a0;
-			font-size: 1rem;
-		}
+      input {
+        padding: 0.8rem;
+        width: 250px;
+        border-radius: 6px;
+        border: none;
+        margin-right: 0.5rem;
+      }
 
-		/* Why AI Search Matters */
-		.why-ai-search {
-			background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-			padding: 80px 20px;
-		}
+      button {
+        padding: 0.8rem 1.2rem;
+        background: var(--accent);
+        border: none;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+      }
 
-		.why-content {
-			max-width: 900px;
-			margin: 0 auto;
-		}
+      footer {
+        text-align: center;
+        padding: 3rem 0;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+    </style>
+  </head>
 
-		.benefits-list {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-			gap: 30px;
-			margin-top: 40px;
-		}
+  <body>
+    <div class="container">
 
-		.benefit {
-			background-color: #1a1a1a;
-			padding: 30px;
-			border-radius: 12px;
-			border-left: 4px solid #2563eb;
-		}
+      <!-- HERO -->
+      <section class="hero">
+        <h1>Rank inside ChatGPT & AI search</h1>
+        <p>
+          We help brands appear inside AI-generated answers using AEO/GEO systems.
+        </p>
 
-		.benefit-title {
-			font-size: 1.2rem;
-			font-weight: 600;
-			margin-bottom: 10px;
-			color: #ffffff;
-		}
+        <a href="#cta" class="cta-button">
+          Get your brand ranked
+        </a>
+      </section>
 
-		.benefit-text {
-			color: #a0a0a0;
-			font-size: 0.95rem;
-		}
+      <!-- HOW IT WORKS -->
+      <section class="section">
+        <h2>How it works</h2>
 
-		/* CTA Section */
-		.cta-section {
-			background-color: #0a0a0a;
-			padding: 80px 20px;
-			text-align: center;
-			border-top: 1px solid #2a2a2a;
-		}
+        <div class="grid">
+          <div class="card">
+            <h3>Analyze</h3>
+            <p>We identify where your brand is missing in AI responses.</p>
+          </div>
 
-		.cta-title {
-			font-size: 2.5rem;
-			font-weight: 700;
-			margin-bottom: 15px;
-			color: #ffffff;
-		}
+          <div class="card">
+            <h3>Optimize</h3>
+            <p>We structure your content for AI visibility (AEO/GEO).</p>
+          </div>
 
-		.cta-subtitle {
-			font-size: 1.2rem;
-			color: #a0a0a0;
-			margin-bottom: 40px;
-			max-width: 600px;
-			margin-left: auto;
-			margin-right: auto;
-		}
+          <div class="card">
+            <h3>Rank</h3>
+            <p>Your brand starts appearing in ChatGPT-style answers.</p>
+          </div>
+        </div>
+      </section>
 
-		.button-group {
-			display: flex;
-			gap: 15px;
-			justify-content: center;
-			flex-wrap: wrap;
-		}
+      <!-- WHY THIS MATTERS -->
+      <section class="section">
+        <h2>Search is changing</h2>
+        <p>
+          People are no longer clicking links. They’re asking AI.
+          If your brand isn’t inside those answers, you don’t exist.
+        </p>
+      </section>
 
-		.cta-button-secondary {
-			display: inline-block;
-			background-color: transparent;
-			color: #2563eb;
-			padding: 16px 40px;
-			border: 2px solid #2563eb;
-			border-radius: 8px;
-			text-decoration: none;
-			font-weight: 600;
-			font-size: 1.1rem;
-			cursor: pointer;
-			transition: all 0.3s ease;
-		}
+      <!-- FINAL CTA -->
+      <section class="section" id="cta">
+        <h2>Get your brand ranked inside AI</h2>
+        <p>Request early access or an audit.</p>
 
-		.cta-button-secondary:hover {
-			background-color: #2563eb;
-			color: #ffffff;
-		}
+        <form onsubmit="handleSubmit(event)">
+          <input type="email" placeholder="Enter your email" required />
+          <button type="submit">Get access</button>
+        </form>
+      </section>
 
-		/* Footer */
-		footer {
-			background-color: #0a0a0a;
-			border-top: 1px solid #2a2a2a;
-			padding: 30px 20px;
-			text-align: center;
-			color: #6a6a6a;
-		}
+      <!-- FOOTER -->
+      <footer>
+        <p>ProGPT — AI Search Optimization</p>
+        <p>© 2026</p>
+      </footer>
 
-		/* Responsive Design */
-		@media (max-width: 768px) {
-			.hero-title {
-				font-size: 2.5rem;
-			}
+    </div>
 
-			.hero-subtitle {
-				font-size: 1.2rem;
-			}
-
-			.section-title {
-				font-size: 2rem;
-			}
-
-			.cta-title {
-				font-size: 1.8rem;
-			}
-
-			.steps-container {
-				grid-template-columns: 1fr;
-			}
-
-			.button-group {
-				flex-direction: column;
-				align-items: center;
-			}
-
-			.cta-button,
-			.cta-button-secondary {
-				width: 100%;
-			}
-		}
-
-		@media (max-width: 480px) {
-			.hero-section {
-				padding: 50px 15px;
-				min-height: auto;
-			}
-
-			.hero-title {
-				font-size: 1.8rem;
-			}
-
-			.hero-subtitle {
-				font-size: 1rem;
-			}
-
-			.section-title {
-				font-size: 1.5rem;
-			}
-
-			.cta-title {
-				font-size: 1.5rem;
-			}
-
-			.step {
-				padding: 25px;
-			}
-		}
-	</style>
-</head>
-<body>
-	<!-- Hero Section -->
-	<section class="hero-section">
-		<h1 class="hero-title">Rank inside ChatGPT & AI search</h1>
-		<p class="hero-subtitle">We help brands appear inside AI-generated answers using AEO/GEO systems</p>
-		<a href="#cta" class="cta-button">Get your brand ranked</a>
-	</section>
-
-	<!-- How It Works Section -->
-	<section class="how-it-works">
-		<h2 class="section-title">How It Works</h2>
-		<div class="steps-container">
-			<div class="step">
-				<div class="step-number">1</div>
-				<h3 class="step-title">Analyze Your Brand</h3>
-				<p class="step-description">We audit your brand presence and identify optimisation opportunities for AI search engines and ChatGPT rankings.</p>
-			</div>
-			<div class="step">
-				<div class="step-number">2</div>
-				<h3 class="step-title">Optimize for AEO/GEO</h3>
-				<p class="step-description">Our team implements AI Engine Optimisation (AEO) and Generative Engine Optimisation (GEO) strategies tailored to your brand.</p>
-			</div>
-			<div class="step">
-				<div class="step-number">3</div>
-				<h3 class="step-title">Monitor & Scale</h3>
-				<p class="step-description">Track your rankings inside ChatGPT and other AI search results with real-time analytics and continuous optimisation.</p>
-			</div>
-		</div>
-	</section>
-
-	<!-- Why AI Search Matters -->
-	<section class="why-ai-search">
-		<div class="why-content">
-			<h2 class="section-title">Why AI Search Matters</h2>
-			<p style="color: #a0a0a0; font-size: 1.1rem; margin-bottom: 40px;">AI-powered search is reshaping how consumers discover information. Being featured in ChatGPT and other AI models means unprecedented visibility and credibility for your brand.</p>
-			<div class="benefits-list">
-				<div class="benefit">
-					<h3 class="benefit-title">✨ Higher Visibility</h3>
-					<p class="benefit-text">Get featured directly in ChatGPT responses and AI search results, reaching millions of daily users.</p>
-				</div>
-				<div class="benefit">
-					<h3 class="benefit-title">🎯 Targeted Reach</h3>
-					<p class="benefit-text">Appear when your ideal customers are asking AI models relevant questions about your industry.</p>
-				</div>
-				<div class="benefit">
-					<h3 class="benefit-title">📈 Authority & Trust</h3>
-					<p class="benefit-text">AI mentions build credibility and authority faster than traditional SEO, establishing your brand as an industry leader.</p>
-				</div>
-				<div class="benefit">
-					<h3 class="benefit-title">🚀 First-Mover Advantage</h3>
-					<p class="benefit-text">Most brands haven't optimised for AI search yet. Claim your spot before competitors do.</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- CTA Section -->
-	<section class="cta-section" id="cta">
-		<h2 class="cta-title">Ready to Dominate AI Search?</h2>
-		<p class="cta-subtitle">Join forward-thinking brands that are already ranking inside ChatGPT and AI search results.</p>
-		<div class="button-group">
-			<a href="#" class="cta-button">Get your brand ranked</a>
-			<a href="#" class="cta-button-secondary">Learn more</a>
-		</div>
-	</section>
-
-	<!-- Footer -->
-	<footer>
-		<p>&copy; 2026 ProGPT. All rights reserved. | Helping brands win in the age of AI.</p>
-	</footer>
-</body>
+    <script>
+      function handleSubmit(e) {
+        e.preventDefault();
+        const email = e.target.querySelector("input").value;
+        console.log("Captured email:", email);
+        alert("Thanks! We’ll reach out soon.");
+      }
+    </script>
+  </body>
 </html>
