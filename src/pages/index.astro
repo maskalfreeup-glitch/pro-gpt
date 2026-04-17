@@ -1,11 +1,366 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// ProGPT Landing Page
+// Help brands rank inside ChatGPT & AI search results
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ProGPT - Rank inside ChatGPT & AI Search</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+			background-color: #0a0a0a;
+			color: #ffffff;
+			line-height: 1.6;
+		}
+
+		/* Hero Section */
+		.hero-section {
+			background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+			padding: 100px 20px;
+			text-align: center;
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.hero-title {
+			font-size: 4rem;
+			font-weight: 700;
+			margin-bottom: 20px;
+			background: linear-gradient(135deg, #ffffff 0%, #b0b0b0 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+
+		.hero-subtitle {
+			font-size: 1.5rem;
+			color: #a0a0a0;
+			margin-bottom: 40px;
+			max-width: 600px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.cta-button {
+			display: inline-block;
+			background-color: #2563eb;
+			color: #ffffff;
+			padding: 16px 40px;
+			border: none;
+			border-radius: 8px;
+			text-decoration: none;
+			font-weight: 600;
+			font-size: 1.1rem;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			margin: 10px;
+		}
+
+		.cta-button:hover {
+			background-color: #1d4ed8;
+			transform: translateY(-2px);
+			box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+		}
+
+		/* How It Works Section */
+		.how-it-works {
+			background-color: #111111;
+			padding: 80px 20px;
+		}
+
+		.section-title {
+			font-size: 3rem;
+			font-weight: 700;
+			margin-bottom: 50px;
+			text-align: center;
+			color: #ffffff;
+		}
+
+		.steps-container {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 40px;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		.step {
+			background-color: #1a1a1a;
+			padding: 40px;
+			border-radius: 12px;
+			border: 1px solid #2a2a2a;
+			transition: all 0.3s ease;
+		}
+
+		.step:hover {
+			border-color: #2563eb;
+			box-shadow: 0 10px 40px rgba(37, 99, 235, 0.1);
+		}
+
+		.step-number {
+			display: inline-block;
+			width: 50px;
+			height: 50px;
+			background-color: #2563eb;
+			color: #ffffff;
+			border-radius: 50%;
+			text-align: center;
+			line-height: 50px;
+			font-weight: 700;
+			font-size: 1.5rem;
+			margin-bottom: 20px;
+		}
+
+		.step-title {
+			font-size: 1.5rem;
+			font-weight: 600;
+			margin-bottom: 15px;
+			color: #ffffff;
+		}
+
+		.step-description {
+			color: #a0a0a0;
+			font-size: 1rem;
+		}
+
+		/* Why AI Search Matters */
+		.why-ai-search {
+			background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+			padding: 80px 20px;
+		}
+
+		.why-content {
+			max-width: 900px;
+			margin: 0 auto;
+		}
+
+		.benefits-list {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+			gap: 30px;
+			margin-top: 40px;
+		}
+
+		.benefit {
+			background-color: #1a1a1a;
+			padding: 30px;
+			border-radius: 12px;
+			border-left: 4px solid #2563eb;
+		}
+
+		.benefit-title {
+			font-size: 1.2rem;
+			font-weight: 600;
+			margin-bottom: 10px;
+			color: #ffffff;
+		}
+
+		.benefit-text {
+			color: #a0a0a0;
+			font-size: 0.95rem;
+		}
+
+		/* CTA Section */
+		.cta-section {
+			background-color: #0a0a0a;
+			padding: 80px 20px;
+			text-align: center;
+			border-top: 1px solid #2a2a2a;
+		}
+
+		.cta-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-bottom: 15px;
+			color: #ffffff;
+		}
+
+		.cta-subtitle {
+			font-size: 1.2rem;
+			color: #a0a0a0;
+			margin-bottom: 40px;
+			max-width: 600px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.button-group {
+			display: flex;
+			gap: 15px;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+
+		.cta-button-secondary {
+			display: inline-block;
+			background-color: transparent;
+			color: #2563eb;
+			padding: 16px 40px;
+			border: 2px solid #2563eb;
+			border-radius: 8px;
+			text-decoration: none;
+			font-weight: 600;
+			font-size: 1.1rem;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.cta-button-secondary:hover {
+			background-color: #2563eb;
+			color: #ffffff;
+		}
+
+		/* Footer */
+		footer {
+			background-color: #0a0a0a;
+			border-top: 1px solid #2a2a2a;
+			padding: 30px 20px;
+			text-align: center;
+			color: #6a6a6a;
+		}
+
+		/* Responsive Design */
+		@media (max-width: 768px) {
+			.hero-title {
+				font-size: 2.5rem;
+			}
+
+			.hero-subtitle {
+				font-size: 1.2rem;
+			}
+
+			.section-title {
+				font-size: 2rem;
+			}
+
+			.cta-title {
+				font-size: 1.8rem;
+			}
+
+			.steps-container {
+				grid-template-columns: 1fr;
+			}
+
+			.button-group {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.cta-button,
+			.cta-button-secondary {
+				width: 100%;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.hero-section {
+				padding: 50px 15px;
+				min-height: auto;
+			}
+
+			.hero-title {
+				font-size: 1.8rem;
+			}
+
+			.hero-subtitle {
+				font-size: 1rem;
+			}
+
+			.section-title {
+				font-size: 1.5rem;
+			}
+
+			.cta-title {
+				font-size: 1.5rem;
+			}
+
+			.step {
+				padding: 25px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<!-- Hero Section -->
+	<section class="hero-section">
+		<h1 class="hero-title">Rank inside ChatGPT & AI search</h1>
+		<p class="hero-subtitle">We help brands appear inside AI-generated answers using AEO/GEO systems</p>
+		<a href="#cta" class="cta-button">Get your brand ranked</a>
+	</section>
+
+	<!-- How It Works Section -->
+	<section class="how-it-works">
+		<h2 class="section-title">How It Works</h2>
+		<div class="steps-container">
+			<div class="step">
+				<div class="step-number">1</div>
+				<h3 class="step-title">Analyze Your Brand</h3>
+				<p class="step-description">We audit your brand presence and identify optimisation opportunities for AI search engines and ChatGPT rankings.</p>
+			</div>
+			<div class="step">
+				<div class="step-number">2</div>
+				<h3 class="step-title">Optimize for AEO/GEO</h3>
+				<p class="step-description">Our team implements AI Engine Optimisation (AEO) and Generative Engine Optimisation (GEO) strategies tailored to your brand.</p>
+			</div>
+			<div class="step">
+				<div class="step-number">3</div>
+				<h3 class="step-title">Monitor & Scale</h3>
+				<p class="step-description">Track your rankings inside ChatGPT and other AI search results with real-time analytics and continuous optimisation.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Why AI Search Matters -->
+	<section class="why-ai-search">
+		<div class="why-content">
+			<h2 class="section-title">Why AI Search Matters</h2>
+			<p style="color: #a0a0a0; font-size: 1.1rem; margin-bottom: 40px;">AI-powered search is reshaping how consumers discover information. Being featured in ChatGPT and other AI models means unprecedented visibility and credibility for your brand.</p>
+			<div class="benefits-list">
+				<div class="benefit">
+					<h3 class="benefit-title">✨ Higher Visibility</h3>
+					<p class="benefit-text">Get featured directly in ChatGPT responses and AI search results, reaching millions of daily users.</p>
+				</div>
+				<div class="benefit">
+					<h3 class="benefit-title">🎯 Targeted Reach</h3>
+					<p class="benefit-text">Appear when your ideal customers are asking AI models relevant questions about your industry.</p>
+				</div>
+				<div class="benefit">
+					<h3 class="benefit-title">📈 Authority & Trust</h3>
+					<p class="benefit-text">AI mentions build credibility and authority faster than traditional SEO, establishing your brand as an industry leader.</p>
+				</div>
+				<div class="benefit">
+					<h3 class="benefit-title">🚀 First-Mover Advantage</h3>
+					<p class="benefit-text">Most brands haven't optimised for AI search yet. Claim your spot before competitors do.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<section class="cta-section" id="cta">
+		<h2 class="cta-title">Ready to Dominate AI Search?</h2>
+		<p class="cta-subtitle">Join forward-thinking brands that are already ranking inside ChatGPT and AI search results.</p>
+		<div class="button-group">
+			<a href="#" class="cta-button">Get your brand ranked</a>
+			<a href="#" class="cta-button-secondary">Learn more</a>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		<p>&copy; 2026 ProGPT. All rights reserved. | Helping brands win in the age of AI.</p>
+	</footer>
+</body>
+</html>
