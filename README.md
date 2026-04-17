@@ -21,4 +21,4 @@ Search is shifting from Google → AI answers.
 We help brands win that shift.
 
 ## 📩 Contact
-DM / Email / (add later)
+DM / Email / (coming Soon)
