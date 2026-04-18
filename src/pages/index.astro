@@ -1,262 +1,116 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- AUDIT FLOW -->
+<section class="section">
 
-<title>ProGPT — AI Visibility</title>
-<meta name="description" content="Check if AI recommends your business. Fix it fast." />
+<h2>Check your AI visibility</h2>
+<p style="margin-top:8px">Takes 20 seconds</p>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-:root{
-  --bg:#0a0a0a;
-  --card:#111111;
-  --border:#1f1f1f;
-  --text:#ffffff;
-  --muted:#9ca3af;
-  --primary:#2563eb;
-}
-
-*{margin:0;padding:0;box-sizing:border-box}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:Inter,sans-serif;
-}
-
-.wrap{max-width:720px;margin:auto;padding:0 20px}
-
-h1{
-  font-size:clamp(2.4rem,6vw,3.2rem);
-  font-weight:800;
-  line-height:1.1;
-}
-
-h2{
-  font-size:1.6rem;
-  font-weight:700;
-}
-
-p{color:var(--muted);line-height:1.6}
-
-nav{
-  padding:18px 0;
-  border-bottom:1px solid var(--border);
-  margin-bottom:40px;
-}
-
-.hero{margin-bottom:60px}
-
-.input{
-  display:flex;
-  margin-top:20px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  overflow:hidden;
-}
-
-.input input{
-  flex:1;
-  padding:14px;
-  background:transparent;
-  border:none;
-  color:white;
-}
-
-.input button{
-  background:var(--primary);
-  border:none;
-  padding:0 18px;
-  color:white;
-  font-weight:600;
-  cursor:pointer;
-}
-
-.note{
-  font-size:13px;
-  color:var(--muted);
-  margin-top:10px;
-}
-
-.section{margin:70px 0}
-
-.card{
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:18px;
-  margin-top:10px;
-  background:var(--card);
-}
-
-.metrics{
-  display:grid;
-  gap:12px;
-  margin-top:20px;
-}
-
-.metric{
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:20px;
-  text-align:center;
-}
-
-.metric strong{
-  font-size:1.6rem;
-}
-
-.cta-main{
-  display:block;
-  background:var(--primary);
-  padding:14px;
-  border-radius:10px;
-  text-align:center;
-  text-decoration:none;
-  color:white;
-  font-weight:600;
-  margin-top:20px;
-}
-
-.cta-alt{
-  display:grid;
-  gap:10px;
-  margin-top:12px;
-}
-
-.cta-alt a{
-  border:1px solid var(--border);
-  padding:12px;
-  border-radius:10px;
-  text-decoration:none;
-  color:white;
-  text-align:center;
-}
-
-footer{
-  margin:60px 0;
-  text-align:center;
-  font-size:12px;
-  color:var(--muted);
-}
-</style>
-</head>
-
-<body>
-
-<div class="wrap">
-
-<nav>
-  <strong>ProGPT</strong>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-
-<h1>
-AI already chose your competitors.
-</h1>
-
-<p style="margin-top:15px">
-If you're not in AI answers, you don't exist.
-</p>
-
-<div class="input">
-  <input id="url" placeholder="yourwebsite.com">
-  <button onclick="run()">Check</button>
+<div id="step1" class="card">
+  <input id="website" placeholder="yourwebsite.com" style="width:100%;padding:12px;margin-bottom:10px">
+  <button onclick="next(1)" class="cta-main">Continue →</button>
 </div>
 
-<div class="note">
-Free instant audit · No signup
+<div id="step2" class="card" style="display:none">
+  <p>What type of business?</p>
+  <select id="type" style="width:100%;padding:12px;margin-top:10px">
+    <option>Local service</option>
+    <option>Ecommerce</option>
+    <option>Agency</option>
+    <option>Other</option>
+  </select>
+  <button onclick="next(2)" class="cta-main">Continue →</button>
 </div>
 
+<div id="step3" class="card" style="display:none">
+  <p>Your goal?</p>
+  <select id="goal" style="width:100%;padding:12px;margin-top:10px">
+    <option>More leads</option>
+    <option>More calls</option>
+    <option>More traffic</option>
+  </select>
+  <button onclick="showResult()" class="cta-main">Run audit →</button>
+</div>
+
+<!-- RESULT -->
 <div id="result" style="display:none;margin-top:20px">
+
   <div class="card">
-    <strong id="score">3.2 / 10</strong>
+    <h3 id="scoreText">Score: 3.4 / 10</h3>
     <p style="margin-top:8px">
-      You're not being recommended by AI.
+      AI is not recommending your business.
     </p>
 
-    <input id="email" placeholder="Email"
+    <ul style="margin-top:10px;color:#9ca3af;font-size:14px">
+      <li>Weak authority signals</li>
+      <li>No structured data</li>
+      <li>No AI-ready content</li>
+    </ul>
+
+    <p style="margin-top:12px">
+      Competitors are getting your customers right now.
+    </p>
+
+    <input id="email" placeholder="Enter email for full report"
       style="margin-top:10px;padding:10px;width:100%">
 
-    <button onclick="save()"
-      style="margin-top:10px;width:100%;padding:12px;background:#2563eb;color:white;border:none;border-radius:8px">
+    <button onclick="saveLead()" class="cta-main">
       Get full report →
     </button>
+
   </div>
+
 </div>
 
 </section>
 
-<!-- SHIFT -->
+<!-- WHAT THEY GET -->
 <section class="section">
-<h2>The shift</h2>
-<p style="margin-top:10px">
-Search ranked pages. AI selects businesses.
-</p>
-</section>
 
-<!-- RESULTS -->
-<section class="section">
-<h2>Results</h2>
+<h2>What you get</h2>
 
-<div class="metrics">
-  <div class="metric"><strong>+212%</strong><p>Visibility</p></div>
-  <div class="metric"><strong>3.4x</strong><p>Leads</p></div>
-  <div class="metric"><strong>4–8 weeks</strong><p>Typical</p></div>
+<div class="card">
+  <strong>Done-for-you AI optimization</strong>
+  <p style="margin-top:6px">
+    We restructure your site so AI can understand, trust, and recommend you.
+  </p>
+</div>
+
+<div class="card">
+  <strong>Schema + AI-ready content</strong>
+  <p style="margin-top:6px">
+    The exact signals ChatGPT and Google use to pick businesses.
+  </p>
+</div>
+
+<div class="card">
+  <strong>Local + authority fixes</strong>
+  <p style="margin-top:6px">
+    Make your business eligible for AI recommendations.
+  </p>
 </div>
 
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="section">
-<h2>What clients say</h2>
-
-<div class="card">“We started showing up in AI answers within weeks.”</div>
-<div class="card">“This changed how customers find us.”</div>
-
-</section>
-
-<!-- CTA -->
+<!-- CTA EXPLAINED -->
 <section class="section">
 
 <h2>Fix your visibility</h2>
+
+<p style="margin-top:10px">
+One-time setup. Results typically in 4–8 weeks.
+</p>
 
 <a href="https://your-lemonsqueezy-link.com" class="cta-main">
 Start now → $297
 </a>
 
+<div class="note">
+Best option. Direct access + fastest delivery.
+</div>
+
 <div class="cta-alt">
-  <a href="https://whop.com">Buy on Whop</a>
-  <a href="https://gumroad.com">Buy on Gumroad</a>
-  <a href="https://discord.gg/YOUR">Join Discord</a>
+  <a href="https://whop.com">Buy on Whop (community access)</a>
+  <a href="https://gumroad.com">Buy on Gumroad (simple checkout)</a>
+  <a href="https://discord.gg/YOUR">Ask questions on Discord</a>
 </div>
 
 </section>
-
-<footer>
-ProGPT.store — AI Visibility
-</footer>
-
-</div>
-
-<script>
-function run(){
-  let s=(Math.random()*4+2).toFixed(1);
-  document.getElementById('score').innerText=s+" / 10";
-  document.getElementById('result').style.display='block';
-}
-
-function save(){
-  let email=document.getElementById('email').value;
-  let leads=JSON.parse(localStorage.getItem('leads')||"[]");
-  leads.push({email});
-  localStorage.setItem('leads',JSON.stringify(leads));
-}
-</script>
-
-</body>
-</html>
