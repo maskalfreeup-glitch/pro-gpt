@@ -1,957 +1,290 @@
 ---
-const title = "ProGPT â€” AI Visibility Audit";
+const title = "ProGPT - AI Visibility Audit";
 const description = "Check if AI recommends your business.";
 ---
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-
-  <style>
-    :root {
-      --bg: #060608;
-      --surface: #0d0d12;
-      --border: rgba(255,255,255,0.07);
-      --border-lit: rgba(255,120,40,0.5);
-      --orange: #ff6b1a;
-      --orange-dim: rgba(255,107,26,0.12);
-      --text: #f0ede8;
-      --muted: #5a5660;
-      --mid: #8c8494;
-      --mono: 'DM Mono', monospace;
-      --serif: 'DM Serif Display', Georgia, serif;
-      --sans: 'Instrument Sans', sans-serif;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* â”€â”€ NOISE OVERLAY â”€â”€ */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.6;
-    }
-
-    /* â”€â”€ GRID â”€â”€ */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 80px 80px;
-      pointer-events: none;
-      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
-    }
-
-    /* â”€â”€ GLOW â”€â”€ */
-    .glow-orb {
-      position: fixed;
-      top: -200px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 900px;
-      height: 600px;
-      background: radial-gradient(ellipse at center, rgba(255,107,26,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    /* â”€â”€ LAYOUT â”€â”€ */
-    .wrap {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* â”€â”€ HEADER â”€â”€ */
-    header {
-      padding: 28px 0 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-decoration: none;
-    }
-
-    .logo span { color: var(--orange); }
-
-    .badge {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--orange);
-      background: var(--orange-dim);
-      border: 1px solid rgba(255,107,26,0.25);
-      padding: 4px 10px;
-      border-radius: 20px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    /* â”€â”€ HERO â”€â”€ */
-    .hero {
-      padding: 80px 0 60px;
-      text-align: center;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 28px;
-    }
-
-    .eyebrow::before,
-    .eyebrow::after {
-      content: '';
-      display: block;
-      width: 28px;
-      height: 1px;
-      background: var(--muted);
-      opacity: 0.4;
-    }
-
-    h1 {
-      font-family: var(--serif);
-      font-size: clamp(2.4rem, 6vw, 3.6rem);
-      font-weight: 400;
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-      margin-bottom: 20px;
-      color: var(--text);
-    }
-
-    h1 em {
-      font-style: italic;
-      color: var(--orange);
-    }
-
-    .hero-sub {
-      font-size: 1.05rem;
-      color: var(--mid);
-      line-height: 1.65;
-      max-width: 500px;
-      margin: 0 auto 44px;
-    }
-
-    /* â”€â”€ AUDIT INPUT â”€â”€ */
-    .audit-wrap {
-      position: relative;
-    }
-
-    .audit-box {
-      display: flex;
-      align-items: center;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 6px 6px 6px 20px;
-      transition: border-color 0.2s;
-      gap: 8px;
-    }
-
-    .audit-box:focus-within {
-      border-color: var(--border-lit);
-      box-shadow: 0 0 0 3px rgba(255,107,26,0.07), 0 8px 32px rgba(0,0,0,0.4);
-    }
-
-    .audit-box input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: var(--text);
-      font-family: var(--mono);
-      font-size: 0.9rem;
-      min-width: 0;
-      padding: 10px 0;
-    }
-
-    .audit-box input::placeholder { color: var(--muted); }
-
-    .audit-btn {
-      flex-shrink: 0;
-      background: var(--orange);
-      border: none;
-      border-radius: 10px;
-      padding: 12px 22px;
-      color: #fff;
-      font-family: var(--sans);
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      letter-spacing: 0.02em;
-      transition: background 0.15s, transform 0.1s;
-      white-space: nowrap;
-    }
-
-    .audit-btn:hover { background: #ff8240; }
-    .audit-btn:active { transform: scale(0.98); }
-
-    .scan-hint {
-      margin-top: 12px;
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--muted);
-      text-align: center;
-    }
-
-    /* â”€â”€ STATUS BAR â”€â”€ */
-    #status {
-      margin-top: 22px;
-      min-height: 24px;
-      text-align: center;
-    }
-
-    .status-line {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--mid);
-      letter-spacing: 0.04em;
-    }
-
-    .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--orange);
-      animation: pulse 1.2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.3; transform: scale(0.7); }
-    }
-
-    /* â”€â”€ PROGRESS BAR â”€â”€ */
-    .progress-track {
-      display: none;
-      margin-top: 16px;
-      height: 3px;
-      background: var(--border);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--orange), #ff9d5c);
-      border-radius: 3px;
-      width: 0%;
-      transition: width 0.4s ease;
-    }
-
-    /* â”€â”€ RESULT â”€â”€ */
-    #result {
-      display: none;
-      margin-top: 28px;
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    #result.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .result-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-    }
-
-    .result-header {
-      padding: 24px 24px 0;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 20px;
-    }
-
-    .score-row {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .score-num {
-      font-family: var(--serif);
-      font-size: 3rem;
-      font-weight: 400;
-      color: #ff4d4d;
-      line-height: 1;
-    }
-
-    .score-label {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding-bottom: 4px;
-    }
-
-    .verdict {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #ff4d4d;
-      background: rgba(255,77,77,0.08);
-      border: 1px solid rgba(255,77,77,0.2);
-      padding: 4px 10px;
-      border-radius: 6px;
-    }
-
-    .verdict::before { content: 'â—'; font-size: 0.5em; }
-
-    .findings {
-      padding: 18px 24px;
-      display: grid;
-      gap: 10px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .finding {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.88rem;
-      color: var(--mid);
-    }
-
-    .finding-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      flex-shrink: 0;
-    }
-
-    .finding-icon.bad { background: rgba(255,77,77,0.1); color: #ff6b6b; }
-    .finding-icon.warn { background: rgba(255,170,0,0.1); color: #ffc040; }
-
-    /* â”€â”€ LEAD FORM â”€â”€ */
-    .gate {
-      padding: 22px 24px;
-    }
-
-    .gate-head {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
-    .gate-sub {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-bottom: 18px;
-      line-height: 1.5;
-    }
-
-    .gate-sub strong { color: var(--orange); font-weight: 500; }
-
-    .input-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .gate input {
-      flex: 1;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 14px;
-      color: var(--text);
-      font-family: var(--sans);
-      font-size: 0.88rem;
-      outline: none;
-      transition: border-color 0.2s;
-      min-width: 0;
-    }
-
-    .gate input:focus { border-color: var(--border-lit); }
-    .gate input::placeholder { color: var(--muted); }
-
-    .gate-btn {
-      width: 100%;
-      padding: 14px;
-      background: var(--orange);
-      border: none;
-      border-radius: 10px;
-      color: #fff;
-      font-family: var(--sans);
-      font-size: 0.92rem;
-      font-weight: 600;
-      cursor: pointer;
-      letter-spacing: 0.02em;
-      transition: background 0.15s;
-    }
-
-    .gate-btn:hover { background: #ff8240; }
-
-    .privacy {
-      margin-top: 10px;
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: var(--muted);
-      text-align: center;
-    }
-
-    /* â”€â”€ CTA â”€â”€ */
-    .fix-cta {
-      display: none;
-      padding: 22px 24px;
-    }
-
-    .fix-cta-head {
-      font-size: 0.9rem;
-      color: var(--mid);
-      margin-bottom: 14px;
-      line-height: 1.5;
-    }
-
-    .fix-cta-head strong { color: var(--text); }
-
-    .cta-btn {
-      display: block;
-      width: 100%;
-      padding: 16px;
-      background: var(--orange);
-      border-radius: 12px;
-      color: #fff;
-      text-decoration: none;
-      text-align: center;
-      font-weight: 600;
-      font-size: 0.95rem;
-      letter-spacing: 0.02em;
-      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
-      box-shadow: 0 4px 20px rgba(255,107,26,0.3);
-    }
-
-    .cta-btn:hover {
-      background: #ff8240;
-      box-shadow: 0 6px 28px rgba(255,107,26,0.45);
-      transform: translateY(-1px);
-    }
-
-    /* â”€â”€ STORY â”€â”€ */
-    .story {
-      padding: 80px 0 0;
-      text-align: center;
-    }
-
-    .story-label {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 32px;
-    }
-
-    .story-statements {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .stmt {
-      font-family: var(--serif);
-      font-size: clamp(1.5rem, 4vw, 2.2rem);
-      line-height: 1.35;
-      padding: 18px 0;
-      border-bottom: 1px solid var(--border);
-      color: #2a2830;
-      transition: color 0.2s;
-    }
-
-    .stmt:last-child { border-bottom: none; }
-    .stmt.lit { color: var(--text); }
-    .stmt em { font-style: italic; color: var(--orange); }
-
-    /* â”€â”€ PRODUCTS â”€â”€ */
-    .products {
-      padding: 80px 0 0;
-    }
-
-    .section-label {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 28px;
-    }
-
-    .prod-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .prod-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      text-decoration: none;
-      color: var(--text);
-      display: block;
-      transition: border-color 0.2s, transform 0.15s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .prod-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--orange-dim) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .prod-card:hover { border-color: var(--border-lit); transform: translateY(-2px); }
-    .prod-card:hover::before { opacity: 1; }
-
-    .prod-card.featured {
-      grid-column: span 2;
-      border-color: rgba(255,107,26,0.3);
-      background: linear-gradient(135deg, rgba(255,107,26,0.06) 0%, var(--surface) 50%);
-    }
-
-    .prod-tag {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 10px;
-    }
-
-    .prod-name {
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .prod-desc {
-      font-size: 0.8rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .prod-arrow {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      color: var(--muted);
-      font-size: 1.1rem;
-      transition: color 0.2s, transform 0.2s;
-    }
-
-    .prod-card:hover .prod-arrow { color: var(--orange); transform: translate(2px, -2px); }
-
-    /* â”€â”€ EXPLORE â”€â”€ */
-    .explore {
-      padding: 60px 0 0;
-    }
-
-    .tile-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .tile {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px 18px;
-      text-decoration: none;
-      color: var(--mid);
-      font-size: 0.88rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .tile:hover { border-color: var(--border-lit); color: var(--text); }
-
-    /* â”€â”€ FINAL CTA â”€â”€ */
-    .final-cta {
-      padding: 80px 0;
-      text-align: center;
-    }
-
-    .final-cta h2 {
-      font-family: var(--serif);
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      font-weight: 400;
-      line-height: 1.2;
-      margin-bottom: 28px;
-    }
-
-    .final-cta h2 em { font-style: italic; color: var(--orange); }
-
-    .final-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--orange);
-      color: #fff;
-      text-decoration: none;
-      padding: 16px 32px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 1rem;
-      letter-spacing: 0.02em;
-      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
-      box-shadow: 0 4px 24px rgba(255,107,26,0.35);
-    }
-
-    .final-btn:hover {
-      background: #ff8240;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(255,107,26,0.5);
-    }
-
-    .final-btn svg { transition: transform 0.15s; }
-    .final-btn:hover svg { transform: translateX(3px); }
-
-    /* â”€â”€ FOOTER â”€â”€ */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 24px 0 32px;
-      text-align: center;
-    }
-
-    .footer-logo {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .footer-logo span { color: var(--orange); }
-
-    /* â”€â”€ SCROLL FADE â”€â”€ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .reveal.in { opacity: 1; transform: translateY(0); }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+<meta name="description" content={description} />
+
+<style>
+:root{
+  --bg:#060608;
+  --surface:#0d0d12;
+  --border:rgba(255,255,255,0.07);
+  --orange:#ff6b1a;
+  --red:#ff4444;
+  --text:#f0ede8;
+  --muted:#8a8294;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui, sans-serif;
+}
+
+/* LAYOUT */
+.wrap{
+  max-width:680px;
+  margin:auto;
+  padding:24px;
+}
+
+/* HERO */
+h1{
+  font-size:2.6rem;
+  line-height:1.2;
+  margin-bottom:12px;
+}
+
+.hero-sub{
+  color:var(--muted);
+  margin-bottom:24px;
+}
+
+/* INPUT */
+.audit-box{
+  display:flex;
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.audit-box input{
+  flex:1;
+  padding:14px;
+  background:transparent;
+  border:none;
+  color:white;
+}
+
+.audit-box button{
+  background:var(--orange);
+  border:none;
+  padding:14px 20px;
+  color:white;
+  cursor:pointer;
+}
+
+/* RESULT */
+.result{
+  display:none;
+  margin-top:24px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+
+.score{
+  font-size:2.4rem;
+  padding:20px;
+  color:var(--red);
+}
+
+.verdict{
+  padding:0 20px;
+  font-weight:600;
+  color:var(--red);
+}
+
+.result p{
+  padding:10px 20px;
+  color:var(--muted);
+}
+
+/* GATE */
+.gate{
+  padding:20px;
+}
+
+.gate input{
+  width:100%;
+  margin-bottom:10px;
+  padding:12px;
+  border:1px solid var(--border);
+  background:#000;
+  color:white;
+  border-radius:8px;
+}
+
+.gate button{
+  width:100%;
+  padding:14px;
+  background:var(--orange);
+  border:none;
+  color:white;
+  border-radius:8px;
+}
+
+/* CTA */
+.cta{
+  display:block;
+  text-align:center;
+  margin-top:12px;
+  padding:14px;
+  background:var(--orange);
+  border-radius:10px;
+  color:white;
+  text-decoration:none;
+}
+
+/* SECTIONS */
+.section{
+  margin-top:50px;
+}
+
+.section h2{
+  margin-bottom:10px;
+}
+
+.section p{
+  color:var(--muted);
+}
+
+/* BUY */
+.buy-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:20px;
+}
+
+.buy-card{
+  padding:16px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:var(--surface);
+  text-decoration:none;
+  color:white;
+}
+
+.buy-card.main{
+  grid-column:span 2;
+  border-color:var(--orange);
+}
+
+/* NAV */
+.tiles{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:20px;
+}
+
+.tile{
+  padding:16px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  text-decoration:none;
+  color:white;
+  background:var(--surface);
+}
+</style>
 </head>
 
 <body>
-<div class="glow-orb"></div>
-
 <div class="wrap">
 
-  <!-- HEADER -->
-  <header>
-    <a href="/" class="logo">Pro<span>GPT</span>.store</a>
-    <span class="badge">Free Audit Tool</span>
-  </header>
+<h1>Check if AI recommends your business</h1>
+<p class="hero-sub">If you're not in AI answers, you don't exist.</p>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="eyebrow">AI Search Visibility</div>
+<div class="audit-box">
+  <input id="siteInput" placeholder="yourwebsite.com" />
+  <button onclick="startAudit()">Check</button>
+</div>
 
-    <h1>
-      AI chooses its sources.<br>
-      Is your business <em>one of them?</em>
-    </h1>
+<!-- RESULT -->
+<div id="result" class="result">
 
-    <p class="hero-sub">
-      Enter your website. In 10 seconds, know exactly where you stand in the new era of AI-driven search.
-    </p>
+  <div class="score">3.2 / 10</div>
 
-    <!-- AUDIT INPUT -->
-    <div class="audit-wrap">
-      <div class="audit-box">
-        <input id="siteInput" type="url" placeholder="yourwebsite.com" autocomplete="off" spellcheck="false" />
-        <button class="audit-btn" onclick="startAudit()">Run Audit â†’</button>
-      </div>
+  <div class="verdict">You are invisible in AI search</div>
 
-      <div class="progress-track" id="progressTrack">
-        <div class="progress-bar" id="progressBar"></div>
-      </div>
+  <p>
+    If someone asks AI for your service, your competitors are shown — not you.
+  </p>
 
-      <div class="scan-hint">No account required Â· Results in ~10 seconds</div>
+  <!-- GATE -->
+  <div id="gate" class="gate">
+
+    <input placeholder="Your name" />
+    <input id="email" placeholder="Your email" />
+
+    <button onclick="unlock()">Get full report</button>
+
+    <!-- CTA AFTER -->
+    <div id="ctaBlock" style="display:none">
+
+      <p style="margin-top:10px;">
+        Most businesses with your score are never shown in AI results.
+      </p>
+
+      <a href="https://your-lemonsqueezy-link.com" class="cta">
+        Fix my AI visibility →
+      </a>
+
+      <p style="font-size:0.7rem; color:#888; text-align:center;">
+        Secure checkout • Also on Gumroad & Whop
+      </p>
+
     </div>
-
-    <!-- STATUS -->
-    <div id="status"></div>
-
-    <!-- RESULT -->
-    <div id="result">
-      <div class="result-card">
-
-        <div class="result-header">
-          <div class="score-row">
-            <div class="score-num" id="scoreNum">3.2</div>
-            <div class="score-label">out of 10<br>AI Visibility Score</div>
-          </div>
-          <div class="verdict">Not being recommended by AI</div>
-        </div>
-
-        <div class="findings">
-          <div class="finding">
-            <div class="finding-icon bad">âœ•</div>
-            <span>Not cited in ChatGPT, Perplexity, or Gemini responses</span>
-          </div>
-          <div class="finding">
-            <div class="finding-icon bad">âœ•</div>
-            <span>No structured entity data for AI to recognise your brand</span>
-          </div>
-          <div class="finding">
-            <div class="finding-icon warn">âš </div>
-            <span>Weak E-E-A-T signals â€” AI cannot verify your authority</span>
-          </div>
-          <div class="finding">
-            <div class="finding-icon warn">âš </div>
-            <span>No digital PR mentions AI models use as trust anchors</span>
-          </div>
-        </div>
-
-        <!-- LEAD GATE -->
-        <div class="gate" id="leadForm">
-          <div class="gate-head">Get your full 12-point AI Visibility Report</div>
-          <div class="gate-sub">
-            See exactly <strong>what to fix first</strong> â€” a prioritised action plan sent to your inbox, free.
-          </div>
-          <div class="input-row">
-            <input id="nameInput" placeholder="Your name" />
-            <input id="emailInput" type="email" placeholder="Work email" />
-          </div>
-          <button class="gate-btn" onclick="submitLead()">Send my free report â†’</button>
-          <div class="privacy">ðŸ”’ No spam. Unsubscribe any time.</div>
-        </div>
-
-        <!-- POST-GATE CTA -->
-        <div class="fix-cta" id="fixCta">
-          <div class="fix-cta-head">
-            <strong>Report sent.</strong> While you wait â€” most businesses in your position fix this in under 30 days with the right system.
-          </div>
-          <a href="https://your-gumroad-link.com" class="cta-btn">
-            Get the AI Visibility Playbook â€” $49 â†’
-          </a>
-        </div>
-
-      </div>
-    </div>
-    <!-- /RESULT -->
 
   </div>
-  <!-- /HERO -->
-
-  <!-- STORY -->
-  <section class="story reveal">
-    <div class="story-label">The shift is already happening</div>
-    <div class="story-statements">
-      <div class="stmt lit">AI doesn't rank pages.</div>
-      <div class="stmt lit">It <em>selects businesses</em> it trusts.</div>
-      <div class="stmt lit">Your competitors are being chosen right now.</div>
-      <div class="stmt lit">Most businesses <em>don't even know</em> they're invisible.</div>
-    </div>
-  </section>
-
-  <!-- PRODUCTS -->
-  <section class="products reveal">
-    <div class="section-label">Fix your visibility</div>
-    <div class="prod-grid">
-
-      <a href="https://your-gumroad-link.com" class="prod-card featured">
-        <div class="prod-tag">Most Popular</div>
-        <div class="prod-name">AI Visibility Playbook</div>
-        <div class="prod-desc">The complete system to get your business cited and recommended by ChatGPT, Perplexity & Gemini. 47 pages, ready to implement.</div>
-        <span class="prod-arrow">â†—</span>
-      </a>
-
-      <a href="https://your-gumroad-link.com/geo-blueprint" class="prod-card">
-        <div class="prod-tag">Blueprint</div>
-        <div class="prod-name">GEO-SEO Blueprint</div>
-        <div class="prod-desc">Generative Engine Optimisation, step by step.</div>
-        <span class="prod-arrow">â†—</span>
-      </a>
-
-      <a href="https://your-gumroad-link.com/n8n-workflow" class="prod-card">
-        <div class="prod-tag">n8n Workflow</div>
-        <div class="prod-name">Competitor Audit Tool</div>
-        <div class="prod-desc">Automated Maps data â†’ CSV in one click.</div>
-        <span class="prod-arrow">â†—</span>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- EXPLORE -->
-  <section class="explore reveal">
-    <div class="section-label">Explore</div>
-    <div class="tile-grid">
-      <a href="/blog" class="tile">Blog <span>â†’</span></a>
-      <a href="/about" class="tile">About <span>â†’</span></a>
-      <a href="/dashboard" class="tile">Dashboard <span>â†’</span></a>
-      <a href="/audit" class="tile">Run Audit <span>â†’</span></a>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section class="final-cta reveal">
-    <h2>
-      You are either being<br>recommended â€” <em>or ignored.</em>
-    </h2>
-    <a href="https://your-gumroad-link.com" class="final-btn">
-      Fix my AI visibility
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-logo">Pro<span>GPT</span>.store â€” AI Search Optimisation</div>
-  </footer>
 
 </div>
-<!-- /wrap -->
+
+<!-- STORY -->
+<div class="section">
+<h2>The shift</h2>
+<p>
+AI selects businesses, not pages.  
+Most businesses are invisible.
+</p>
+</div>
+
+<!-- BUY -->
+<div class="section">
+<h2>Start fixing your visibility</h2>
+
+<div class="buy-grid">
+  <a href="https://your-lemonsqueezy-link.com" class="buy-card main">
+    Direct (Recommended)
+  </a>
+  <a href="https://gumroad.com/your-link" class="buy-card">Gumroad</a>
+  <a href="https://whop.com/your-link" class="buy-card">Whop</a>
+</div>
+
+</div>
+
+<!-- NAV -->
+<div class="section">
+<h2>Explore</h2>
+
+<div class="tiles">
+  <a href="/blog" class="tile">Blog</a>
+  <a href="/about" class="tile">About</a>
+  <a href="/dashboard" class="tile">Dashboard</a>
+  <a href="/audit" class="tile">Run Audit</a>
+</div>
+
+</div>
 
 <script>
-  /* â”€â”€ AUDIT FLOW â”€â”€ */
-  function startAudit() {
-    const val = document.getElementById('siteInput').value.trim();
-    if (!val) {
-      document.getElementById('siteInput').focus();
-      return;
-    }
+function startAudit(){
+  document.getElementById("result").style.display="block";
+}
 
-    const status = document.getElementById('status');
-    const track = document.getElementById('progressTrack');
-    const bar = document.getElementById('progressBar');
-
-    track.style.display = 'block';
-
-    const steps = [
-      { pct: 15, msg: 'Querying AI citation databasesâ€¦' },
-      { pct: 38, msg: 'Scanning entity signalsâ€¦' },
-      { pct: 62, msg: 'Checking authority markersâ€¦' },
-      { pct: 85, msg: 'Running E-E-A-T analysisâ€¦' },
-      { pct: 100, msg: 'Scoring your visibilityâ€¦' },
-    ];
-
-    let i = 0;
-    const run = () => {
-      if (i >= steps.length) {
-        setTimeout(showResult, 300);
-        return;
-      }
-      const s = steps[i++];
-      status.innerHTML = `<span class="status-line"><span class="dot"></span>${s.msg}</span>`;
-      bar.style.width = s.pct + '%';
-      setTimeout(run, 520);
-    };
-
-    run();
-  }
-
-  function showResult() {
-    document.getElementById('status').innerHTML = '';
-    document.getElementById('progressTrack').style.display = 'none';
-
-    const r = document.getElementById('result');
-    r.style.display = 'block';
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => r.classList.add('visible'));
-    });
-
-    r.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-
-  /* â”€â”€ LEAD FORM â”€â”€ */
-  function submitLead() {
-    const name = document.getElementById('nameInput').value.trim();
-    const email = document.getElementById('emailInput').value.trim();
-    if (!email) {
-      document.getElementById('emailInput').focus();
-      return;
-    }
-
-    // Save locally (replace with your actual endpoint / Mailchimp / ConvertKit)
-    try {
-      const leads = JSON.parse(localStorage.getItem('leads') || '[]');
-      leads.push({ name, email, ts: new Date().toISOString() });
-      localStorage.setItem('leads', JSON.stringify(leads));
-    } catch(e) {}
-
-    document.getElementById('leadForm').style.display = 'none';
-    document.getElementById('fixCta').style.display = 'block';
-  }
-
-  /* â”€â”€ ENTER KEY â”€â”€ */
-  document.getElementById('siteInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') startAudit();
-  });
-
-  /* â”€â”€ SCROLL REVEALS â”€â”€ */
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+function unlock(){
+  document.getElementById("ctaBlock").style.display="block";
+}
 </script>
 
+</div>
 </body>
 </html>
