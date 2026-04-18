@@ -10,19 +10,57 @@
 
 <style>
 :root{
-  --bg:#050505;
-  --card:#0f0f0f;
-  --border:#1a1a1a;
-  --text:#eaeaea;
-  --muted:#8a8a8a;
+  --bg:#040507;
+  --card:#0e1016;
+  --border:#1c1f2a;
+  --text:#f1f3f8;
+  --muted:#8b90a8;
   --accent:#00ff88;
 }
+
+/* BASE */
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
   font-family:Inter,sans-serif;
   background:var(--bg);
   color:var(--text);
-  margin:0;
+  overflow-x:hidden;
+}
+
+/* ANIMATED GRID */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+  background-size:40px 40px;
+  animation:moveGrid 20s linear infinite;
+}
+
+@keyframes moveGrid{
+  from{background-position:0 0}
+  to{background-position:40px 40px}
+}
+
+/* GLOW ORB */
+.glow{
+  position:fixed;
+  width:500px;
+  height:500px;
+  background:radial-gradient(circle, rgba(0,255,136,0.18), transparent 70%);
+  top:20%;
+  left:50%;
+  transform:translateX(-50%);
+  filter:blur(80px);
+  animation:float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%,100%{transform:translate(-50%,0)}
+  50%{transform:translate(-50%,20px)}
 }
 
 /* CONTAINER */
@@ -30,26 +68,58 @@ body{
   max-width:720px;
   margin:auto;
   padding:24px;
+  position:relative;
 }
 
 /* HERO */
 h1{
-  font-size:38px;
+  font-size:40px;
   line-height:1.1;
+  opacity:0;
+  animation:fadeUp 0.8s forwards;
 }
 
 p{
   color:var(--muted);
-  margin-top:8px;
+  margin-top:10px;
+  opacity:0;
+  animation:fadeUp 1s forwards;
+}
+
+/* LIVE */
+.live{
+  margin-top:12px;
+  font-size:13px;
+  color:var(--muted);
+  opacity:0;
+  animation:fadeUp 1.2s forwards;
+}
+
+.dot{
+  width:8px;height:8px;
+  background:var(--accent);
+  display:inline-block;
+  border-radius:50%;
+  margin-right:6px;
+  animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:1}
+  50%{opacity:0.3}
 }
 
 /* CARD */
 .card{
   background:var(--card);
   border:1px solid var(--border);
-  padding:18px;
+  padding:20px;
   border-radius:14px;
-  margin-top:16px;
+  margin-top:20px;
+  backdrop-filter:blur(6px);
+  box-shadow:0 0 30px rgba(0,255,136,0.05);
+  opacity:0;
+  animation:fadeUp 1.4s forwards;
 }
 
 /* INPUT */
@@ -58,9 +128,16 @@ input{
   padding:14px;
   border-radius:10px;
   border:1px solid var(--border);
-  background:#0b0b0b;
+  background:#0b0c12;
   color:white;
   margin-top:10px;
+  transition:0.2s;
+}
+
+input:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 10px rgba(0,255,136,0.3);
+  outline:none;
 }
 
 /* BUTTON */
@@ -70,26 +147,41 @@ button{
   padding:14px;
   border-radius:10px;
   border:none;
-  background:var(--accent);
+  background:linear-gradient(90deg,#00ff88,#00e0ff);
   color:black;
   font-weight:600;
   cursor:pointer;
+  transition:0.2s;
 }
 
-/* DISCORD CTA */
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(0,255,136,0.3);
+}
+
+/* DISCORD */
 .discord{
   display:block;
   text-align:center;
-  margin-top:14px;
+  margin-top:12px;
   padding:14px;
   border-radius:10px;
   border:1px solid #5865f2;
   color:#8ea1ff;
   text-decoration:none;
+  transition:0.2s;
+}
+
+.discord:hover{
+  background:rgba(88,101,242,0.1);
 }
 
 /* SCAN */
-.scan{ display:none; margin-top:20px; }
+.scan{
+  display:none;
+  margin-top:20px;
+  text-align:center;
+}
 
 .loader{
   height:6px;
@@ -103,7 +195,7 @@ button{
   display:block;
   height:100%;
   width:0%;
-  background:var(--accent);
+  background:linear-gradient(90deg,#00ff88,#00e0ff);
   animation:scan 2.5s linear forwards;
 }
 
@@ -112,31 +204,26 @@ button{
   100%{width:100%}
 }
 
-/* LIVE */
-.live{
-  font-size:13px;
-  color:var(--muted);
-  margin-top:10px;
-}
-
-.dot{
-  width:8px;height:8px;background:var(--accent);
-  display:inline-block;border-radius:50%;
-  margin-right:6px;
+/* ANIMATION */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
 }
 </style>
 </head>
 
 <body>
 
+<div class="glow"></div>
+
 <div class="container">
 
-<h1>AI is already ranking your competitors.</h1>
-<p>If you're not in AI answers, you're invisible.</p>
+<h1>AI already chose your competitors.</h1>
+<p>If you're not in AI answers, you don’t exist.</p>
 
 <div class="live">
 <span class="dot"></span>
-<span id="liveCount">17</span> audits running now
+<span id="liveCount">21</span> audits running now
 </div>
 
 <!-- INPUT -->
@@ -156,41 +243,20 @@ button{
 
 <div class="card">
 
-<h2 id="scoreText">Score: 3.1 / 10</h2>
+<h2 id="scoreText">Score: 3.4 / 10</h2>
 
-<p style="margin-top:10px">
-AI is not recommending your business.
-</p>
-
-<ul style="margin-top:10px;color:#aaa;font-size:14px">
-<li>No structured AI signals</li>
-<li>Weak authority footprint</li>
-<li>Competitors dominating results</li>
-</ul>
-
-<p style="margin-top:10px">
-Fix this → get full breakdown + execution plan inside Discord.
-</p>
+<p>AI is not recommending your business.</p>
 
 <input id="email" placeholder="Enter email to unlock audit">
 
 <button onclick="saveLead()">Unlock full audit →</button>
 
 <a href="https://whop.com/progpt" class="discord">
-Enter Discord System (via Whop) →
+Enter Discord System →
 </a>
 
 </div>
 
-</div>
-
-<!-- VALUE -->
-<div class="card">
-<h3>What happens next</h3>
-<p>• Full audit breakdown<br>
-• GEO + SEO fixes<br>
-• AI content strategy<br>
-• Done-for-you execution</p>
 </div>
 
 </div>
@@ -226,22 +292,13 @@ function showResult(){
 }
 
 function saveLead(){
-  let email=document.getElementById("email").value;
-
-  let leads=JSON.parse(localStorage.getItem("leads")||"[]");
-  leads.push({
-    email,
-    website:document.getElementById("website").value
-  });
-
-  localStorage.setItem("leads",JSON.stringify(leads));
+  localStorage.setItem("email",document.getElementById("email").value);
 }
 
 /* LIVE COUNTER */
 setInterval(()=>{
   let el=document.getElementById("liveCount");
-  let num=parseInt(el.innerText);
-  el.innerText=num+Math.floor(Math.random()*2);
+  el.innerText=parseInt(el.innerText)+Math.floor(Math.random()*2);
 },4000);
 </script>
 
