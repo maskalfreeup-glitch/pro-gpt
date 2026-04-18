@@ -1,256 +1,279 @@
 ---
-// Astro logic for dynamic values
-const title = "ProGPT — Rank Inside ChatGPT & AI Search";
-const description = "We help local businesses appear inside AI-generated answers. Free AI visibility audit — see your score in 30 seconds.";
+// Astro logic
+const title = "ProGPT — Rank Inside AI Answers";
+const description = "Check if AI recommends your business. Run a free visibility audit.";
 const currentYear = new Date().getFullYear();
 ---
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+<meta name="description" content={description} />
 
-  <style>
-    :root {
-      /* Soft Notion-style palette */
-      --bg: #f7f6f3; 
-      --bg-hover: #efeee9;
-      --border: #e8e8e3;
-      --ink: #1a1a18;
-      --ink-muted: #6b6b63;
-      --accent: #2f54eb; /* Soft Blue */
-      --danger: #de350b;
-      --font-serif: 'Instrument Serif', Georgia, serif;
-      --font-sans: 'Geist', sans-serif;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: var(--font-sans);
-      line-height: 1.6;
-      margin: 0;
-      -webkit-font-smoothing: antialiased;
-    }
+<style>
+:root{
+  --bg:#f7f6f3;
+  --border:#e8e8e3;
+  --ink:#1a1a18;
+  --muted:#6b6b63;
+  --accent:#2f54eb;
+  --danger:#de350b;
+}
 
-    /* Minimalist Notion-style Nav */
-    nav {
-      position: sticky;
-      top: 0;
-      background: rgba(247, 246, 243, 0.8);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      padding: 0.75rem 1.5rem;
-      z-index: 100;
-    }
+body{
+  margin:0;
+  font-family:'Geist',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+}
 
-    .logo {
-      font-weight: 700;
-      text-decoration: none;
-      color: var(--ink);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+/* NAV */
+nav{
+  position:sticky;
+  top:0;
+  background:rgba(247,246,243,0.8);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  padding:12px 20px;
+}
 
-    .logo-box {
-      width: 24px;
-      height: 24px;
-      background: var(--ink);
-      color: white;
-      border-radius: 4px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 12px;
-    }
+.logo{font-weight:700;}
 
-    /* Hero Section */
-    .hero {
-      max-width: 800px;
-      margin: 6rem auto 4rem;
-      text-align: center;
-      padding: 0 1.5rem;
-    }
+/* HERO */
+.hero{
+  max-width:720px;
+  margin:80px auto 40px;
+  text-align:center;
+  padding:0 20px;
+}
 
-    h1 {
-      font-family: var(--font-serif);
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      font-weight: 400;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-    }
+h1{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(36px,8vw,64px);
+  line-height:1.1;
+  margin:0;
+}
 
-    h1 em {
-      color: var(--ink-muted);
-      font-style: italic;
-    }
+.sub{
+  color:var(--muted);
+  margin-top:16px;
+  font-size:18px;
+}
 
-    .hero-form {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 6px;
-      display: flex;
-      max-width: 460px;
-      margin: 2rem auto;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    }
+/* SYSTEM LINE */
+.system{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:14px;
+}
 
-    input {
-      flex: 1;
-      border: none;
-      padding: 12px 16px;
-      font-size: 16px;
-      outline: none;
-      background: transparent;
-    }
+/* FORM */
+.form{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:6px;
+  display:flex;
+  max-width:460px;
+  margin:24px auto;
+}
 
-    .btn-main {
-      background: var(--ink);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
+input{
+  flex:1;
+  border:none;
+  padding:12px;
+  font-size:16px;
+  outline:none;
+}
 
-    .btn-main:hover { opacity: 0.9; }
+button{
+  background:var(--ink);
+  color:white;
+  border:none;
+  padding:12px 20px;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+}
 
-    /* Grid & Panels */
-    .section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 4rem 1.5rem;
-    }
+/* SCAN */
+#scan,#result{display:none;}
 
-    .panel-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
+.bar-bg{
+  height:3px;
+  background:#eee;
+  margin-top:10px;
+}
+.bar{
+  height:100%;
+  width:0%;
+  background:var(--ink);
+}
 
-    .panel {
-      background: var(--bg);
-      padding: 2rem;
-      transition: background 0.2s;
-    }
+/* RESULT */
+.result-box{
+  max-width:460px;
+  margin:20px auto;
+  text-align:left;
+  border:1px solid var(--border);
+  background:white;
+  padding:16px;
+  border-radius:10px;
+}
 
-    .panel:hover { background: var(--bg-hover); }
+.danger{
+  color:var(--danger);
+  font-size:13px;
+  margin-top:6px;
+}
 
-    .tag {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--accent);
-      margin-bottom: 8px;
-      display: block;
-    }
+/* SECTION */
+.section{
+  max-width:800px;
+  margin:60px auto;
+  padding:0 20px;
+}
 
-    /* FAQ */
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-      padding: 1rem 0;
-      cursor: pointer;
-    }
+/* PRICING */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+}
 
-    .faq-a { display: none; padding-top: 8px; color: var(--ink-muted); font-size: 14px; }
-    .faq-item.open .faq-a { display: block; }
+.card{
+  background:var(--bg);
+  padding:20px;
+}
 
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 3rem 1.5rem;
-      text-align: center;
-      font-size: 13px;
-      color: var(--ink-muted);
-    }
+.card.white{background:white;}
 
-    @media (max-width: 600px) {
-      .hero-form { flex-direction: column; }
-    }
-  </style>
+.tag{
+  font-size:11px;
+  font-weight:700;
+  color:var(--accent);
+}
+
+@media(max-width:600px){
+  .form{flex-direction:column;}
+  .grid{grid-template-columns:1fr;}
+}
+</style>
 </head>
+
 <body>
 
 <nav>
-  <a href="/" class="logo">
-    <div class="logo-box">P</div> ProGPT
-  </a>
-  <div style="display: flex; gap: 1rem; align-items: center;">
-    <a href="#pricing" style="text-decoration: none; color: var(--ink-muted); font-size: 14px;">Pricing</a>
-    <a href="https://whop.com/progpt" style="background: var(--ink); color: white; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 600;">Get Started</a>
+  <div class="logo">ProGPT</div>
+  <div>
+    <a href="#pricing" style="margin-right:10px; text-decoration:none; color:var(--muted);">Pricing</a>
+    <a href="https://whop.com/progpt" style="background:var(--ink);color:white;padding:6px 12px;border-radius:6px;text-decoration:none;">Start</a>
   </div>
 </nav>
 
 <div class="hero">
-  <div style="font-size: 12px; color: var(--accent); font-weight: 700; margin-bottom: 1rem; text-transform: uppercase;">
-    AI Search is replacing links — Are you visible?
-  </div>
-  <h1>Your brand, inside every <em>AI answer</em></h1>
-  <p style="color: var(--ink-muted); font-size: 18px; max-width: 500px; margin: 0 auto;">
-    Don't get left behind on page two of Google. ProGPT gets local businesses into AI recommendations.
-  </p>
-  
-  <div class="hero-form">
-    <input type="text" id="siteUrl" placeholder="yourwebsite.com" />
-    <button class="btn-main" onclick="handleAudit()">Check Visibility —></button>
-  </div>
+
+<h1>Your business inside every AI answer</h1>
+
+<p class="sub">
+Check if AI actually recommends you — or your competitors.
+</p>
+
+<div class="system">
+● AI index active • Monitoring citations • Audit ready
 </div>
 
+<!-- INPUT -->
+<div id="inputBox" class="form">
+  <input id="url" placeholder="yourwebsite.com">
+  <button onclick="run()">Check if AI recommends you →</button>
+</div>
+
+<!-- SCAN -->
+<div id="scan" style="max-width:460px;margin:20px auto;">
+  <div style="font-size:12px;color:var(--accent)">Scanning AI signals...</div>
+  <div class="bar-bg"><div class="bar" id="bar"></div></div>
+</div>
+
+<!-- RESULT -->
+<div id="result" class="result-box">
+  <strong>Visibility Score: <span id="score"></span>/10</strong>
+  <div class="danger">AI is not recommending your business</div>
+</div>
+
+</div>
+
+<!-- PRICING -->
 <div class="section" id="pricing">
-  <span class="tag">Transparency</span>
-  <h2 style="font-family: var(--font-serif); font-size: 2.5rem; margin-top: 0;">Simple Pricing</h2>
-  
-  <div class="panel-grid">
-    <div class="panel">
-      <div class="tag">Free</div>
-      <h3 style="font-size: 24px; margin: 0.5rem 0;">AI Audit</h3>
-      <p style="color: var(--ink-muted); font-size: 14px;">Instant visibility score based on 6 critical signals.</p>
-      <a href="/audit" style="color: var(--ink); font-weight: 700; text-decoration: none; font-size: 14px;">Run Audit →</a>
-    </div>
-    <div class="panel" style="background: white;">
-      <div class="tag">Popular</div>
-      <h3 style="font-size: 24px; margin: 0.5rem 0;">GEO Starter</h3>
-      <p style="color: var(--ink-muted); font-size: 14px;">Full audit + Schema markup + FAQ optimization code.</p>
-      <div style="font-size: 20px; font-weight: 700; margin: 1rem 0;">$97</div>
-      <a href="https://whop.com/progpt" style="background: var(--ink); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; display: block; text-align: center; font-size: 14px;">Buy Now</a>
-    </div>
-  </div>
+
+<p style="color:var(--muted);">
+Once you see your score, you’ll understand what needs fixing.
+</p>
+
+<div class="grid">
+
+<div class="card">
+  <div class="tag">FREE</div>
+  <h3>AI Audit</h3>
+  <p style="color:var(--muted)">Basic visibility score</p>
 </div>
 
-<footer>
-  &copy; {currentYear} ProGPT — Helping businesses lead in the AI era.
+<div class="card white">
+  <div class="tag">PRO</div>
+  <h3>GEO Optimization</h3>
+  <p style="color:var(--muted)">Schema + AI ranking fixes</p>
+  <div style="font-weight:700;margin:10px 0;">$97</div>
+  <a href="https://whop.com/progpt" style="display:block;background:var(--ink);color:white;padding:10px;border-radius:6px;text-align:center;text-decoration:none;">
+    Fix visibility →
+  </a>
+</div>
+
+</div>
+
+</div>
+
+<footer style="text-align:center;color:var(--muted);font-size:13px;padding:40px 0;">
+© {currentYear} ProGPT
 </footer>
 
 <script is:inline>
-  function handleAudit() {
-    const url = document.getElementById('siteUrl').value.trim();
-    if (!url) return;
-    const cleanUrl = url.replace(/^https?:\/\//, "");
-    window.location.href = `/audit?url=${encodeURIComponent(cleanUrl)}`;
-  }
+function run(){
+  let url=document.getElementById("url").value;
+  if(!url) return;
 
-  // FAQ Toggle Logic
-  document.querySelectorAll('.faq-item').forEach(item => {
-    item.addEventListener('click', () => {
-      item.classList.toggle('open');
-    });
-  });
+  document.getElementById("inputBox").style.display="none";
+  document.getElementById("scan").style.display="block";
+
+  let w=0;
+  let int=setInterval(()=>{
+    w+=3;
+    document.getElementById("bar").style.width=w+"%";
+
+    if(w>=100){
+      clearInterval(int);
+      show();
+    }
+  },40);
+}
+
+function show(){
+  document.getElementById("scan").style.display="none";
+  document.getElementById("result").style.display="block";
+
+  let score=(2+Math.random()*2).toFixed(1);
+  document.getElementById("score").innerText=score;
+}
 </script>
 
 </body>
