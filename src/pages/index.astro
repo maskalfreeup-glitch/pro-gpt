@@ -1,341 +1,231 @@
----
-import BaseHead from '../components/BaseHead.astro';
----
-
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <BaseHead title="ProGPT — AI Visibility Audit" description="Check if AI recommends your business." />
-  
-  <style>
-    :root {
-      --bg:#050505;
-      --card:#0d1117;
-      --border:#1a1a1a;
-      --accent:#ccff00;
-      --text:#eaeaea;
-      --muted:#8a8a8a;
-      --danger:#ff4444;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProGPT — AI Visibility Audit</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet"><style>
+:root{
+  --bg:#050505;
+  --card:#0d1117;
+  --border:#1a1a1a;
+  --accent:#ccff00;
+  --text:#eaeaea;
+  --muted:#8a8a8a;
+  --danger:#ff4444;
+}
 
-    body {
-      margin:0;
-      font-family:Inter, sans-serif;
-      background:var(--bg);
-      color:var(--text);
-    }
+*{box-sizing:border-box}
 
-    /* subtle grid */
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      background:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size:40px 40px;
-      z-index:-1;
-    }
+body{
+  margin:0;
+  font-family:Inter,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
 
-    nav{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:16px 20px;
-      border-bottom:1px solid var(--border);
-    }
+/* subtle grid */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size:40px 40px;
+  z-index:-1;
+}
 
-    .logo{font-weight:900;letter-spacing:-1px;}
+/* NAV */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 20px;
+  border-bottom:1px solid var(--border);
+}
 
-    .buy{
-      background:var(--accent);
-      color:#000;
-      padding:8px 14px;
-      border-radius:6px;
-      font-weight:800;
-      text-decoration:none;
-      font-size:13px;
-    }
+.logo{
+  font-weight:900;
+  letter-spacing:-1px;
+}
 
-    .container{
-      max-width:800px;
-      margin:auto;
-      padding:60px 20px;
-    }
+.buy{
+  background:var(--accent);
+  color:#000;
+  padding:8px 14px;
+  border-radius:6px;
+  font-weight:800;
+  text-decoration:none;
+  font-size:13px;
+}
 
-    h1{
-      font-size:clamp(42px,8vw,72px);
-      line-height:0.9;
-      margin:0;
-      letter-spacing:-2px;
-    }
+/* LAYOUT */
+.container{
+  max-width:820px;
+  margin:auto;
+  padding:60px 20px;
+}
 
-    h1 span{color:var(--accent);}
+/* HERO */
+h1{
+  font-size:clamp(42px,8vw,72px);
+  line-height:0.9;
+  margin:0;
+  letter-spacing:-2px;
+}
 
-    .sub{
-      color:var(--muted);
-      margin-top:16px;
-      font-size:18px;
-      max-width:520px;
-    }
+h1 span{color:var(--accent)}
 
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:24px;
-      margin-top:20px;
-    }
+.sub{
+  color:var(--muted);
+  margin-top:16px;
+  font-size:18px;
+  max-width:520px;
+}
 
-    input{
-      width:100%;
-      padding:16px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background:#000;
-      color:#fff;
-      font-size:16px;
-      box-sizing:border-box;
-    }
+/* CARD */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:24px;
+  margin-top:20px;
+}
 
-    input:focus{
-      outline:none;
-      border-color:var(--accent);
-    }
+/* INPUT */
+input{
+  width:100%;
+  padding:16px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#000;
+  color:#fff;
+  font-size:16px;
+}
 
-    .btn{
-      width:100%;
-      padding:16px;
-      margin-top:12px;
-      border:none;
-      border-radius:12px;
-      font-weight:900;
-      background:var(--accent);
-      color:#000;
-      cursor:pointer;
-      font-size:16px;
-      transition:0.1s;
-    }
+/* BUTTON */
+.btn{
+  width:100%;
+  padding:16px;
+  margin-top:12px;
+  border:none;
+  border-radius:12px;
+  font-weight:900;
+  background:var(--accent);
+  color:#000;
+  cursor:pointer;
+  font-size:16px;
+}
 
-    .btn:active{
-      transform:scale(0.98);
-    }
+.btn:active{transform:scale(0.98)}
 
-    .btn-alt{
-      display:block;
-      margin-top:10px;
-      padding:12px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      text-align:center;
-      color:var(--muted);
-      text-decoration:none;
-      font-size:13px;
-    }
+.btn-alt{
+  display:block;
+  margin-top:10px;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  text-align:center;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:13px;
+}
 
-    #scan{display:none;}
-    .log{font-family:monospace;color:var(--accent);font-size:12px;}
+/* SCAN */
+#scan{display:none}
+.log{font-family:monospace;color:var(--accent);font-size:12px}
 
-    .badge{
-      display:inline-block;
-      background:rgba(255,0,0,0.1);
-      color:var(--danger);
-      padding:6px 10px;
-      border-radius:6px;
-      font-size:12px;
-      margin-top:10px;
-    }
+/* RESULT */
+#result{display:none}
 
-    .faq-item{
-      border-top:1px solid var(--border);
-      padding:12px 0;
-      cursor:pointer;
-    }
+.badge{
+  display:inline-block;
+  background:rgba(255,0,0,0.1);
+  color:var(--danger);
+  padding:6px 10px;
+  border-radius:6px;
+  font-size:12px;
+  margin-top:10px;
+}
 
-    .faq-a{
-      display:none;
-      color:#aaa;
-      margin-top:6px;
-      font-size:14px;
-      line-height:1.5;
-    }
+/* FAQ */
+.faq-item{
+  border-top:1px solid var(--border);
+  padding:12px 0;
+  cursor:pointer;
+}
 
-    .faq-item.active .faq-a{
-      display:block;
-    }
+.faq-a{
+  display:none;
+  color:#aaa;
+  margin-top:6px;
+  font-size:14px;
+}
 
-    #competitors{
-      list-style:none;
-      padding:0;
-    }
+.faq-item.active .faq-a{display:block}
 
-    #competitors li{
-      padding:4px 0;
-    }
-
-  </style>
-</head>
-
-<body>
-
-<nav>
+/* LIST */
+ul{padding-left:18px}
+</style></head><body><nav>
   <div class="logo">PROGPT</div>
   <a href="https://whop.com/progpt" class="buy">BUY</a>
-</nav>
-
-<div class="container">
-
-<h1>AI is already <span>choosing</span> your competitors.</h1>
-<p class="sub">If you're not cited in AI answers, your business is effectively invisible.</p>
-
-<!-- INPUT -->
-<div class="card" id="inputBox">
+</nav><div class="container"><h1>AI is already <span>choosing</span> your competitors.</h1>
+<p class="sub">
+If your business isn’t appearing in AI answers, you're losing customers before they even reach Google.
+</p><!-- INPUT --><div class="card" id="inputBox">
   <h3>Run AI Visibility Audit</h3>
-  <input id="url" type="text" placeholder="yourwebsite.com">
-  <button class="btn" id="runBtn">Run free audit →</button>
-  <p style="color:#555;font-size:12px;margin-top:10px;text-align:center;">
-    Takes ~5 seconds. No signup required.
-  </p>
-</div>
-
-<!-- SCAN -->
-<div id="scan" class="card">
+  <input id="url" placeholder="yourwebsite.com">
+  <button class="btn" onclick="run()">Run free audit →</button>
+</div><!-- SCAN --><div id="scan" class="card">
   <div id="log" class="log">Initializing scan...</div>
   <div style="height:4px;background:#111;margin-top:15px;border-radius:10px;overflow:hidden;">
-    <div id="bar" style="height:100%;width:0%;background:var(--accent);transition:width 0.2s ease;"></div>
+    <div id="bar" style="height:100%;width:0%;background:var(--accent);"></div>
   </div>
-</div>
-
-<!-- RESULT -->
-<div id="result" style="display:none">
-
-  <div class="card">
+</div><!-- RESULT --><div id="result">  <div class="card">
     <h3>Audit Score: <span id="score" style="color:var(--accent)"></span>/10</h3>
-    <div class="badge">CRITICAL: Low AI Trust</div>
+    <div class="badge">CRITICAL: Low AI Trust</div><p style="margin-top:20px;color:var(--muted);">
+  AI is recommending these competitors instead:
+</p>
 
-    <p style="margin-top:20px;font-size:14px;color:var(--muted);">
-      AI agents are recommending these competitors instead:
-    </p>
+<ul id="competitors"></ul>
 
-    <ul id="competitors" style="color:var(--accent);font-weight:600;"></ul>
+<p id="loss" style="color:var(--danger);font-weight:700;margin-top:16px;"></p>
 
-    <p id="loss" style="color:var(--danger);font-weight:700;background:rgba(255,68,68,0.1);padding:10px;border-radius:8px;text-align:center;"></p>
-  </div>
-
-  <!-- FAQ -->
-  <div class="card">
-    <h3>Why you're losing traffic</h3>
+  </div>  <!-- FAQ -->  <div class="card">
+    <h3>Why this is happening</h3>
     <div id="faq"></div>
-  </div>
+  </div>  <!-- CTA -->  <div class="card">
+    <h3>Fix your AI visibility</h3>
+    <p style="color:var(--muted);font-size:14px;">
+      We restructure your business for AI ranking systems. Done-for-you.
+    </p><input placeholder="Enter your email">
+<button class="btn" onclick="window.location.href='https://whop.com/progpt'">
+  Fix this → $297
+</button>
 
-  <!-- CTA -->
-  <div class="card">
-    <h3>Fix your visibility</h3>
-    <p style="color:var(--muted);font-size:14px;margin-bottom:15px;">
-      We rebuild your site for AI ranking systems. Done-for-you.
-    </p>
+<a class="btn-alt" href="https://discord.gg/YOUR">Join free Discord</a>
 
-    <input type="email" placeholder="Enter your email">
-    <button class="btn" onclick="window.location.href='https://whop.com/progpt'">
-      Fix this → $297
-    </button>
-
-    <a class="btn-alt" href="https://discord.gg/YOUR">Join free Discord</a>
-  </div>
-
-</div>
-
-<!-- SHIFT -->
-<div class="card">
+  </div></div><!-- SHIFT --><div class="card">
   <h3>The shift</h3>
-  <p style="color:#aaa;line-height:1.6;">
+  <p style="color:#aaa;">
     Search ranked pages. AI selects businesses.  
-    If your site isn’t structured for LLM extraction, you are excluded.
+    If your business isn’t structured for AI, you are invisible.
   </p>
-</div>
-
-</div>
-
-<script is:inline>
-
-function detect(url){
-  url=url.toLowerCase();
-  if(url.includes("shop")||url.includes("store")) return "ecommerce";
-  if(url.includes("agency")||url.includes("design")) return "agency";
-  return "general";
-}
-
-function renderFaq(type){
-  const map={
-    ecommerce:[
-      ["Why no AI traffic?","Products lack structured data AI can verify."],
-      ["Fix?","Schema + entity optimization."]
-    ],
-    agency:[
-      ["Why invisible?","No authority graph or citations."],
-      ["Fix?","Topical authority buildout."]
-    ],
-    general:[
-      ["Why invisible?","AI cannot trust your content."],
-      ["Fix?","Structured + authority signals."]
-    ]
-  };
-
-  let el=document.getElementById("faq");
-  el.innerHTML="";
-
-  map[type].forEach(q=>{
-    let d=document.createElement("div");
-    d.className="faq-item";
-    d.innerHTML=`<strong>${q[0]}</strong><div class="faq-a">${q[1]}</div>`;
-    d.onclick=()=>d.classList.toggle("active");
-    el.appendChild(d);
-  });
-}
-
-function showResult(url){
-  document.getElementById("scan").style.display="none";
-  document.getElementById("result").style.display="block";
-
-  document.getElementById("score").innerText=(1.8+Math.random()*1.5).toFixed(1);
-
-  let clean=url.replace(/^(https?:\/\/)?(www\.)?/,"").split('.')[0];
-  let list=document.getElementById("competitors");
-  list.innerHTML="";
-
-  ["top-","get-","best-"].forEach(p=>{
-    let li=document.createElement("li");
-    li.innerText="→ "+p+clean+".com";
-    list.appendChild(li);
-  });
-
-  let lost=Math.floor(Math.random()*20+15);
-  document.getElementById("loss").innerText=
-    "Estimated loss: "+lost+"–"+(lost+12)+" leads/month";
-}
-
-document.getElementById('runBtn').addEventListener('click', () => {
-
+</div></div><script>
+function run(){
   let url=document.getElementById("url").value;
-  if(!url || !url.includes(".")){
-    alert("Enter valid domain");
-    return;
-  }
-
-  renderFaq(detect(url));
+  if(!url || !url.includes(".")) return alert("Enter valid website");
 
   document.getElementById("inputBox").style.display="none";
   document.getElementById("scan").style.display="block";
 
-  let w=0;
   let logs=[
     "Scanning structure...",
     "Analyzing AI signals...",
     "Checking competitors...",
-    "Finalizing report..."
+    "Finalizing..."
   ];
 
-  let i=0;
+  let w=0,i=0;
 
   let interval=setInterval(()=>{
     w+=2;
@@ -347,12 +237,53 @@ document.getElementById('runBtn').addEventListener('click', () => {
 
     if(w>=100){
       clearInterval(interval);
-      showResult(url);
+      show(url);
     }
   },50);
-});
+}
 
-</script>
+function show(url){
+  document.getElementById("scan").style.display="none";
+  document.getElementById("result").style.display="block";
 
-</body>
+  document.getElementById("score").innerText=(1.8+Math.random()*1.5).toFixed(1);
+
+  let clean=url.replace(/^(https?:\/\/)?(www\.)?/,"").split('.')[0];
+
+  let prefixes=["top-","get-","best-"];
+  let list=document.getElementById("competitors");
+  list.innerHTML="";
+
+  prefixes.forEach(p=>{
+    let li=document.createElement("li");
+    li.innerText=p+clean+".com";
+    list.appendChild(li);
+  });
+
+  let lost=Math.floor(Math.random()*20+15);
+  document.getElementById("loss").innerText=
+    "Estimated loss: "+lost+"–"+(lost+12)+" leads/month";
+
+  renderFAQ();
+}
+
+function renderFAQ(){
+  let data=[
+    ["Why am I not showing in AI?","Your site lacks structured signals AI can trust."],
+    ["What fixes it?","Schema, authority signals, and AI-ready content."],
+    ["How fast does it work?","Most see results in 2–6 weeks."]
+  ];
+
+  let faq=document.getElementById("faq");
+  faq.innerHTML="";
+
+  data.forEach(q=>{
+    let d=document.createElement("div");
+    d.className="faq-item";
+    d.innerHTML=`<strong>${q[0]}</strong><div class="faq-a">${q[1]}</div>`;
+    d.onclick=()=>d.classList.toggle("active");
+    faq.appendChild(d);
+  });
+}
+</script></body>
 </html>
