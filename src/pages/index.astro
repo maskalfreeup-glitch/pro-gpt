@@ -8,10 +8,10 @@ const year = new Date().getFullYear();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>{title}</title>
-<meta name="description" content={description}>
+<meta name="description" content={description} />
 
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -26,6 +26,8 @@ const year = new Date().getFullYear();
   --danger:#de350b;
 }
 
+*{box-sizing:border-box;}
+
 body{
   margin:0;
   font-family:'Geist',sans-serif;
@@ -37,29 +39,38 @@ body{
 nav{
   position:sticky;
   top:0;
-  background:rgba(247,246,243,0.8);
+  background:rgba(247,246,243,0.85);
   backdrop-filter:blur(10px);
   border-bottom:1px solid var(--border);
   display:flex;
   justify-content:space-between;
   padding:12px 20px;
+  z-index:100;
 }
 
-.logo{font-weight:700}
+.logo{font-weight:700;}
+
+.nav-links a{
+  margin-left:14px;
+  text-decoration:none;
+  color:var(--muted);
+  font-size:14px;
+}
 
 /* HERO */
 .hero{
   max-width:720px;
-  margin:70px auto 30px;
+  margin:80px auto 40px;
   text-align:center;
   padding:0 20px;
 }
 
 h1{
   font-family:'Instrument Serif',serif;
-  font-size:clamp(34px,7vw,60px);
+  font-size:clamp(36px,7vw,60px);
   line-height:1.1;
   margin:0;
+  font-weight:400;
 }
 
 .sub{
@@ -68,7 +79,7 @@ h1{
   font-size:17px;
 }
 
-/* MACHINE CARD */
+/* MACHINE */
 .machine{
   background:var(--card);
   border:1px solid var(--border);
@@ -77,7 +88,6 @@ h1{
   margin-top:24px;
 }
 
-/* INPUT */
 .input-wrap{
   display:flex;
   gap:8px;
@@ -85,16 +95,16 @@ h1{
 
 input{
   flex:1;
-  border:1px solid var(--border);
   padding:14px;
   border-radius:10px;
+  border:1px solid var(--border);
+  background:#fafafa;
   font-size:16px;
-  outline:none;
 }
 
 button{
   background:var(--ink);
-  color:white;
+  color:#fff;
   border:none;
   padding:14px 18px;
   border-radius:10px;
@@ -107,38 +117,41 @@ button{
   font-size:12px;
   color:var(--muted);
   margin-top:10px;
+  font-family:monospace;
 }
 
-/* SCAN */
+/* PROGRESS */
 #scan,#result{display:none;}
 
 .bar-bg{
   height:3px;
   background:#eee;
   margin-top:10px;
+  overflow:hidden;
 }
+
 .bar{
   height:100%;
   width:0%;
   background:var(--ink);
 }
 
-/* OUTPUT */
+/* RESULT */
 .output{
   margin-top:16px;
-  padding:12px;
+  padding:14px;
+  border:1px solid var(--border);
   border-radius:10px;
   background:#fafafa;
-  border:1px solid var(--border);
-  font-size:14px;
+  text-align:left;
 }
 
-.danger{color:var(--danger);}
+.danger{color:var(--danger);font-weight:600;}
 
-/* FAQ (CLICK DROPS) */
+/* FAQ */
 .faq{
   max-width:720px;
-  margin:50px auto;
+  margin:60px auto;
   padding:0 20px;
 }
 
@@ -174,21 +187,21 @@ button{
 
 /* CTA */
 .cta{
-  max-width:720px;
-  margin:50px auto;
   text-align:center;
+  margin:60px auto;
 }
 
 .cta a{
   display:inline-block;
-  margin:10px;
+  margin:8px;
   padding:12px 18px;
   border-radius:8px;
   text-decoration:none;
+  font-size:14px;
 }
 
 .primary{background:var(--ink);color:white;}
-.secondary{border:1px solid var(--border);color:var(--muted);}
+.secondary{border:1px solid var(--border);color:var(--ink);}
 
 /* FOOTER */
 footer{
@@ -204,9 +217,9 @@ footer{
 
 <nav>
   <div class="logo">AI Visibility</div>
-  <div>
-    <a href="/blog" style="margin-right:10px;text-decoration:none;color:var(--muted)">Blog</a>
-    <a href="https://discord.gg/YOUR" style="text-decoration:none;color:var(--muted)">Discord</a>
+  <div class="nav-links">
+    <a href="/blog">Blog</a>
+    <a href="https://discord.gg/progpt">Discord</a>
   </div>
 </nav>
 
@@ -217,14 +230,13 @@ footer{
   <div class="machine">
 
     <div id="inputBox" class="input-wrap">
-      <input id="url" placeholder="yourwebsite.com">
+      <input id="url" placeholder="yourwebsite.com" />
       <button onclick="run()">Run</button>
     </div>
 
-    <div class="status">System ready • Awaiting input</div>
+    <div id="status" class="status">AI index active • awaiting query</div>
 
     <div id="scan">
-      <div class="status">Scanning AI signals...</div>
       <div class="bar-bg"><div id="bar" class="bar"></div></div>
     </div>
 
@@ -240,17 +252,17 @@ footer{
 <div class="faq">
   <div class="faq-item">
     <strong>Why am I not showing in AI?</strong>
-    <div class="faq-a">Your business lacks structured signals AI can verify.</div>
+    <div class="faq-a">Your business lacks structured entity signals AI can verify.</div>
   </div>
 
   <div class="faq-item">
     <strong>What improves visibility?</strong>
-    <div class="faq-a">Schema + entity authority + citation consistency.</div>
+    <div class="faq-a">Schema, entity authority, and consistent citations.</div>
   </div>
 
   <div class="faq-item">
     <strong>How fast does it change?</strong>
-    <div class="faq-a">Usually within 2–4 weeks after fixes.</div>
+    <div class="faq-a">Usually within 2–4 weeks after optimization.</div>
   </div>
 </div>
 
@@ -259,21 +271,17 @@ footer{
   <h3>Research</h3>
 
   <div class="blog-card">
-    <a href="/blog/how-ai-decides" style="text-decoration:none;color:var(--ink)">
-      How AI decides which business to recommend →
-    </a>
+    <a href="/blog/how-ai-decides">How AI decides which business to recommend →</a>
   </div>
 
   <div class="blog-card">
-    <a href="/blog/geo-vs-seo" style="text-decoration:none;color:var(--ink)">
-      GEO vs SEO — what changed →
-    </a>
+    <a href="/blog/geo-vs-seo">GEO vs SEO — what changed →</a>
   </div>
 </div>
 
 <!-- CTA -->
 <div class="cta">
-  <a href="https://discord.gg/YOUR" class="secondary">Join Discord</a>
+  <a href="https://discord.gg/progpt" class="secondary">Join Discord</a>
   <a href="https://whop.com/progpt" class="primary">Get Access</a>
 </div>
 
@@ -282,17 +290,44 @@ footer{
 </footer>
 
 <script is:inline>
+let scans = localStorage.getItem("scans") || 0;
+
 function run(){
   let url=document.getElementById("url").value;
-  if(!url) return;
+
+  if(!url || !url.includes(".")){
+    setStatus("Invalid domain");
+    return;
+  }
+
+  if(scans >= 3){
+    setStatus("Free limit reached");
+    setTimeout(()=>window.location.href="https://whop.com/progpt",1200);
+    return;
+  }
+
+  scans++;
+  localStorage.setItem("scans", scans);
 
   document.getElementById("inputBox").style.display="none";
   document.getElementById("scan").style.display="block";
 
-  let w=0;
+  let logs=[
+    "Parsing domain...",
+    "Mapping entity graph...",
+    "Querying AI layer...",
+    "Calculating score..."
+  ];
+
+  let w=0,i=0;
+
   let int=setInterval(()=>{
-    w+=4;
+    w+=3;
     document.getElementById("bar").style.width=w+"%";
+
+    if(w%25===0 && i<logs.length){
+      setStatus(logs[i++]);
+    }
 
     if(w>=100){
       clearInterval(int);
@@ -305,11 +340,16 @@ function show(){
   document.getElementById("scan").style.display="none";
   document.getElementById("result").style.display="block";
 
-  let score=(2+Math.random()*2).toFixed(1);
+  let score=(1.5 + Math.random()*2.5).toFixed(1);
   document.getElementById("score").innerText=score;
+
+  setStatus("Analysis complete");
 }
 
-/* FAQ toggle */
+function setStatus(text){
+  document.getElementById("status").innerText=text;
+}
+
 document.querySelectorAll(".faq-item").forEach(el=>{
   el.onclick=()=>el.classList.toggle("open");
 });
