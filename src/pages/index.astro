@@ -1,92 +1,986 @@
 ---
-import Layout from '../layouts/Layout.astro';
+const title = "ProGPT â€” Rank Inside ChatGPT & AI Search";
+const description = "We help local businesses appear inside AI-generated answers using AEO/GEO systems. Free AI visibility audit for your business.";
 ---
 
-<Layout title="ProGPT — AI Visibility Engine">
-  <main class="bg-[#04060a] min-h-screen text-[#dde4ee] font-sans">
-    <section class="pt-32 pb-20 px-6 border-b border-[#151c27]">
-      <div class="max-w-4xl mx-auto">
-        <div class="font-mono text-[11px] text-[#00e5ff] tracking-[0.2em] mb-6 flex items-center gap-2">
-          <span class="w-8 h-[1px] bg-[#00e5ff]"></span> LIVE AT PROGPT.STORE
-        </div>
-        <h1 class="text-7xl md:text-8xl font-black text-white tracking-tighter leading-none mb-6">
-          <span class="line-through text-[#2a3444] decoration-[#ff3b3b]">Search</span> is dead.<br/>
-          AI picks <span class="text-[#00e5ff] drop-shadow-[0_0_15px_rgba(0,229,255,0.4)]">winners</span> now.
-        </h1>
-        <p class="text-[#556070] text-xl max-w-lg font-light leading-relaxed mb-10">
-          ChatGPT and Perplexity are deciding your brand's fate. Our GEO engine ensures you're the one they recommend.
-        </p>
-        <a href="#audit" class="inline-block bg-[#00e5ff] text-black px-8 py-4 rounded font-bold hover:bg-white transition-colors">Start Free Audit →</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href="https://progpt.store" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ProGPT",
+    "url": "https://progpt.store",
+    "description": "AI search optimization and GEO services for local businesses",
+    "serviceType": "Generative Engine Optimization",
+    "areaServed": "United States"
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #000000;
+      --surface: #0f0f0f;
+      --surface2: #161616;
+      --border: #1a1a1a;
+      --border2: #252525;
+      --purple: #7C3AED;
+      --purple-dim: rgba(124,58,237,0.1);
+      --purple-glow: rgba(124,58,237,0.2);
+      --white: #ffffff;
+      --gray: #555;
+      --gray2: #888;
+      --gray3: #bbb;
+      --green: #22c55e;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* â”€â”€ SUBTLE GRID â”€â”€ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(124,58,237,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,58,237,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* â”€â”€ NAV â”€â”€ */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 1.5rem;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-logo span { color: var(--purple); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--gray2);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+      background: var(--surface);
+    }
+
+    .nav-cta {
+      background: var(--purple) !important;
+      color: var(--white) !important;
+      font-weight: 600 !important;
+      padding: 0.45rem 1.1rem !important;
+      border-radius: 8px;
+      transition: opacity 0.2s !important;
+    }
+
+    .nav-cta:hover { opacity: 0.85; background: var(--purple) !important; }
+
+    /* â”€â”€ HERO â”€â”€ */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 5.5rem 1.5rem 4rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Glow blob behind hero */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(124,58,237,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--purple-dim);
+      border: 1px solid rgba(124,58,237,0.25);
+      color: #a78bfa;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 20px;
+      margin-bottom: 1.75rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .live-dot {
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.4); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 10vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 1.0;
+      margin-bottom: 1.25rem;
+      animation: fadeUp 0.6s ease 0.1s both;
+    }
+
+    .hero h1 .accent {
+      background: linear-gradient(135deg, #a78bfa 0%, #7C3AED 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      color: var(--gray3);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      animation: fadeUp 0.6s ease 0.2s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s ease 0.3s both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--purple);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.85rem 1.75rem;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s;
+      box-shadow: 0 0 30px rgba(124,58,237,0.3);
+    }
+
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: transparent;
+      color: var(--gray3);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.85rem 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border2);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--gray); color: var(--white); }
+
+    /* â”€â”€ TRUST BAR â”€â”€ */
+    .trust-bar {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      padding: 1.5rem 1.5rem 0;
+      animation: fadeUp 0.6s ease 0.4s both;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--gray);
+      font-size: 0.8rem;
+    }
+
+    .trust-item strong { color: var(--gray3); }
+
+    /* â”€â”€ SECTION SHARED â”€â”€ */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #7c5cbf;
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.15;
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--gray2);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 3rem;
+    }
+
+    /* â”€â”€ SEARCH IS CHANGING â”€â”€ */
+    .changing-section {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, transparent, rgba(124,58,237,0.03), transparent);
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+
+    .stat-cell {
+      background: var(--bg);
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-num span { color: var(--purple); }
+
+    .stat-desc {
+      font-size: 0.78rem;
+      color: var(--gray2);
+      line-height: 1.5;
+    }
+
+    /* â”€â”€ HOW IT WORKS â”€â”€ */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .step {
+      background: var(--surface);
+      padding: 1.5rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      transition: background 0.2s;
+    }
+
+    .step:hover { background: var(--surface2); }
+
+    .step-num {
+      width: 36px; height: 36px;
+      background: var(--purple-dim);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #a78bfa;
+      flex-shrink: 0;
+    }
+
+    .step-content { flex: 1; }
+
+    .step-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.02em;
+    }
+
+    .step-desc {
+      font-size: 0.85rem;
+      color: var(--gray2);
+      line-height: 1.6;
+    }
+
+    /* â”€â”€ WHAT WE CHECK â”€â”€ */
+    .checks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    .check-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem;
+      transition: border-color 0.2s;
+    }
+
+    .check-card:hover { border-color: var(--border2); }
+
+    .check-icon {
+      font-size: 1.2rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .check-name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .check-desc {
+      font-size: 0.78rem;
+      color: var(--gray2);
+      line-height: 1.5;
+    }
+
+    /* â”€â”€ PRICING â”€â”€ */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .price-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      position: relative;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .price-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+
+    .price-card.featured {
+      border-color: var(--purple);
+      background: linear-gradient(160deg, rgba(124,58,237,0.08), var(--surface));
+    }
+
+    .price-card.featured:hover { border-color: #9333ea; }
+
+    .featured-badge {
+      position: absolute;
+      top: -1px;
+      right: 1rem;
+      background: var(--purple);
+      color: var(--white);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 0 0 7px 7px;
+    }
+
+    .price-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--gray2);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-amount {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      margin-bottom: 0.2rem;
+    }
+
+    .price-amount sup {
+      font-size: 1rem;
+      vertical-align: super;
+      font-weight: 700;
+    }
+
+    .price-desc {
+      font-size: 0.78rem;
+      color: var(--gray2);
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
+
+    .price-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .price-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--gray3);
+      line-height: 1.4;
+    }
+
+    .price-features li::before {
+      content: 'âœ“';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    .price-btn {
+      display: block;
+      text-align: center;
+      padding: 0.7rem;
+      border-radius: 9px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .price-btn-outline {
+      border: 1px solid var(--border2);
+      color: var(--gray3);
+    }
+
+    .price-btn-outline:hover { border-color: var(--gray); color: var(--white); }
+
+    .price-btn-filled {
+      background: var(--purple);
+      color: var(--white);
+    }
+
+    .price-btn-filled:hover { opacity: 0.85; }
+
+    /* â”€â”€ EMAIL CAPTURE â”€â”€ */
+    .capture-section {
+      border-top: 1px solid var(--border);
+    }
+
+    .capture-box {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .capture-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 200px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--purple), transparent);
+    }
+
+    .capture-box h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 5vw, 1.9rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.6rem;
+    }
+
+    .capture-box p {
+      color: var(--gray2);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .capture-form {
+      display: flex;
+      gap: 0.6rem;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .capture-input {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .capture-input::placeholder { color: var(--gray); }
+    .capture-input:focus { border-color: var(--purple); }
+
+    .capture-btn {
+      background: var(--purple);
+      border: none;
+      border-radius: 10px;
+      padding: 0.8rem 1.25rem;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+
+    .capture-btn:hover { opacity: 0.85; }
+
+    .capture-note {
+      font-size: 0.75rem;
+      color: var(--gray);
+      margin-top: 0.75rem;
+    }
+
+    #captureSuccess {
+      display: none;
+      color: var(--green);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    /* â”€â”€ FOOTER â”€â”€ */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-logo span { color: var(--purple); }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links a {
+      color: var(--gray2);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    footer p {
+      font-size: 0.75rem;
+      color: var(--gray);
+    }
+
+    /* â”€â”€ MOBILE â”€â”€ */
+    @media (max-width: 540px) {
+      .checks-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .stat-row { grid-template-columns: 1fr; }
+      .stat-cell { border-bottom: 1px solid var(--border); }
+      .stat-cell:last-child { border-bottom: none; }
+      .capture-form { flex-direction: column; }
+      .nav-links li:not(:last-child):not(:nth-last-child(2)) { display: none; }
+      .hero { padding: 4rem 1.5rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">Pro<span>GPT</span></a>
+    <ul class="nav-links">
+      <li><a href="/audit">Free Audit</a></li>
+      <li><a href="/#how-it-works">How it works</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="https://whop.com/progpt" target="_blank" class="nav-cta">Get ranked â†’</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">
+      <div class="live-dot"></div>
+      AI Search is replacing Google
+    </div>
+    <h1>Rank inside<br><span class="accent">ChatGPT & AI</span><br>search</h1>
+    <p class="hero-sub">
+      We help brands appear inside AI-generated answers using AEO/GEO systems.
+      People are no longer clicking links â€” they're asking AI.
+    </p>
+    <div class="hero-actions">
+      <a href="/audit" class="btn-primary">
+        Get your free audit
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="/#how-it-works" class="btn-secondary">
+        How it works
+      </a>
+    </div>
+  </div>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <span class="trust-item"><strong>ChatGPT</strong> visibility</span>
+    <span class="trust-item"><strong>Perplexity</strong> signals</span>
+    <span class="trust-item"><strong>Google AI</strong> answers</span>
+    <span class="trust-item"><strong>Bing Copilot</strong> results</span>
+  </div>
+
+  <!-- SEARCH IS CHANGING -->
+  <section class="changing-section">
+    <div class="section-label">The shift</div>
+    <h2 class="section-title">Search is changing</h2>
+    <p class="section-sub">
+      People are no longer clicking links. They're asking AI.
+      If your brand isn't inside those answers, you don't exist.
+    </p>
+
+    <div class="stat-row">
+      <div class="stat-cell">
+        <div class="stat-num">1<span>B+</span></div>
+        <div class="stat-desc">ChatGPT users asking for local recommendations weekly</div>
       </div>
-    </section>
+      <div class="stat-cell">
+        <div class="stat-num">90<span>%</span></div>
+        <div class="stat-desc">Local businesses invisible in AI-generated answers</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">1<span>st</span></div>
+        <div class="stat-desc">AI recommendation gets the call. There is no page 2.</div>
+      </div>
+    </div>
+  </section>
 
-    <section id="audit" class="py-24 px-6">
-      <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-16">
-        <div>
-          <h2 class="text-4xl font-bold text-white mb-6">The Vending Machine</h2>
-          <p class="text-[#556070] mb-8">Input your domain. Our Cloudflare AI node audits your entity clarity across the LLM landscape in real-time.</p>
-          <ul class="space-y-4 text-sm font-mono text-[#00ff9f]">
-            <li>[✓] AI Trust Score Analysis</li>
-            <li>[✓] Competitor Gap Mapping</li>
-            <li>[✓] Automated Implementation Roadmap</li>
-          </ul>
-        </div>
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works">
+    <div class="section-label">The process</div>
+    <h2 class="section-title">How it works</h2>
+    <p class="section-sub">
+      Three steps from invisible to recommended.
+    </p>
 
-        <div class="bg-[#080c12] border border-[#151c27] p-8 rounded-xl relative" id="vending-box">
-          <div id="scan-form">
-            <label class="block font-mono text-[10px] text-[#556070] uppercase mb-4 tracking-widest">// TARGET DOMAIN</label>
-            <input type="text" id="target-url" placeholder="company.com" class="w-full bg-black border border-[#1e2836] p-4 rounded text-[#00e5ff] font-mono outline-none focus:border-[#00e5ff] mb-4" />
-            <button id="run-scan" class="w-full bg-[#00e5ff] text-black py-4 font-bold rounded hover:opacity-90 transition-all">DECODE VISIBILITY</button>
-          </div>
-
-          <div id="audit-results" class="hidden">
-            <div class="flex items-center justify-between mb-8">
-              <span class="font-mono text-xs text-[#556070]">VISIBILITY_SCORE</span>
-              <span id="final-score" class="text-5xl font-black text-[#ff3b3b]">--</span>
-            </div>
-            <div id="vending-cta">
-              </div>
-          </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-title">Analyze</div>
+          <div class="step-desc">We run your website through our AI visibility engine. It checks every signal that ChatGPT, Perplexity, and Google AI use to decide who to recommend â€” schema markup, content structure, local signals, FAQ presence, citation footprint.</div>
         </div>
       </div>
-    </section>
-  </main>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-title">Optimize</div>
+          <div class="step-desc">We structure your content for AI visibility using AEO and GEO frameworks. This means schema code, FAQ content, local signal fixes, and NAP consistency â€” the exact changes that get AI systems to trust and recommend your brand.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-title">Rank</div>
+          <div class="step-desc">Your brand starts appearing in ChatGPT-style answers when your ideal customers ask AI for recommendations. Most clients see AI visibility improvements within 4â€“8 weeks of implementation.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE CHECK -->
+  <section>
+    <div class="section-label">The audit</div>
+    <h2 class="section-title">What we check</h2>
+    <p class="section-sub">Six signals that determine whether AI recommends your business â€” or your competitor.</p>
+
+    <div class="checks-grid">
+      <div class="check-card">
+        <div class="check-icon">ðŸ—‚ï¸</div>
+        <div class="check-name">Schema Markup</div>
+        <div class="check-desc">Structured data that tells AI systems exactly what your business is, where you are, and what you offer.</div>
+      </div>
+      <div class="check-card">
+        <div class="check-icon">ðŸ“</div>
+        <div class="check-name">Content Clarity</div>
+        <div class="check-desc">How clearly your site communicates your business type, services, and location to AI systems.</div>
+      </div>
+      <div class="check-card">
+        <div class="check-icon">ðŸ“</div>
+        <div class="check-name">Local Signals</div>
+        <div class="check-desc">City, neighborhood, and region targeting that triggers AI recommendations for local searches.</div>
+      </div>
+      <div class="check-card">
+        <div class="check-icon">â“</div>
+        <div class="check-name">FAQ Content</div>
+        <div class="check-desc">Whether you answer the questions your customers ask AI â€” the primary source of AI citation eligibility.</div>
+      </div>
+      <div class="check-card">
+        <div class="check-icon">ðŸ”—</div>
+        <div class="check-name">AI Citation Footprint</div>
+        <div class="check-desc">Your presence in the data sources AI systems use to build trusted local recommendations.</div>
+      </div>
+      <div class="check-card">
+        <div class="check-icon">ðŸ“‹</div>
+        <div class="check-name">NAP Consistency</div>
+        <div class="check-desc">Name, address, phone consistency across directories â€” a core trust signal for local AI answers.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section>
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Get your brand ranked</h2>
+    <p class="section-sub">Start free. Upgrade when you're ready to fix it.</p>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">Free Audit</div>
+        <div class="price-amount"><sup>$</sup>0</div>
+        <div class="price-desc">See your AI visibility score and top issues in 30 seconds.</div>
+        <ul class="price-features">
+          <li>AI Visibility Score (1â€“10)</li>
+          <li>6-point checklist audit</li>
+          <li>Top 3 issues identified</li>
+          <li>Top 3 quick wins</li>
+        </ul>
+        <a href="/audit" class="price-btn price-btn-outline">Run free audit â†’</a>
+      </div>
+
+      <div class="price-card featured">
+        <div class="featured-badge">Most popular</div>
+        <div class="price-name">GEO Starter</div>
+        <div class="price-amount"><sup>$</sup>97</div>
+        <div class="price-desc">Full audit + ready-to-implement fixes. No developer needed.</div>
+        <ul class="price-features">
+          <li>Full scored audit report</li>
+          <li>Schema markup code written for you</li>
+          <li>5 FAQ questions written</li>
+          <li>Local signal fix checklist</li>
+          <li>30-day implementation roadmap</li>
+        </ul>
+        <a href="https://whop.com/progpt" target="_blank" class="price-btn price-btn-filled">Get GEO Starter â†’</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-name">GEO Pro</div>
+        <div class="price-amount"><sup>$</sup>297</div>
+        <div class="price-desc">Done-with-you. Audit + implementation call + competitor analysis.</div>
+        <ul class="price-features">
+          <li>Everything in GEO Starter</li>
+          <li>45-min implementation call</li>
+          <li>Competitor AI comparison</li>
+          <li>10 FAQ questions written</li>
+          <li>90-day monitoring checklist</li>
+        </ul>
+        <a href="https://whop.com/progpt" target="_blank" class="price-btn price-btn-outline">Get GEO Pro â†’</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-name">AWS Cloud Audit</div>
+        <div class="price-amount"><sup>$</sup>497</div>
+        <div class="price-desc">For founders and agencies. AI visibility + AWS infrastructure audit.</div>
+        <ul class="price-features">
+          <li>GEO Pro audit included</li>
+          <li>AWS architecture review</li>
+          <li>Cloudflare integration guide</li>
+          <li>Cost optimization report</li>
+          <li>60-min debrief call</li>
+        </ul>
+        <a href="https://whop.com/progpt" target="_blank" class="price-btn price-btn-outline">Get Cloud Audit â†’</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMAIL CAPTURE -->
+  <section class="capture-section">
+    <div class="capture-box">
+      <h2>Get your brand ranked inside AI</h2>
+      <p>Request early access or run a free audit. No credit card required.</p>
+
+      <div class="capture-form">
+        <input
+          class="capture-input"
+          id="captureEmail"
+          type="email"
+          placeholder="Enter your email"
+        />
+        <button class="capture-btn" onclick="handleCapture()">Get access</button>
+      </div>
+      <div class="capture-note">No spam. Unsubscribe anytime.</div>
+      <div id="captureSuccess">âœ“ You're in. Check your email shortly.</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Pro<span>GPT</span></div>
+    <div class="footer-links">
+      <a href="/audit">Free Audit</a>
+      <a href="/blog">Blog</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/#how-it-works">How it works</a>
+      <a href="https://whop.com/progpt" target="_blank">Pricing</a>
+    </div>
+    <p>Â© {new Date().getFullYear()} ProGPT â€” AI Search Optimization Â· progpt.store</p>
+  </footer>
 
   <script>
-    const scanBtn = document.getElementById('run-scan');
-    const form = document.getElementById('scan-form');
-    const results = document.getElementById('audit-results');
-    const scoreDisplay = document.getElementById('final-score');
-    const ctaContainer = document.getElementById('vending-cta');
-
-    scanBtn.addEventListener('click', async () => {
-      const domain = (document.getElementById('target-url') as HTMLInputElement).value;
-      if (!domain) return;
-
-      scanBtn.innerText = "QUERYING CLOUDFLARE AI...";
-      
-      const response = await fetch('/api/audit', {
-        method: 'POST',
-        body: JSON.stringify({ domain })
-      });
-      const data = await response.json();
-
-      form.classList.add('hidden');
-      results.classList.remove('hidden');
-      scoreDisplay.innerText = data.score.toFixed(1);
-
-      // Automated Vending Machine Logic
-      if (data.score < 5) {
-        ctaContainer.innerHTML = `
-          <a href="https://lemonsqueezy.com/progpt" class="block w-full bg-[#ff3b3b] text-white py-4 text-center font-bold rounded mb-4">Fix Visibility ($297 Growth)</a>
-          <p class="text-center font-mono text-[10px] text-[#556070]">Failing signals detected. LemonSqueezy checkout enabled.</p>
-        `;
-      } else {
-        ctaContainer.innerHTML = `
-          <a href="https://gumroad.com/progpt" class="block w-full bg-[#00ff9f] text-black py-4 text-center font-bold rounded mb-4">Scale Influence ($47 Starter)</a>
-          <p class="text-center font-mono text-[10px] text-[#556070]">Moderate visibility found. Gumroad delivery ready.</p>
-        `;
+    function handleCapture() {
+      const email = document.getElementById("captureEmail").value.trim();
+      if (!email || !email.includes("@")) {
+        document.getElementById("captureEmail").focus();
+        return;
       }
+
+      // Save to localStorage
+      try {
+        const leads = JSON.parse(localStorage.getItem("progpt_leads") || "[]");
+        leads.push({ email, ts: new Date().toISOString(), source: "homepage" });
+        localStorage.setItem("progpt_leads", JSON.stringify(leads));
+      } catch(e) {}
+
+      // Show success
+      document.getElementById("captureEmail").style.display = "none";
+      document.querySelector(".capture-btn").style.display = "none";
+      document.getElementById("captureSuccess").style.display = "block";
+
+      // Redirect to audit after 1.5s
+      setTimeout(() => {
+        window.location.href = "/audit";
+      }, 1500);
+    }
+
+    document.getElementById("captureEmail").addEventListener("keydown", e => {
+      if (e.key === "Enter") handleCapture();
     });
   </script>
-</Layout>
+
+</body>
+</html>
