@@ -1,6 +1,8 @@
 ---
-const title = "ProGPT â€” Rank Inside ChatGPT & AI Search";
-const description = "We help local businesses appear inside AI-generated answers. Free AI visibility audit â€” see your score in 30 seconds.";
+// Astro logic for dynamic values
+const title = "ProGPT — Rank Inside ChatGPT & AI Search";
+const description = "We help local businesses appear inside AI-generated answers. Free AI visibility audit — see your score in 30 seconds.";
+const currentYear = new Date().getFullYear();
 ---
 
 <!DOCTYPE html>
@@ -10,1382 +12,246 @@ const description = "We help local businesses appear inside AI-generated answers
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
-  <link rel="canonical" href="https://progpt.store" />
+  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "ProGPT",
-    "url": "https://progpt.store",
-    "description": "AI search optimization and GEO services for local businesses",
-    "serviceType": "Generative Engine Optimization",
-    "areaServed": "United States"
-  }
-  </script>
-
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #f7f6f3;
-      --bg2: #f0efe9;
-      --bg3: #e8e7df;
+      /* Soft Notion-style palette */
+      --bg: #f7f6f3; 
+      --bg-hover: #efeee9;
       --border: #e8e8e3;
-      --border2: #d5d5ce;
       --ink: #1a1a18;
-      --ink2: #3d3d38;
-      --ink3: #6b6b63;
-      --ink4: #9c9c92;
-      --accent: #0a0a0a;
-      --blue: #2f54eb;
-      --blue-light: #e8eeff;
-      --blue-dim: rgba(47,84,235,0.08);
-      --green: #00875a;
-      --green-light: #e3fcef;
-      --red: #de350b;
-      --amber: #ff8b00;
+      --ink-muted: #6b6b63;
+      --accent: #2f54eb; /* Soft Blue */
+      --danger: #de350b;
       --font-serif: 'Instrument Serif', Georgia, serif;
-      --font-sans: 'Geist', system-ui, sans-serif;
-      --radius: 10px;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
-      --shadow-lg: 0 20px 60px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.05);
+      --font-sans: 'Geist', sans-serif;
     }
-
-    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
       color: var(--ink);
       font-family: var(--font-sans);
-      font-size: 15px;
       line-height: 1.6;
-      min-height: 100vh;
+      margin: 0;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* â”€â”€ NAV â”€â”€ */
+    /* Minimalist Notion-style Nav */
     nav {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: rgba(247,246,243,0.92);
-      backdrop-filter: blur(16px);
+      background: rgba(247, 246, 243, 0.8);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
-      padding: 0 1.5rem;
-      height: 56px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      padding: 0.75rem 1.5rem;
+      z-index: 100;
     }
 
-    .nav-left { display: flex; align-items: center; gap: 2rem; }
-
-    .nav-logo {
-      font-family: var(--font-sans);
+    .logo {
       font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--ink);
       text-decoration: none;
-      letter-spacing: -0.02em;
+      color: var(--ink);
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 8px;
     }
 
-    .logo-mark {
-      width: 22px; height: 22px;
+    .logo-box {
+      width: 24px;
+      height: 24px;
       background: var(--ink);
-      border-radius: 5px;
+      color: white;
+      border-radius: 4px;
       display: flex;
-      align-items: center;
       justify-content: center;
-      color: white;
-      font-size: 0.6rem;
-      font-weight: 800;
-      letter-spacing: -0.05em;
-    }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-      gap: 0.25rem;
-    }
-
-    .nav-links a {
-      color: var(--ink3);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      padding: 0.35rem 0.65rem;
-      border-radius: 6px;
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .nav-links a:hover { background: var(--bg2); color: var(--ink); }
-
-    .nav-right { display: flex; align-items: center; gap: 0.5rem; }
-
-    .nav-ghost {
-      color: var(--ink2);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      padding: 0.4rem 0.75rem;
-      border-radius: 6px;
-      transition: background 0.15s;
-    }
-
-    .nav-ghost:hover { background: var(--bg2); }
-
-    .nav-cta {
-      background: var(--ink);
-      color: white;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      padding: 0.4rem 0.9rem;
-      border-radius: 7px;
-      transition: opacity 0.15s;
-      white-space: nowrap;
-    }
-
-    .nav-cta:hover { opacity: 0.85; }
-
-    /* â”€â”€ HERO â”€â”€ */
-    .hero {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 6rem 2rem 4rem;
-      text-align: center;
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      background: var(--blue-light);
-      color: var(--blue);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      padding: 0.3rem 0.85rem;
-      border-radius: 20px;
-      margin-bottom: 1.75rem;
-      border: 1px solid rgba(47,84,235,0.15);
+      font-size: 12px;
     }
 
-    .eyebrow-dot {
-      width: 5px; height: 5px;
-      background: var(--blue);
-      border-radius: 50%;
-      animation: pulse 2.5s infinite;
+    /* Hero Section */
+    .hero {
+      max-width: 800px;
+      margin: 6rem auto 4rem;
+      text-align: center;
+      padding: 0 1.5rem;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(1.5); }
-    }
-
-    .hero h1 {
+    h1 {
       font-family: var(--font-serif);
-      font-size: clamp(2.8rem, 7vw, 4.8rem);
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
       font-weight: 400;
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      margin-bottom: 1.25rem;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
     }
 
-    .hero h1 em {
+    h1 em {
+      color: var(--ink-muted);
       font-style: italic;
-      color: var(--ink3);
-    }
-
-    .hero-desc {
-      font-size: 1.05rem;
-      color: var(--ink3);
-      max-width: 520px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.7;
-      font-weight: 400;
     }
 
     .hero-form {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      max-width: 400px;
-      margin: 0 auto 1rem;
-      background: var(--bg);
-      border: 1.5px solid var(--border2);
+      background: white;
+      border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 0.5rem;
-      box-shadow: var(--shadow-md);
-      transition: border-color 0.2s, box-shadow 0.2s;
+      padding: 6px;
+      display: flex;
+      max-width: 460px;
+      margin: 2rem auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
 
-    .hero-form:focus-within {
-      border-color: var(--ink);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .hero-input {
+    input {
       flex: 1;
       border: none;
+      padding: 12px 16px;
+      font-size: 16px;
       outline: none;
       background: transparent;
-      font-family: var(--font-sans);
-      font-size: 0.95rem;
-      color: var(--ink);
-      padding: 0.4rem 0.5rem;
     }
 
-    .hero-input::placeholder { color: var(--ink4); }
-
-    .hero-submit {
+    .btn-main {
       background: var(--ink);
       color: white;
       border: none;
+      padding: 12px 24px;
       border-radius: 8px;
-      padding: 0.75rem 1.2rem;
-      font-family: var(--font-sans);
-      font-size: 0.875rem;
       font-weight: 600;
       cursor: pointer;
-      white-space: nowrap;
-      transition: opacity 0.15s;
-      width: 100%;
+      transition: opacity 0.2s;
     }
 
-    .hero-submit:hover { opacity: 0.85; }
+    .btn-main:hover { opacity: 0.9; }
 
-    .hero-micro {
-      font-size: 0.78rem;
-      color: var(--ink4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-    }
-
-    .hero-micro span {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-
-    .hero-micro span::before {
-      content: '';
-      display: inline-block;
-      width: 4px; height: 4px;
-      background: var(--green);
-      border-radius: 50%;
-    }
-
-    /* â”€â”€ LOGO STRIP â”€â”€ */
-    .logo-strip {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: var(--bg2);
-      padding: 1.25rem 2rem;
-      text-align: center;
-    }
-
-    .logo-strip p {
-      font-size: 0.75rem;
-      color: var(--ink4);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-weight: 500;
-      margin-bottom: 1rem;
-    }
-
-    .ai-platforms {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .ai-platform {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--ink3);
-    }
-
-    .platform-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-    }
-
-    /* â”€â”€ SECTIONS â”€â”€ */
+    /* Grid & Panels */
     .section {
       max-width: 900px;
       margin: 0 auto;
-      padding: 5rem 2rem;
+      padding: 4rem 1.5rem;
     }
 
-    .section-tag {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 0.75rem;
-    }
-
-    .section-h {
-      font-family: var(--font-serif);
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 400;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      margin-bottom: 0.75rem;
-    }
-
-    .section-h em { font-style: italic; color: var(--ink3); }
-
-    .section-desc {
-      color: var(--ink3);
-      font-size: 0.95rem;
-      max-width: 500px;
-      line-height: 1.7;
-      margin-bottom: 3rem;
-    }
-
-    /* â”€â”€ PROBLEM SECTION â”€â”€ */
-    .problem-section {
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .problem-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
+    .panel-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    .problem-stats {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .stat-block { padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
-    .stat-block:last-child { border-bottom: none; padding-bottom: 0; }
-
-    .stat-num {
-      font-family: var(--font-serif);
-      font-size: 3rem;
-      font-weight: 400;
-      line-height: 1;
-      color: var(--ink);
-      margin-bottom: 0.25rem;
-    }
-
-    .stat-label {
-      font-size: 0.85rem;
-      color: var(--ink3);
-      line-height: 1.5;
-    }
-
-    /* â”€â”€ HOW IT WORKS â”€â”€ */
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1px;
       background: var(--border);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: 12px;
       overflow: hidden;
     }
 
-    .step-cell {
+    .panel {
       background: var(--bg);
-      padding: 2rem 1.5rem;
+      padding: 2rem;
       transition: background 0.2s;
     }
 
-    .step-cell:hover { background: var(--bg2); }
+    .panel:hover { background: var(--bg-hover); }
 
-    .step-index {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
+    .tag {
+      font-size: 11px;
+      font-weight: 700;
       text-transform: uppercase;
-      color: var(--ink4);
-      margin-bottom: 1rem;
-    }
-
-    .step-title {
-      font-family: var(--font-serif);
-      font-size: 1.3rem;
-      font-weight: 400;
-      margin-bottom: 0.6rem;
-      color: var(--ink);
-    }
-
-    .step-desc {
-      font-size: 0.85rem;
-      color: var(--ink3);
-      line-height: 1.6;
-    }
-
-    /* â”€â”€ CHECKS â”€â”€ */
-    .checks-table {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-
-    .check-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1rem 1.25rem;
-      border-bottom: 1px solid var(--border);
-      transition: background 0.15s;
-    }
-
-    .check-row:last-child { border-bottom: none; }
-    .check-row:hover { background: var(--bg2); }
-
-    .check-icon-wrap {
-      width: 28px; height: 28px;
-      border-radius: 7px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
-
-    .check-content { flex: 1; }
-
-    .check-name {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 0.2rem;
-    }
-
-    .check-desc-text {
-      font-size: 0.8rem;
-      color: var(--ink3);
-      line-height: 1.5;
-    }
-
-    .check-tag {
-      font-size: 0.68rem;
-      font-weight: 600;
       letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 0.2rem 0.55rem;
-      border-radius: 5px;
-      flex-shrink: 0;
-      margin-top: 0.15rem;
-    }
-
-    .tag-critical { background: #fff0ee; color: var(--red); }
-    .tag-high { background: #fff8e6; color: var(--amber); }
-    .tag-medium { background: var(--green-light); color: var(--green); }
-
-    /* â”€â”€ PRICING â”€â”€ */
-    .pricing-section {
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .pricing-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--border2);
-      border: 1px solid var(--border2);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .price-card {
-      background: var(--bg);
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .price-card.highlight {
-      background: var(--ink);
-    }
-
-    .price-card.highlight .price-name { color: rgba(255,255,255,0.5); }
-    .price-card.highlight .price-amount { color: white; }
-    .price-card.highlight .price-per { color: rgba(255,255,255,0.4); }
-    .price-card.highlight .price-tagline { color: rgba(255,255,255,0.6); }
-    .price-card.highlight .price-feat { color: rgba(255,255,255,0.7); }
-    .price-card.highlight .price-feat::before { color: rgba(255,255,255,0.4); }
-    .price-card.highlight .price-btn-out {
-      background: white;
-      color: var(--ink);
-    }
-
-    .popular-tag {
-      position: absolute;
-      top: -1px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--blue);
-      color: white;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.2rem 0.65rem;
-      border-radius: 0 0 6px 6px;
-    }
-
-    .price-name {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--ink4);
-      margin-bottom: 0.75rem;
-    }
-
-    .price-amount {
-      font-family: var(--font-serif);
-      font-size: 2.2rem;
-      font-weight: 400;
-      line-height: 1;
-      color: var(--ink);
-      margin-bottom: 0.2rem;
-    }
-
-    .price-amount sup {
-      font-size: 1rem;
-      vertical-align: super;
-      font-family: var(--font-sans);
-      font-weight: 500;
-    }
-
-    .price-per {
-      font-size: 0.75rem;
-      color: var(--ink4);
-      margin-bottom: 0.75rem;
-    }
-
-    .price-tagline {
-      font-size: 0.8rem;
-      color: var(--ink3);
-      margin-bottom: 1.25rem;
-      line-height: 1.5;
-      flex: 1;
-    }
-
-    .price-divider {
-      height: 1px;
-      background: var(--border);
-      margin-bottom: 1.25rem;
-    }
-
-    .price-card.highlight .price-divider { background: rgba(255,255,255,0.1); }
-
-    .price-feats { margin-bottom: 1.25rem; }
-
-    .price-feat {
-      font-size: 0.78rem;
-      color: var(--ink3);
-      margin-bottom: 0.35rem;
-      padding-left: 1rem;
-      position: relative;
-      line-height: 1.4;
-    }
-
-    .price-feat::before {
-      content: 'âœ“';
-      position: absolute;
-      left: 0;
-      color: var(--green);
-      font-weight: 700;
-      font-size: 0.72rem;
-    }
-
-    .price-btn-out {
+      color: var(--accent);
+      margin-bottom: 8px;
       display: block;
-      text-align: center;
-      padding: 0.65rem;
-      border-radius: 7px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.15s;
-      background: var(--ink);
-      color: white;
     }
 
-    .price-btn-out:hover { opacity: 0.85; }
-
-    .price-btn-ghost {
-      display: block;
-      text-align: center;
-      padding: 0.65rem;
-      border-radius: 7px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.15s;
-      border: 1px solid var(--border2);
-      color: var(--ink2);
-    }
-
-    .price-btn-ghost:hover { background: var(--bg2); border-color: var(--ink3); }
-
-    /* â”€â”€ TESTIMONIAL â”€â”€ */
-    .testimonial-section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-    }
-
-    .testimonial-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-
-    .testimonial-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.25rem;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .t-stars {
-      font-size: 0.72rem;
-      margin-bottom: 0.6rem;
-      letter-spacing: 2px;
-      color: var(--amber);
-    }
-
-    .t-stars::before { content: 'â˜… â˜… â˜… â˜… â˜…'; }
-
-    .t-quote {
-      font-size: 0.875rem;
-      color: var(--ink2);
-      line-height: 1.6;
-      margin-bottom: 1rem;
-      font-style: italic;
-    }
-
-    .t-author {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .t-avatar {
-      width: 30px; height: 30px;
-      border-radius: 50%;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--ink3);
-    }
-
-    .t-name {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--ink);
-    }
-
-    .t-role { font-size: 0.72rem; color: var(--ink4); }
-
-    /* â”€â”€ FAQ â”€â”€ */
-    .faq-section {
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-    }
-
-    .faq-inner {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-    }
-
-    .faq-list { margin-top: 2rem; }
-
+    /* FAQ */
     .faq-item {
       border-bottom: 1px solid var(--border);
-    }
-
-    .faq-q {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       padding: 1rem 0;
       cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--ink);
-      user-select: none;
-      transition: color 0.15s;
-      gap: 1rem;
     }
 
-    .faq-q:hover { color: var(--ink2); }
-
-    .faq-chevron {
-      color: var(--ink4);
-      font-size: 0.75rem;
-      transition: transform 0.2s;
-      flex-shrink: 0;
-    }
-
-    .faq-item.open .faq-chevron { transform: rotate(180deg); }
-
-    .faq-a {
-      display: none;
-      padding-bottom: 1rem;
-      font-size: 0.875rem;
-      color: var(--ink3);
-      line-height: 1.7;
-    }
-
+    .faq-a { display: none; padding-top: 8px; color: var(--ink-muted); font-size: 14px; }
     .faq-item.open .faq-a { display: block; }
 
-    /* â”€â”€ CTA SECTION â”€â”€ */
-    .cta-section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 5rem 2rem 6rem;
-      text-align: center;
-    }
-
-    .cta-box {
-      background: var(--ink);
-      border-radius: 16px;
-      padding: 4rem 3rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-box::before {
-      content: '';
-      position: absolute;
-      top: -60%;
-      left: -10%;
-      width: 60%;
-      height: 120%;
-      background: radial-gradient(ellipse, rgba(255,255,255,0.04) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .cta-box::after {
-      content: '';
-      position: absolute;
-      bottom: -60%;
-      right: -10%;
-      width: 60%;
-      height: 120%;
-      background: radial-gradient(ellipse, rgba(47,84,235,0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .cta-box h2 {
-      font-family: var(--font-serif);
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 400;
-      color: white;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta-box h2 em { font-style: italic; color: rgba(255,255,255,0.55); }
-
-    .cta-box p {
-      color: rgba(255,255,255,0.55);
-      font-size: 0.95rem;
-      margin-bottom: 2rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta-form {
-      display: flex;
-      gap: 0.5rem;
-      max-width: 380px;
-      margin: 0 auto 0.75rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta-input {
-      flex: 1;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 8px;
-      padding: 0.7rem 1rem;
-      color: white;
-      font-family: var(--font-sans);
-      font-size: 0.875rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .cta-input::placeholder { color: rgba(255,255,255,0.3); }
-    .cta-input:focus { border-color: rgba(255,255,255,0.4); }
-
-    .cta-btn {
-      background: white;
-      color: var(--ink);
-      border: none;
-      border-radius: 8px;
-      padding: 0.7rem 1.25rem;
-      font-family: var(--font-sans);
-      font-size: 0.875rem;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: opacity 0.15s;
-    }
-
-    .cta-btn:hover { opacity: 0.88; }
-
-    .cta-micro {
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.3);
-      position: relative;
-      z-index: 1;
-    }
-
-    #ctaSuccess {
-      display: none;
-      color: rgba(255,255,255,0.8);
-      font-size: 0.9rem;
-      font-weight: 500;
-      padding: 0.75rem;
-      background: rgba(255,255,255,0.08);
-      border-radius: 8px;
-      max-width: 300px;
-      margin: 0 auto;
-    }
-
-    /* â”€â”€ FOOTER â”€â”€ */
     footer {
       border-top: 1px solid var(--border);
-      background: var(--bg2);
-      padding: 2rem;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      font-size: 13px;
+      color: var(--ink-muted);
     }
 
-    .footer-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .footer-logo {
-      font-weight: 700;
-      font-size: 0.875rem;
-      color: var(--ink);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      font-size: 0.8rem;
-      color: var(--ink4);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-
-    .footer-links a:hover { color: var(--ink); }
-
-    .footer-copy {
-      font-size: 0.75rem;
-      color: var(--ink4);
-    }
-
-    /* â”€â”€ ANIMATIONS â”€â”€ */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero-eyebrow { animation: fadeUp 0.5s ease both; }
-    .hero h1 { animation: fadeUp 0.5s ease 0.08s both; }
-    .hero-desc { animation: fadeUp 0.5s ease 0.15s both; }
-    .hero-form { animation: fadeUp 0.5s ease 0.22s both; }
-    .hero-micro { animation: fadeUp 0.5s ease 0.28s both; }
-
-    /* â”€â”€ RESPONSIVE â”€â”€ */
-    @media (max-width: 720px) {
-      .problem-inner { grid-template-columns: 1fr; gap: 2rem; }
-      .steps-grid { grid-template-columns: 1fr; }
-      .pricing-grid { grid-template-columns: 1fr 1fr; }
-      .testimonial-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      .cta-form { flex-direction: column; }
-      .cta-btn { width: 100%; }
-    }
-
-    @media (max-width: 480px) {
-      .pricing-grid { grid-template-columns: 1fr; }
-      .hero-form { flex-direction: column; border-radius: 10px; padding: 0.5rem; }
-      .hero-submit { width: 100%; }
+    @media (max-width: 600px) {
+      .hero-form { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <div class="nav-left">
-      <a href="/" class="nav-logo">
-        <div class="logo-mark">P</div>
-        ProGPT
-      </a>
-      <ul class="nav-links">
-        <li><a href="/#how-it-works">How it works</a></li>
-        <li><a href="/#pricing">Pricing</a></li>
-        <li><a href="/blog">Blog</a></li>
-        <li><a href="/dashboard">Dashboard</a></li>
-      </ul>
-    </div>
-    <div class="nav-right">
-      <a href="/audit" class="nav-ghost">Free audit</a>
-      <a href="https://whop.com/progpt" target="_blank" class="nav-cta">Get ranked â†’</a>
-    </div>
-  </nav>
+<nav>
+  <a href="/" class="logo">
+    <div class="logo-box">P</div> ProGPT
+  </a>
+  <div style="display: flex; gap: 1rem; align-items: center;">
+    <a href="#pricing" style="text-decoration: none; color: var(--ink-muted); font-size: 14px;">Pricing</a>
+    <a href="https://whop.com/progpt" style="background: var(--ink); color: white; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 600;">Get Started</a>
+  </div>
+</nav>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-eyebrow">
-      <div class="eyebrow-dot"></div>
-      AI is replacing search â€” are you visible?
+<div class="hero">
+  <div style="font-size: 12px; color: var(--accent); font-weight: 700; margin-bottom: 1rem; text-transform: uppercase;">
+    AI Search is replacing links — Are you visible?
+  </div>
+  <h1>Your brand, inside every <em>AI answer</em></h1>
+  <p style="color: var(--ink-muted); font-size: 18px; max-width: 500px; margin: 0 auto;">
+    Don't get left behind on page two of Google. ProGPT gets local businesses into AI recommendations.
+  </p>
+  
+  <div class="hero-form">
+    <input type="text" id="siteUrl" placeholder="yourwebsite.com" />
+    <button class="btn-main" onclick="handleAudit()">Check Visibility —></button>
+  </div>
+</div>
+
+<div class="section" id="pricing">
+  <span class="tag">Transparency</span>
+  <h2 style="font-family: var(--font-serif); font-size: 2.5rem; margin-top: 0;">Simple Pricing</h2>
+  
+  <div class="panel-grid">
+    <div class="panel">
+      <div class="tag">Free</div>
+      <h3 style="font-size: 24px; margin: 0.5rem 0;">AI Audit</h3>
+      <p style="color: var(--ink-muted); font-size: 14px;">Instant visibility score based on 6 critical signals.</p>
+      <a href="/audit" style="color: var(--ink); font-weight: 700; text-decoration: none; font-size: 14px;">Run Audit →</a>
     </div>
-    <h1>Your brand,<br>inside every<br><em>AI answer</em></h1>
-    <p class="hero-desc">
-      People are no longer clicking links. They're asking AI.
-      ProGPT gets local businesses into those AI-generated recommendations.
-    </p>
-    <div class="hero-form">
-      <input
-        class="hero-input"
-        id="heroUrl"
-        type="text"
-        placeholder="yourwebsite.com"
-        autocomplete="off"
-        spellcheck="false"
-      />
-      <button class="hero-submit" onclick="heroSubmit()">Check visibility â†’</button>
-    </div>
-    <div class="hero-micro">
-      <span>Free, no signup</span>
-      <span>Results in 30 seconds</span>
-      <span>Real AI analysis</span>
+    <div class="panel" style="background: white;">
+      <div class="tag">Popular</div>
+      <h3 style="font-size: 24px; margin: 0.5rem 0;">GEO Starter</h3>
+      <p style="color: var(--ink-muted); font-size: 14px;">Full audit + Schema markup + FAQ optimization code.</p>
+      <div style="font-size: 20px; font-weight: 700; margin: 1rem 0;">$97</div>
+      <a href="https://whop.com/progpt" style="background: var(--ink); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; display: block; text-align: center; font-size: 14px;">Buy Now</a>
     </div>
   </div>
+</div>
 
-  <!-- PLATFORM STRIP -->
-  <div class="logo-strip">
-    <p>Audits your visibility across</p>
-    <div class="ai-platforms">
-      <div class="ai-platform">
-        <div class="platform-dot" style="background:#10a37f"></div>
-        ChatGPT
-      </div>
-      <div class="ai-platform">
-        <div class="platform-dot" style="background:#5436da"></div>
-        Perplexity
-      </div>
-      <div class="ai-platform">
-        <div class="platform-dot" style="background:#4285f4"></div>
-        Google AI
-      </div>
-      <div class="ai-platform">
-        <div class="platform-dot" style="background:#0078d4"></div>
-        Bing Copilot
-      </div>
-      <div class="ai-platform">
-        <div class="platform-dot" style="background:#ff6640"></div>
-        Claude
-      </div>
-    </div>
-  </div>
+<footer>
+  &copy; {currentYear} ProGPT — Helping businesses lead in the AI era.
+</footer>
 
-  <!-- PROBLEM -->
-  <div class="problem-section">
-    <div class="problem-inner">
-      <div>
-        <div class="section-tag">The shift</div>
-        <h2 class="section-h">Search is changing.<br><em>Most businesses aren't.</em></h2>
-        <p class="section-desc">
-          When someone asks ChatGPT for the best dentist, restaurant, or lawyer near them, AI picks one answer. There is no page two. If you're not in that answer, a competitor is.
-        </p>
-        <a href="/audit" class="price-btn-out" style="display:inline-block; padding: 0.65rem 1.25rem; font-size: 0.85rem;">
-          Check your visibility â†’
-        </a>
-      </div>
-      <div class="problem-stats">
-        <div class="stat-block">
-          <div class="stat-num">90%</div>
-          <div class="stat-label">of local businesses are invisible in AI-generated recommendations, even with strong Google rankings.</div>
-        </div>
-        <div class="stat-block">
-          <div class="stat-num">1B+</div>
-          <div class="stat-label">monthly active users across ChatGPT, Perplexity, and Google AI asking for local recommendations.</div>
-        </div>
-        <div class="stat-block">
-          <div class="stat-num">4&ndash;8 wk</div>
-          <div class="stat-label">typical time to see AI visibility improvements after GEO optimization is implemented.</div>
-        </div>
-      </div>
-    </div>
-  </div>
+<script is:inline>
+  function handleAudit() {
+    const url = document.getElementById('siteUrl').value.trim();
+    if (!url) return;
+    const cleanUrl = url.replace(/^https?:\/\//, "");
+    window.location.href = `/audit?url=${encodeURIComponent(cleanUrl)}`;
+  }
 
-  <!-- HOW IT WORKS -->
-  <section class="section" id="how-it-works">
-    <div class="section-tag">Process</div>
-    <h2 class="section-h">Three steps to<br><em>AI visibility</em></h2>
-    <p class="section-desc">From invisible to recommended, without rebuilding your entire website.</p>
-
-    <div class="steps-grid">
-      <div class="step-cell">
-        <div class="step-index">01 â€” ANALYZE</div>
-        <div class="step-title">We audit your AI signals</div>
-        <p class="step-desc">Our engine fetches your site and checks every signal AI systems use to decide who to recommend: schema markup, content structure, local targeting, FAQ presence, and citation footprint.</p>
-      </div>
-      <div class="step-cell">
-        <div class="step-index">02 â€” OPTIMIZE</div>
-        <div class="step-title">We write the fixes</div>
-        <p class="step-desc">Schema code, FAQ content, local signal corrections. Everything ready to implement. No developer required for most fixes. We give you the exact assets, not a generic checklist.</p>
-      </div>
-      <div class="step-cell">
-        <div class="step-index">03 â€” RANK</div>
-        <div class="step-title">Your brand appears in AI answers</div>
-        <p class="step-desc">ChatGPT, Perplexity, and Google AI start recommending your business when customers ask. Every AI interaction that recommends you compounds your authority.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHAT WE CHECK -->
-  <section class="section" style="padding-top: 0">
-    <div class="section-tag">The audit</div>
-    <h2 class="section-h">Six signals that determine<br><em>AI recommendation</em></h2>
-    <p class="section-desc">Most businesses fail on three or more. All are fixable.</p>
-
-    <div class="checks-table">
-      <div class="check-row">
-        <div class="check-icon-wrap">ðŸ—‚ï¸</div>
-        <div class="check-content">
-          <div class="check-name">Schema Markup</div>
-          <div class="check-desc-text">Structured data telling AI systems your business type, location, hours, and services. Missing on 85% of local business websites.</div>
-        </div>
-        <span class="check-tag tag-critical">Critical</span>
-      </div>
-      <div class="check-row">
-        <div class="check-icon-wrap">ðŸ“</div>
-        <div class="check-content">
-          <div class="check-name">Content Clarity</div>
-          <div class="check-desc-text">How clearly your homepage communicates what you do, who you serve, and where you operate, in a format AI systems can parse.</div>
-        </div>
-        <span class="check-tag tag-critical">Critical</span>
-      </div>
-      <div class="check-row">
-        <div class="check-icon-wrap">â“</div>
-        <div class="check-content">
-          <div class="check-name">FAQ Content</div>
-          <div class="check-desc-text">Whether you answer the questions your customers ask AI. These are the exact phrases that trigger citation eligibility in AI recommendations.</div>
-        </div>
-        <span class="check-tag tag-high">High</span>
-      </div>
-      <div class="check-row">
-        <div class="check-icon-wrap">ðŸ“</div>
-        <div class="check-content">
-          <div class="check-name">Local Signals</div>
-          <div class="check-desc-text">City, neighborhood, and region targeting signals that make your business appear in geo-specific AI recommendations.</div>
-        </div>
-        <span class="check-tag tag-high">High</span>
-      </div>
-      <div class="check-row">
-        <div class="check-icon-wrap">ðŸ”—</div>
-        <div class="check-content">
-          <div class="check-name">AI Citation Footprint</div>
-          <div class="check-desc-text">Your presence in the directories, publications, and data sources that AI systems use to build trusted recommendation pools.</div>
-        </div>
-        <span class="check-tag tag-medium">Medium</span>
-      </div>
-      <div class="check-row">
-        <div class="check-icon-wrap">ðŸ“‹</div>
-        <div class="check-content">
-          <div class="check-name">NAP Consistency</div>
-          <div class="check-desc-text">Name, address, phone number consistency across all directories. Inconsistencies are a trust signal failure that blocks AI recommendations.</div>
-        </div>
-        <span class="check-tag tag-medium">Medium</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING -->
-  <div class="pricing-section" id="pricing">
-    <div class="pricing-inner">
-      <div class="section-tag">Pricing</div>
-      <h2 class="section-h" style="margin-bottom:0.5rem">Simple, transparent pricing</h2>
-      <p class="section-desc">Start free. Pay only when you're ready to fix it.</p>
-
-      <div class="pricing-grid">
-        <div class="price-card">
-          <div class="price-name">Free Audit</div>
-          <div class="price-amount"><sup>$</sup>0</div>
-          <div class="price-per">forever free</div>
-          <div class="price-tagline">Your AI visibility score in 30 seconds. No account required.</div>
-          <div class="price-divider"></div>
-          <div class="price-feats">
-            <div class="price-feat">AI Visibility Score</div>
-            <div class="price-feat">6-point check</div>
-            <div class="price-feat">Top 3 issues</div>
-            <div class="price-feat">Quick wins list</div>
-          </div>
-          <a href="/audit" class="price-btn-ghost">Run free audit</a>
-        </div>
-
-        <div class="price-card">
-          <div class="price-name">Instant Report</div>
-          <div class="price-amount"><sup>$</sup>19</div>
-          <div class="price-per">one-time</div>
-          <div class="price-tagline">Full written audit delivered to your email within 24 hours.</div>
-          <div class="price-divider"></div>
-          <div class="price-feats">
-            <div class="price-feat">Full written analysis</div>
-            <div class="price-feat">Schema code snippet</div>
-            <div class="price-feat">3 FAQ suggestions</div>
-            <div class="price-feat">Directory checklist</div>
-          </div>
-          <a href="https://gumroad.com/l/progpt" target="_blank" class="price-btn-out">Get report</a>
-        </div>
-
-        <div class="price-card highlight">
-          <div class="popular-tag">Most popular</div>
-          <div class="price-name">GEO Starter</div>
-          <div class="price-amount"><sup>$</sup>97</div>
-          <div class="price-per">one-time</div>
-          <div class="price-tagline">Audit + ready-to-implement fixes. No developer needed.</div>
-          <div class="price-divider"></div>
-          <div class="price-feats">
-            <div class="price-feat">Full audit report</div>
-            <div class="price-feat">Schema markup written</div>
-            <div class="price-feat">5 FAQs written</div>
-            <div class="price-feat">30-day roadmap</div>
-            <div class="price-feat">1 async Q&A</div>
-          </div>
-          <a href="https://whop.com/progpt" target="_blank" class="price-btn-out">Get GEO Starter</a>
-        </div>
-
-        <div class="price-card">
-          <div class="price-name">GEO Pro</div>
-          <div class="price-amount"><sup>$</sup>297</div>
-          <div class="price-per">one-time</div>
-          <div class="price-tagline">Done-with-you. Call included, competitor analysis, full implementation guide.</div>
-          <div class="price-divider"></div>
-          <div class="price-feats">
-            <div class="price-feat">Everything in Starter</div>
-            <div class="price-feat">45-min Zoom call</div>
-            <div class="price-feat">Competitor comparison</div>
-            <div class="price-feat">10 FAQs written</div>
-            <div class="price-feat">90-day checklist</div>
-          </div>
-          <a href="https://whop.com/progpt" target="_blank" class="price-btn-ghost">Get GEO Pro</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TESTIMONIALS -->
-  <div class="testimonial-section">
-    <div class="section-tag">Social proof</div>
-    <h2 class="section-h" style="margin-bottom:2rem">What clients say</h2>
-    <div class="testimonial-grid">
-      <div class="testimonial-card">
-        <div class="t-stars"></div>
-        <p class="t-quote">"Within 6 weeks of implementing the schema fixes, our dental practice started appearing when people asked ChatGPT for dentists in our neighborhood. We've had 4 new patients mention they found us through AI."</p>
-        <div class="t-author">
-          <div class="t-avatar">MR</div>
-          <div>
-            <div class="t-name">Dr. M. Rodriguez</div>
-            <div class="t-role">Family Dentist &middot; Dallas, TX</div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card">
-        <div class="t-stars"></div>
-        <p class="t-quote">"I had no idea ChatGPT wasn't recommending my restaurant. The audit found three simple fixes &mdash; we implemented them in a weekend and now we appear in 'best brunch in Wicker Park' results."</p>
-        <div class="t-author">
-          <div class="t-avatar">JK</div>
-          <div>
-            <div class="t-name">Jamie K.</div>
-            <div class="t-role">Restaurant Owner &middot; Chicago, IL</div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card">
-        <div class="t-stars"></div>
-        <p class="t-quote">"As a personal injury attorney in Miami, appearing in AI recommendations is now essential. ProGPT found gaps I didn't know existed. The schema they wrote took 20 minutes to implement."</p>
-        <div class="t-author">
-          <div class="t-avatar">AL</div>
-          <div>
-            <div class="t-name">A. Lawson, Esq.</div>
-            <div class="t-role">Attorney &middot; Miami, FL</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FAQ -->
-  <div class="faq-section">
-    <div class="faq-inner">
-      <div class="section-tag">FAQ</div>
-      <h2 class="section-h">Common questions</h2>
-      <div class="faq-list" id="faqList"></div>
-    </div>
-  </div>
-
-  <!-- CTA -->
-  <div class="cta-section">
-    <div class="cta-box">
-      <h2>Get your brand<br>inside <em>AI answers</em></h2>
-      <p>Free audit takes 30 seconds. No account, no credit card.</p>
-      <div class="cta-form">
-        <input class="cta-input" id="ctaEmail" type="email" placeholder="your@email.com" />
-        <button class="cta-btn" onclick="ctaSubmit()">Get free audit â†’</button>
-      </div>
-      <div id="ctaSuccess">Redirecting to your free audit...</div>
-      <p class="cta-micro">No spam Â· Unsubscribe anytime</p>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <a href="/" class="footer-logo">
-        <div class="logo-mark">P</div>
-        ProGPT
-      </a>
-      <div class="footer-links">
-        <a href="/audit">Free Audit</a>
-        <a href="/blog">Blog</a>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/#pricing">Pricing</a>
-        <a href="https://whop.com/progpt" target="_blank">Whop</a>
-        <a href="https://gumroad.com/l/progpt" target="_blank">Gumroad</a>
-      </div>
-      <div class="footer-copy">&copy; {new Date().getFullYear()} ProGPT &middot; progpt.store</div>
-    </div>
-  </footer>
-
-  <script>
-    // â”€â”€ FAQ DATA â”€â”€
-    const faqs = [
-      ["What is GEO and how is it different from SEO?", "GEO (Generative Engine Optimization) optimizes your business to appear in AI-generated answers from ChatGPT, Perplexity, and Google AI. Traditional SEO optimizes for search engine rankings and blue links. These are different systems with different signals. A business can rank #1 on Google and be invisible in AI answers."],
-      ["How does the free audit work?", "You enter your website URL. Our system fetches your site content and runs it through an AI analysis engine that checks the six key signals determining AI visibility. You get a scored report with your specific issues and quick wins in about 30 seconds."],
-      ["How long until I see results after implementing fixes?", "Most AI systems update their recommendation patterns within 4 to 8 weeks of structural changes going live. Schema markup fixes can show impact on the faster end. Content and FAQ changes typically take closer to 6 to 8 weeks."],
-      ["Do I need a developer to implement the fixes?", "For the GEO Starter package, no. We write the schema code as a copy-paste snippet for your website header. Most website builders (Squarespace, Wix, WordPress, Webflow) have a custom code field where you paste it. FAQ content and NAP corrections are DIY-friendly."],
-      ["What types of businesses benefit most from GEO?", "Local service businesses with geographic intent searches see the highest ROI: restaurants, dental practices, law firms, contractors, real estate agents, medical practices, gyms, and salons. Any business where customers search for 'near me' or '[service] in [city]' queries."],
-      ["Can I check a competitor's AI visibility?", "Yes. The audit engine works on any public website. Many clients audit 2 to 3 competitors to benchmark their own visibility gaps against what is already ranking in AI answers."],
-    ];
-
-    const faqList = document.getElementById("faqList");
-    faqs.forEach(([q, a]) => {
-      const item = document.createElement("div");
-      item.className = "faq-item";
-      item.innerHTML = `
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          <span>${q}</span>
-          <span class="faq-chevron">â–¾</span>
-        </div>
-        <div class="faq-a">${a}</div>
-      `;
-      faqList.appendChild(item);
+  // FAQ Toggle Logic
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('open');
     });
-
-    // â”€â”€ HERO SUBMIT â”€â”€
-    function heroSubmit() {
-      const url = document.getElementById("heroUrl").value.trim();
-      if (!url) { document.getElementById("heroUrl").focus(); return; }
-      const clean = url.replace(/^https?:\/\//, "");
-      window.location.href = "/audit?url=" + encodeURIComponent(clean);
-    }
-
-    document.getElementById("heroUrl").addEventListener("keydown", e => {
-      if (e.key === "Enter") heroSubmit();
-    });
-
-    // â”€â”€ CTA SUBMIT â”€â”€
-    function ctaSubmit() {
-      const email = document.getElementById("ctaEmail").value.trim();
-      if (!email || !email.includes("@")) { document.getElementById("ctaEmail").focus(); return; }
-      try {
-        const leads = JSON.parse(localStorage.getItem("progpt_leads") || "[]");
-        leads.push({ email, ts: new Date().toISOString(), source: "homepage-cta" });
-        localStorage.setItem("progpt_leads", JSON.stringify(leads));
-      } catch(e) {}
-      document.querySelector(".cta-form").style.display = "none";
-      document.getElementById("ctaSuccess").style.display = "block";
-      setTimeout(() => window.location.href = "/audit", 1500);
-    }
-
-    document.getElementById("ctaEmail").addEventListener("keydown", e => {
-      if (e.key === "Enter") ctaSubmit();
-    });
-  </script>
+  });
+</script>
 
 </body>
 </html>
