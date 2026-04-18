@@ -1,5 +1,6 @@
 ---
 const title = "ProGPT — AI Visibility Audit";
+const description = "Check if AI recommends your business.";
 ---
 
 <html lang="en">
@@ -7,6 +8,7 @@ const title = "ProGPT — AI Visibility Audit";
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>{title}</title>
+<meta name="description" content={description} />
 
 <style>
 body {
@@ -157,10 +159,43 @@ h1 {
   line-height: 1.6;
 }
 
+/* BUY */
+.buy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.buy-card {
+  padding: 16px;
+  background: #0f0f0f;
+  border: 1px solid #222;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+}
+
+.buy-card.main {
+  grid-column: span 2;
+  border: 1px solid #7C3AED;
+}
+
+.buy-title {
+  font-weight: bold;
+}
+
+.buy-desc {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+/* FOOTER */
 footer {
   margin-top: 60px;
   color: #444;
   font-size: 0.8rem;
+  text-align: center;
 }
 </style>
 </head>
@@ -169,11 +204,9 @@ footer {
 
 <div class="container">
 
+<!-- HERO -->
 <h1>Check if AI recommends your business</h1>
-
-<p class="sub">
-If you're not in AI answers, you don't exist.
-</p>
+<p class="sub">If you're not in AI answers, you don't exist.</p>
 
 <div class="audit-box">
   <input id="siteInput" placeholder="Enter your website..." />
@@ -194,7 +227,7 @@ If you're not in AI answers, you don't exist.
 
   <!-- LEAD FORM -->
   <div id="leadForm" class="lead-form">
-    <input id="name" placeholder="Your name" />
+    <input placeholder="Your name" />
     <input id="email" placeholder="Your email" />
     <button onclick="submitLead()">Get full report</button>
   </div>
@@ -205,15 +238,70 @@ If you're not in AI answers, you don't exist.
   </a>
 </div>
 
+<!-- BIG FORM -->
+<section class="section">
+<h2>Get your full AI audit</h2>
+<p>We analyze your business and show exactly why AI is not recommending you.</p>
+
+<div class="lead-form" style="display:block;">
+  <input placeholder="Website" />
+  <input placeholder="Your name" />
+  <input placeholder="Email" />
+  <button>Get full audit →</button>
+</div>
+</section>
+
 <!-- STORY -->
-<div class="section">
+<section class="section">
 <h2>The shift</h2>
 <p>
-Search is no longer pages.  
-AI picks a few businesses and ignores the rest.  
+Search is no longer pages. AI selects a few businesses and ignores the rest.
 Most are invisible.
 </p>
+</section>
+
+<!-- BUY -->
+<section class="section">
+<h2>Fix your visibility</h2>
+<p>Choose how you want to work with us.</p>
+
+<div class="buy-grid">
+
+<a href="https://your-lemonsqueezy-link.com" class="buy-card main">
+<div class="buy-title">Direct (Recommended)</div>
+<div class="buy-desc">Fastest access</div>
+</a>
+
+<a href="https://whop.com/your-link" class="buy-card">
+<div class="buy-title">Whop</div>
+<div class="buy-desc">Community access</div>
+</a>
+
+<a href="https://gumroad.com/your-link" class="buy-card">
+<div class="buy-title">Gumroad</div>
+<div class="buy-desc">Simple checkout</div>
+</a>
+
+<a href="https://fiverr.com/your-link" class="buy-card">
+<div class="buy-title">Fiverr</div>
+<div class="buy-desc">Marketplace</div>
+</a>
+
 </div>
+</section>
+
+<!-- FINAL CLOSE -->
+<section class="section">
+<h2>You are either recommended… or invisible</h2>
+<p>
+AI doesn’t show 10 results. It shows a few.
+If you're not there, you're not chosen.
+</p>
+
+<a href="https://your-lemonsqueezy-link.com" class="cta">
+Fix my visibility →
+</a>
+</section>
 
 <footer>
 progpt.store — AI Search Optimization
@@ -222,36 +310,29 @@ progpt.store — AI Search Optimization
 </div>
 
 <script>
-
 function startAudit() {
   const site = document.getElementById("siteInput").value;
   if (!site) return;
 
   const status = document.getElementById("status");
 
-  status.innerText = "Scanning website...";
+  status.innerText = "Scanning...";
   
   setTimeout(() => {
-    status.innerText = "Analyzing AI signals...";
+    status.innerText = "Analyzing...";
   }, 800);
-
-  setTimeout(() => {
-    status.innerText = "Generating report...";
-  }, 1600);
 
   setTimeout(() => {
     status.innerText = "";
     document.getElementById("result").style.display = "block";
     document.getElementById("leadForm").style.display = "block";
-  }, 2400);
+  }, 1600);
 }
 
 function submitLead() {
   const email = document.getElementById("email").value;
-
   if (!email) return;
 
-  // store locally (replace later with API)
   let leads = JSON.parse(localStorage.getItem("leads") || "[]");
   leads.push({ email, ts: new Date().toISOString() });
   localStorage.setItem("leads", JSON.stringify(leads));
@@ -259,7 +340,6 @@ function submitLead() {
   document.getElementById("leadForm").style.display = "none";
   document.getElementById("paidCTA").style.display = "block";
 }
-
 </script>
 
 </body>
