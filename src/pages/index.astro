@@ -1,7 +1,6 @@
 ---
 // Meta
 const title = "AI Visibility Engine";
-const description = "Check if AI is choosing your competitors.";
 const year = new Date().getFullYear();
 ---
 
@@ -21,7 +20,6 @@ const year = new Date().getFullYear();
   --border:#e8e8e3;
   --ink:#1a1a18;
   --muted:#6b6b63;
-  --accent:#2f54eb;
   --danger:#de350b;
 }
 
@@ -41,18 +39,12 @@ nav{
 }
 
 .logo{font-weight:700}
-
-.nav a{
-  margin-left:16px;
-  text-decoration:none;
-  color:var(--muted);
-  font-size:14px;
-}
+.nav a{margin-left:16px;text-decoration:none;color:var(--muted);font-size:14px}
 
 /* HERO */
 .hero{
-  max-width:720px;
-  margin:80px auto 30px;
+  max-width:680px;
+  margin:70px auto 20px;
   text-align:center;
   padding:0 20px;
 }
@@ -70,13 +62,21 @@ h1{
   font-size:18px;
 }
 
+/* TENSION LINE */
+.tension{
+  font-size:13px;
+  color:#8a8a82;
+  margin-top:10px;
+}
+
 /* MACHINE */
 .machine{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:14px;
-  padding:16px;
+  border-radius:18px;
+  padding:20px;
   margin-top:28px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.04);
 }
 
 .input-wrap{
@@ -86,20 +86,27 @@ h1{
 
 input{
   flex:1;
-  padding:14px;
-  border-radius:10px;
+  padding:16px;
+  border-radius:12px;
   border:1px solid var(--border);
   font-size:16px;
+  background:#fafafa;
+  font-weight:500;
 }
 
 button{
+  min-width:130px;
   background:var(--ink);
   color:white;
   border:none;
-  padding:14px 18px;
-  border-radius:10px;
+  padding:16px;
+  border-radius:12px;
+  font-weight:700;
   cursor:pointer;
+  transition:transform 0.1s;
 }
+
+button:active{transform:scale(0.97)}
 
 .status{
   font-size:12px;
@@ -108,14 +115,22 @@ button{
   font-family:monospace;
 }
 
+/* MICRO FEAR */
+.micro{
+  font-size:12px;
+  color:#9a9a92;
+  margin-top:6px;
+}
+
 /* SCAN */
 #scan,#result,#emailGate,#paywall{display:none;}
 
 .bar-bg{
-  height:3px;
+  height:4px;
   background:#eee;
-  margin-top:10px;
+  margin-top:12px;
   border-radius:10px;
+  overflow:hidden;
 }
 
 .bar{
@@ -126,34 +141,45 @@ button{
 
 /* RESULT */
 .output{
-  margin-top:16px;
-  padding:14px;
+  margin-top:18px;
+  padding:16px;
   background:#fafafa;
-  border-radius:10px;
+  border-radius:12px;
   border:1px solid var(--border);
+}
+
+.score{
+  font-size:26px;
+  font-weight:700;
 }
 
 .danger{
   color:var(--danger);
   font-weight:600;
+  margin-top:4px;
 }
 
-/* LIST */
 ul{
   padding-left:18px;
   color:var(--danger);
+  margin-top:10px;
+}
+
+/* EMAIL */
+.email{
+  margin-top:12px;
 }
 
 /* CTA */
 .cta{
   text-align:center;
-  margin-top:20px;
+  margin-top:16px;
 }
 
 .cta a{
   display:inline-block;
   margin:6px;
-  padding:10px 16px;
+  padding:12px 18px;
   border-radius:8px;
   text-decoration:none;
   font-size:14px;
@@ -162,6 +188,7 @@ ul{
 .primary{background:var(--ink);color:white;}
 .secondary{border:1px solid var(--border);color:var(--ink);}
 
+/* FOOTER */
 footer{
   text-align:center;
   font-size:12px;
@@ -185,35 +212,36 @@ footer{
   <h1>AI is already choosing your competitors.</h1>
   <p class="sub">Check if your business exists in AI answers.</p>
 
+  <div class="tension">
+    AI answers replace search in high-intent queries
+  </div>
+
   <div class="machine">
 
     <div id="inputBox" class="input-wrap">
       <input id="url" placeholder="yourwebsite.com">
-      <button onclick="run()">Reveal →</button>
+      <button onclick="run()">Check visibility →</button>
     </div>
 
     <div id="status" class="status">
-      AI index active • competitors already ranking
+      AI index active • competitor selection ongoing
     </div>
 
-    <div style="font-size:11px;color:#999;margin-top:6px;">
-      Most businesses score below 3/10
+    <div class="micro">
+      Most businesses are invisible to AI
     </div>
 
+    <!-- SCAN -->
     <div id="scan">
       <div class="bar-bg"><div id="bar" class="bar"></div></div>
     </div>
 
     <!-- RESULT -->
     <div id="result" class="output">
-      <strong>Visibility Score:</strong>
-      <div style="font-size:24px;margin:6px 0;">
-        <span id="score"></span>/10
-      </div>
-
+      <div class="score"><span id="score"></span>/10</div>
       <div class="danger">Not recommended in AI answers</div>
 
-      <div style="margin-top:12px;">
+      <div style="margin-top:10px;">
         AI is recommending:
         <ul id="competitors"></ul>
       </div>
@@ -221,19 +249,20 @@ footer{
 
     <!-- EMAIL GATE -->
     <div id="emailGate" class="output">
-      <strong>Get full report</strong>
+      <strong>Get exact fix plan</strong>
       <p style="font-size:13px;color:var(--muted);">
-        See exact fixes + ranking signals
+        See the signals AI requires to rank you
       </p>
-      <input id="email" placeholder="your@email.com">
-      <button onclick="unlock()">Unlock →</button>
+
+      <input id="email" class="email" placeholder="your@email.com">
+      <button onclick="unlock()">Unlock report →</button>
     </div>
 
     <!-- PAYWALL -->
     <div id="paywall" class="output">
-      <strong>Free limit reached</strong>
+      <strong>Scan limit reached</strong>
       <p style="font-size:13px;color:var(--muted);">
-        Upgrade to continue scanning + unlock full optimization system
+        Continue monitoring + fix your visibility system
       </p>
 
       <div class="cta">
@@ -267,25 +296,25 @@ function run(){
 
   document.getElementById("inputBox").style.display="none";
   document.getElementById("scan").style.display="block";
-  document.getElementById("status").innerText="Analyzing AI signal graph...";
+  document.getElementById("status").innerText="Analyzing AI selection layer...";
 
   let w=0;
   let int=setInterval(()=>{
-    w+=4;
+    w+=5;
     document.getElementById("bar").style.width=w+"%";
 
     if(w>=100){
       clearInterval(int);
       show(url);
     }
-  },40);
+  },35);
 }
 
 function show(url){
   document.getElementById("scan").style.display="none";
   document.getElementById("result").style.display="block";
 
-  let score=(1.2 + Math.random()*2.2).toFixed(1);
+  let score=(1 + Math.random()*2.5).toFixed(1);
   document.getElementById("score").innerText=score;
 
   let clean=url.split('.')[0];
@@ -300,14 +329,13 @@ function show(url){
 
   setTimeout(()=>{
     document.getElementById("emailGate").style.display="block";
-  },1200);
+  },1000);
 }
 
 function unlock(){
   let email=document.getElementById("email").value;
   if(!email.includes("@")) return;
 
-  // Later connect to backend
   window.location.href="https://whop.com/progpt";
 }
 </script>
