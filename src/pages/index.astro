@@ -1,60 +1,184 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>ProGPT — AI Visibility</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0a0a0a;
+  --card:#111;
+  --border:#1f1f1f;
+  --text:#e5e5e5;
+  --muted:#888;
+  --accent:#4f7cff;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:Inter, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.container{
+  max-width:720px;
+  margin:auto;
+  padding:24px;
+}
+
+h1{
+  font-size:40px;
+  line-height:1.1;
+  font-weight:700;
+}
+
+h2{
+  font-size:22px;
+  margin-bottom:12px;
+}
+
+p{
+  color:var(--muted);
+  line-height:1.6;
+}
+
+.section{
+  margin-top:60px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:18px;
+  border-radius:14px;
+  margin-top:12px;
+}
+
+input,select{
+  width:100%;
+  padding:14px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#0d0d0d;
+  color:white;
+  margin-top:10px;
+}
+
+button{
+  margin-top:14px;
+  width:100%;
+  padding:14px;
+  border-radius:10px;
+  border:none;
+  background:var(--accent);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.cta-main{
+  display:block;
+  text-align:center;
+  margin-top:16px;
+  padding:16px;
+  border-radius:12px;
+  background:var(--accent);
+  color:white;
+  font-weight:600;
+  text-decoration:none;
+}
+
+.cta-alt a{
+  display:block;
+  text-align:center;
+  margin-top:10px;
+  padding:14px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  color:var(--text);
+  text-decoration:none;
+}
+
+.note{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:8px;
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HERO -->
+<section class="section">
+<h1>AI already chose your competitors.</h1>
+<p style="margin-top:10px">
+If you're not in AI answers, you don't exist.
+</p>
+</section>
+
 <!-- AUDIT FLOW -->
 <section class="section">
 
 <h2>Check your AI visibility</h2>
-<p style="margin-top:8px">Takes 20 seconds</p>
+<p>Takes 20 seconds</p>
 
 <div id="step1" class="card">
-  <input id="website" placeholder="yourwebsite.com" style="width:100%;padding:12px;margin-bottom:10px">
-  <button onclick="next(1)" class="cta-main">Continue →</button>
+  <input id="website" placeholder="yourwebsite.com">
+  <button onclick="next(1)">Continue →</button>
 </div>
 
 <div id="step2" class="card" style="display:none">
-  <p>What type of business?</p>
-  <select id="type" style="width:100%;padding:12px;margin-top:10px">
+  <p>Business type</p>
+  <select id="type">
     <option>Local service</option>
     <option>Ecommerce</option>
     <option>Agency</option>
-    <option>Other</option>
   </select>
-  <button onclick="next(2)" class="cta-main">Continue →</button>
+  <button onclick="next(2)">Continue →</button>
 </div>
 
 <div id="step3" class="card" style="display:none">
-  <p>Your goal?</p>
-  <select id="goal" style="width:100%;padding:12px;margin-top:10px">
+  <p>Your goal</p>
+  <select id="goal">
     <option>More leads</option>
     <option>More calls</option>
     <option>More traffic</option>
   </select>
-  <button onclick="showResult()" class="cta-main">Run audit →</button>
+  <button onclick="showResult()">Run audit →</button>
 </div>
 
 <!-- RESULT -->
 <div id="result" style="display:none;margin-top:20px">
 
   <div class="card">
-    <h3 id="scoreText">Score: 3.4 / 10</h3>
+    <h2 id="scoreText">Score: 3.4 / 10</h2>
+
     <p style="margin-top:8px">
       AI is not recommending your business.
     </p>
 
-    <ul style="margin-top:10px;color:#9ca3af;font-size:14px">
+    <ul style="margin-top:12px;color:#aaa;font-size:14px">
       <li>Weak authority signals</li>
       <li>No structured data</li>
       <li>No AI-ready content</li>
     </ul>
 
     <p style="margin-top:12px">
-      Competitors are getting your customers right now.
+      You're losing customers to competitors already ranking in AI.
     </p>
 
-    <input id="email" placeholder="Enter email for full report"
-      style="margin-top:10px;padding:10px;width:100%">
+    <input id="email" placeholder="Enter email for full report">
 
-    <button onclick="saveLead()" class="cta-main">
-      Get full report →
-    </button>
+    <button onclick="saveLead()">Get full report →</button>
 
   </div>
 
@@ -62,55 +186,80 @@
 
 </section>
 
-<!-- WHAT THEY GET -->
+<!-- WHAT YOU GET -->
 <section class="section">
 
 <h2>What you get</h2>
 
 <div class="card">
   <strong>Done-for-you AI optimization</strong>
-  <p style="margin-top:6px">
-    We restructure your site so AI can understand, trust, and recommend you.
-  </p>
+  <p>We make your site understandable to AI.</p>
 </div>
 
 <div class="card">
-  <strong>Schema + AI-ready content</strong>
-  <p style="margin-top:6px">
-    The exact signals ChatGPT and Google use to pick businesses.
-  </p>
+  <strong>Schema + AI content</strong>
+  <p>The exact signals AI uses to rank businesses.</p>
 </div>
 
 <div class="card">
-  <strong>Local + authority fixes</strong>
-  <p style="margin-top:6px">
-    Make your business eligible for AI recommendations.
-  </p>
+  <strong>Authority boost</strong>
+  <p>Make your business eligible for recommendations.</p>
 </div>
 
 </section>
 
-<!-- CTA EXPLAINED -->
+<!-- CTA -->
 <section class="section">
 
 <h2>Fix your visibility</h2>
 
-<p style="margin-top:10px">
-One-time setup. Results typically in 4–8 weeks.
-</p>
+<p>One-time setup · Results in 4–8 weeks</p>
 
 <a href="https://your-lemonsqueezy-link.com" class="cta-main">
 Start now → $297
 </a>
 
 <div class="note">
-Best option. Direct access + fastest delivery.
+Fastest delivery · Direct access
 </div>
 
 <div class="cta-alt">
-  <a href="https://whop.com">Buy on Whop (community access)</a>
-  <a href="https://gumroad.com">Buy on Gumroad (simple checkout)</a>
-  <a href="https://discord.gg/YOUR">Ask questions on Discord</a>
+  <a href="https://whop.com">Buy on Whop</a>
+  <a href="https://gumroad.com">Buy on Gumroad</a>
+  <a href="https://discord.gg/YOUR">Join Discord</a>
 </div>
 
 </section>
+
+</div>
+
+<!-- SCRIPT -->
+<script>
+function next(step){
+  document.getElementById("step"+step).style.display="none";
+  document.getElementById("step"+(step+1)).style.display="block";
+}
+
+function showResult(){
+  document.getElementById("step3").style.display="none";
+  document.getElementById("result").style.display="block";
+
+  let score=(Math.random()*3+2).toFixed(1);
+  document.getElementById("scoreText").innerText="Score: "+score+" / 10";
+}
+
+function saveLead(){
+  let email=document.getElementById("email").value;
+
+  let leads=JSON.parse(localStorage.getItem("leads")||"[]");
+  leads.push({
+    email,
+    website:document.getElementById("website").value
+  });
+
+  localStorage.setItem("leads",JSON.stringify(leads));
+}
+</script>
+
+</body>
+</html>
