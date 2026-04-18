@@ -1,22 +1,15 @@
----
----
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>ProGPT — AI Visibility</title>
-<meta name="description" content="Check if AI recommends your business.">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<title>ProGPT — AI Visibility Audit</title>
 
 <style>
 :root{
   --bg:#050505;
-  --card:rgba(13,17,23,0.6);
-  --border:rgba(255,255,255,0.08);
+  --card:#0d1117;
+  --border:#1a1a1a;
   --accent:#ccff00;
   --text:#eaeaea;
   --muted:#8a8a8a;
@@ -25,17 +18,17 @@
 
 body{
   margin:0;
-  font-family:Inter,sans-serif;
+  font-family:Inter, sans-serif;
   background:var(--bg);
   color:var(--text);
 }
 
-/* GRID BG */
+/* GRID BACKGROUND */
 body::before{
   content:"";
   position:fixed;
   inset:0;
-  background-image:
+  background:
     linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
   background-size:40px 40px;
@@ -46,52 +39,40 @@ body::before{
 nav{
   display:flex;
   justify-content:space-between;
-  padding:16px 5%;
+  padding:16px 20px;
   border-bottom:1px solid var(--border);
-  position:sticky;
-  top:0;
-  backdrop-filter:blur(10px);
 }
-.logo{font-weight:800}
-.nav-links{
-  display:flex;
-  gap:16px;
-  align-items:center;
-}
-.nav-links a{
-  color:#aaa;
-  text-decoration:none;
-  font-size:14px;
-}
-.nav-btn{
+
+.logo{font-weight:800;}
+.buy{
   background:var(--accent);
+  color:#000;
   padding:8px 14px;
   border-radius:6px;
-  color:#000;
-  font-weight:800;
+  font-weight:700;
   text-decoration:none;
 }
 
 /* LAYOUT */
 .container{
-  max-width:900px;
+  max-width:800px;
   margin:auto;
   padding:60px 20px;
 }
 
 /* HERO */
-.hero{
-  text-align:center;
-}
 h1{
   font-size:clamp(42px,8vw,72px);
-  line-height:0.95;
-  font-weight:900;
+  line-height:0.9;
+  margin:0;
+  letter-spacing:-2px;
 }
-h1 span{color:var(--accent)}
+
+h1 span{color:var(--accent);}
+
 .sub{
   color:var(--muted);
-  margin-top:20px;
+  margin-top:16px;
   font-size:18px;
 }
 
@@ -99,10 +80,10 @@ h1 span{color:var(--accent)}
 .card{
   background:var(--card);
   border:1px solid var(--border);
-  backdrop-filter:blur(10px);
   border-radius:16px;
   padding:24px;
-  margin-top:24px;
+  margin-top:20px;
+  backdrop-filter:blur(10px);
 }
 
 /* INPUT */
@@ -119,43 +100,58 @@ input{
 /* BUTTON */
 .btn{
   width:100%;
-  padding:18px;
-  background:var(--accent);
-  color:#000;
-  font-weight:900;
+  padding:16px;
+  margin-top:12px;
   border:none;
   border-radius:12px;
-  margin-top:12px;
+  font-weight:800;
+  background:var(--accent);
+  color:#000;
   cursor:pointer;
 }
 
-/* BLOG GRID */
-.blog-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:16px;
-}
-.blog-card{
+/* ALT */
+.btn-alt{
+  display:block;
+  margin-top:10px;
+  padding:12px;
   border:1px solid var(--border);
-  padding:20px;
   border-radius:12px;
-}
-.blog-card a{
-  color:var(--accent);
+  text-align:center;
+  color:var(--muted);
   text-decoration:none;
-  font-weight:600;
+  font-size:13px;
 }
 
-/* RESULT */
+/* SCAN */
 #scan{display:none;}
-#result{display:none;}
+.log{font-family:monospace;color:var(--accent);font-size:12px}
 
+/* FAQ */
+.faq-item{
+  border-top:1px solid var(--border);
+  padding:14px 0;
+  cursor:pointer;
+}
+
+.faq-a{
+  display:none;
+  margin-top:8px;
+  color:#aaa;
+  font-size:14px;
+}
+
+.faq-item.active .faq-a{
+  display:block;
+}
+
+/* BADGE */
 .badge{
   background:rgba(255,0,0,0.1);
   color:var(--danger);
   padding:6px 10px;
   border-radius:6px;
-  font-size:11px;
+  font-size:12px;
 }
 </style>
 </head>
@@ -164,158 +160,170 @@ input{
 
 <nav>
   <div class="logo">PROGPT</div>
-
-  <div class="nav-links">
-    <a href="/blog">Blog</a>
-    <a href="https://your-lemonsqueezy-link.com" class="nav-btn">Buy</a>
-  </div>
+  <a href="https://whop.com/progpt" class="buy">BUY</a>
 </nav>
 
 <div class="container">
 
-<!-- HERO -->
-<div class="hero">
-  <h1>AI is already <span>choosing</span> your competitors.</h1>
-  <p class="sub">If you're not in AI answers, you don't exist.</p>
+<h1>AI is already <span id="dynamicWord">choosing</span> your competitors.</h1>
+<p class="sub" id="dynamicSub">
+If you're not in AI answers, you don't exist.
+</p>
+
+<div class="card" id="inputBox">
+<input id="url" placeholder="yourwebsite.com">
+<button class="btn" onclick="run()">Run free audit →</button>
 </div>
 
-<!-- AUDIT -->
-<div class="card" id="input">
-  <input id="url" placeholder="yourwebsite.com">
-  <button class="btn" onclick="runAudit()">Run free audit →</button>
-  <p style="font-size:12px;color:#888;margin-top:10px;text-align:center">
-    🔴 <span id="live">21</span> businesses scanning now
-  </p>
-</div>
-
+<!-- SCAN -->
 <div id="scan" class="card">
-  <div id="log">Scanning...</div>
-  <div style="height:3px;background:#111;margin-top:10px">
-    <div id="bar" style="height:100%;width:0%;background:var(--accent)"></div>
-  </div>
+<div id="log" class="log">Initializing scan...</div>
+<div style="height:3px;background:#111;margin-top:10px">
+<div id="bar" style="height:100%;width:0%;background:var(--accent)"></div>
+</div>
 </div>
 
-<div id="result" class="card">
-  <h3>Score: <span id="score"></span>/10</h3>
-  <div class="badge">Visibility Critical</div>
+<!-- RESULT -->
+<div id="result" style="display:none">
 
-  <ul id="list"></ul>
-
-  <p id="loss"></p>
-
-  <button class="btn" onclick="location.href='https://your-lemonsqueezy-link.com'">
-    Reclaim visibility → $297
-  </button>
-</div>
-
-<!-- BLOG STRATEGIC SECTION -->
 <div class="card">
-  <h3>Learn how AI picks businesses</h3>
+<h3>Score: <span id="score"></span>/10</h3>
+<div class="badge">Visibility Critical</div>
 
-  <div class="blog-grid">
+<ul id="competitors" style="color:var(--accent);font-family:monospace"></ul>
 
-    <div class="blog-card">
-      <a href="/blog/ai-seo-for-dentists">
-        AI SEO for Dentists →
-      </a>
-      <p style="color:#888">Why dental clinics disappear from AI answers</p>
-    </div>
+<p id="loss" style="color:var(--danger);font-weight:700"></p>
 
-    <div class="blog-card">
-      <a href="/blog/why-youre-not-in-chatgpt">
-        Why you're not in ChatGPT →
-      </a>
-      <p style="color:#888">The real ranking system behind AI</p>
-    </div>
+<input placeholder="Enter email">
+<button class="btn" onclick="location.href='https://whop.com/progpt'">
+Fix this → $297
+</button>
 
-    <div class="blog-card">
-      <a href="/blog/ai-visibility-checklist">
-        AI Visibility Checklist →
-      </a>
-      <p style="color:#888">Signals AI uses to pick businesses</p>
-    </div>
+<a class="btn-alt" href="https://discord.gg/YOUR">
+Join free Discord
+</a>
 
-  </div>
 </div>
 
-<!-- VALUE -->
+<!-- FAQ -->
 <div class="card">
-  <h3>What you get</h3>
-  <ul style="color:#aaa;line-height:1.8">
-    <li>• AI visibility audit</li>
-    <li>• GEO + SEO fixes</li>
-    <li>• Schema optimization</li>
-    <li>• AI-ready content</li>
-  </ul>
+<h3>Why this is happening</h3>
+
+<div class="faq" id="faq"></div>
+
 </div>
 
-<!-- FINAL CTA -->
-<div class="card" style="text-align:center">
-  <h3>Fix your visibility</h3>
-  <button class="btn" onclick="location.href='https://your-lemonsqueezy-link.com'">
-    Start now → $297
-  </button>
 </div>
 
 </div>
 
 <script>
-function runAudit(){
-  let url=document.getElementById('url').value;
+
+/* ===== PERSONALIZATION ===== */
+function detectNiche(url){
+  url = url.toLowerCase();
+
+  if(url.includes("shop") || url.includes("store")) return "ecommerce";
+  if(url.includes("agency")) return "agency";
+  if(url.includes("clinic") || url.includes("dent")) return "local";
+
+  return "general";
+}
+
+/* ===== FAQ GENERATOR ===== */
+function loadFAQ(type){
+  const faq = document.getElementById("faq");
+
+  const data = {
+    ecommerce:[
+      ["Why no AI traffic?","Product pages lack structured signals."],
+      ["What fixes it?","Schema + product entity optimization."]
+    ],
+    agency:[
+      ["Why invisible?","No authority graph or citations."],
+      ["Fix?","Entity authority + topical dominance."]
+    ],
+    local:[
+      ["Why not showing?","Weak local signals."],
+      ["Fix?","Location authority + citations."]
+    ],
+    general:[
+      ["Why invisible?","AI can't trust your content."],
+      ["Fix?","Structured + authoritative signals."]
+    ]
+  };
+
+  faq.innerHTML = "";
+
+  data[type].forEach(q=>{
+    let div=document.createElement("div");
+    div.className="faq-item";
+    div.innerHTML=`<strong>${q[0]}</strong><div class="faq-a">${q[1]}</div>`;
+    div.onclick=()=>div.classList.toggle("active");
+    faq.appendChild(div);
+  });
+}
+
+/* ===== RUN AUDIT ===== */
+function run(){
+  let url=document.getElementById("url").value;
   if(!url) return;
 
-  document.getElementById('input').style.display='none';
-  document.getElementById('scan').style.display='block';
+  let niche=detectNiche(url);
+  loadFAQ(niche);
 
-  let w=0;
+  document.getElementById("inputBox").style.display="none";
+  document.getElementById("scan").style.display="block";
 
-  let int=setInterval(()=>{
+  let logs=[
+    "Scanning structure...",
+    "Analyzing AI signals...",
+    "Checking competitors...",
+    "Finalizing..."
+  ];
+
+  let i=0, w=0;
+
+  let interval=setInterval(()=>{
     w+=2;
-    document.getElementById('bar').style.width=w+"%";
+    document.getElementById("bar").style.width=w+"%";
+
+    if(w%25===0){
+      document.getElementById("log").innerText=logs[i++];
+    }
 
     if(w>=100){
-      clearInterval(int);
+      clearInterval(interval);
       show(url);
     }
   },40);
 }
 
+/* ===== RESULT ===== */
 function show(url){
-  document.getElementById('scan').style.display='none';
-  document.getElementById('result').style.display='block';
+  document.getElementById("scan").style.display="none";
+  document.getElementById("result").style.display="block";
 
-  document.getElementById('score').innerText=(2+Math.random()*3).toFixed(1);
+  let score=(2+Math.random()*2).toFixed(1);
+  document.getElementById("score").innerText=score;
 
-  let list=document.getElementById('list');
+  let clean=url.replace(/^(https?:\/\/)?(www\.)?/,"").split('.')[0];
+
+  let prefixes=["get-","top-","try-","best-"];
+  let list=document.getElementById("competitors");
+
   list.innerHTML="";
-
-  let base=url.split('.')[0];
-
   for(let i=0;i<3;i++){
     let li=document.createElement("li");
-    li.innerText="top-"+base+".com";
+    li.innerText=prefixes[Math.floor(Math.random()*prefixes.length)] + clean + ".com";
     list.appendChild(li);
   }
 
-  document.getElementById('loss').innerText=
-    "Losing "+Math.floor(Math.random()*20+10)+" leads / month";
+  let lost=Math.floor(Math.random()*20+10);
+  document.getElementById("loss").innerText=
+    "Estimated loss: "+lost+"–"+(lost+15)+" leads/month";
 }
 
-/* live counter */
-setInterval(()=>{
-  let el=document.getElementById('live');
-  el.innerText=parseInt(el.innerText)+1;
-},5000);
-</script>
-
-<!-- LLM SCHEMA -->
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"Service",
-  "name":"AI Visibility Optimization",
-  "offers":{"@type":"Offer","price":"297","priceCurrency":"USD"}
-}
 </script>
 
 </body>
