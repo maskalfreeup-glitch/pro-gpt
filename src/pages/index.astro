@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ProGPT — AI Visibility Engine</title>
+<title>AI Visibility Audit</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --bg:#050505;
-  --card:#0b0f14;
-  --border:#1a1f26;
+  --card:#0d1117;
+  --border:#1a1a1a;
   --accent:#00ff9f;
-  --text:#e6edf3;
-  --muted:#7d8590;
-  --danger:#ff4d4d;
+  --text:#eaeaea;
+  --muted:#8a8a8a;
+  --danger:#ff4444;
 }
 
 *{box-sizing:border-box}
@@ -27,15 +27,15 @@ body{
   color:var(--text);
 }
 
-/* GRID BACKGROUND */
+/* GRID */
 body::before{
   content:"";
   position:fixed;
   inset:0;
   background:
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size:48px 48px;
+    linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);
+  background-size:50px 50px;
   z-index:-1;
 }
 
@@ -43,120 +43,84 @@ body::before{
 nav{
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  padding:16px 24px;
+  padding:16px 20px;
   border-bottom:1px solid var(--border);
-  backdrop-filter:blur(10px);
-  position:sticky;
-  top:0;
-  background:rgba(5,5,5,0.8);
 }
 
-.logo{font-weight:900;letter-spacing:-1px}
-
-.nav-cta{
-  background:var(--accent);
-  color:#000;
-  padding:8px 14px;
-  border-radius:8px;
-  font-weight:700;
+nav a{
+  color:var(--accent);
   text-decoration:none;
-  font-size:13px;
+  font-weight:600;
 }
 
 /* LAYOUT */
 .container{
-  max-width:900px;
+  max-width:800px;
   margin:auto;
   padding:80px 20px;
 }
 
 /* HERO */
 h1{
-  font-size:clamp(44px,8vw,76px);
-  line-height:0.9;
-  letter-spacing:-3px;
+  font-size:clamp(42px,8vw,72px);
+  line-height:.9;
   margin:0;
 }
 
 h1 span{color:var(--accent)}
 
 .sub{
-  margin-top:20px;
+  margin-top:16px;
   color:var(--muted);
   font-size:18px;
-  max-width:520px;
 }
 
 /* CARD */
 .card{
-  background:linear-gradient(180deg,#0b0f14,#06080b);
+  background:var(--card);
   border:1px solid var(--border);
-  border-radius:18px;
-  padding:28px;
-  margin-top:28px;
-  backdrop-filter:blur(8px);
+  border-radius:16px;
+  padding:24px;
+  margin-top:24px;
 }
 
 /* INPUT */
 input{
   width:100%;
-  padding:18px;
-  border-radius:12px;
+  padding:16px;
+  border-radius:10px;
   border:1px solid var(--border);
   background:#000;
   color:#fff;
-  font-size:16px;
 }
 
 /* BUTTON */
 .btn{
   width:100%;
-  padding:18px;
-  margin-top:14px;
+  padding:16px;
+  margin-top:12px;
   border:none;
-  border-radius:12px;
-  font-weight:900;
+  border-radius:10px;
+  font-weight:800;
   background:var(--accent);
   color:#000;
-  font-size:16px;
   cursor:pointer;
-}
-
-.btn-alt{
-  display:block;
-  margin-top:10px;
-  padding:14px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  text-align:center;
-  color:var(--muted);
-  text-decoration:none;
-  font-size:13px;
 }
 
 /* SCAN */
 #scan,#result{display:none}
 
-.log{
-  font-family:monospace;
-  color:var(--accent);
-  font-size:12px;
-}
-
 .bar-bg{
   height:4px;
   background:#111;
-  margin-top:14px;
+  margin-top:12px;
   border-radius:10px;
-  overflow:hidden;
 }
 
 #bar{
   height:100%;
   width:0%;
   background:var(--accent);
-  box-shadow:0 0 10px var(--accent);
 }
 
 /* RESULT */
@@ -165,44 +129,30 @@ input{
   color:var(--danger);
   padding:6px 10px;
   border-radius:6px;
-  font-size:11px;
-  display:inline-block;
-  margin-top:10px;
+  font-size:12px;
 }
 
-ul{color:var(--accent);font-weight:600}
+ul{color:var(--accent)}
 
 /* FAQ */
 .faq-item{
   border-top:1px solid var(--border);
-  padding:14px 0;
+  padding:12px 0;
   cursor:pointer;
 }
 
-.faq-a{
-  display:none;
-  color:#aaa;
-  margin-top:8px;
-  font-size:14px;
-}
-
+.faq-a{display:none;color:#aaa;margin-top:6px}
 .faq-item.active .faq-a{display:block}
 
-/* BLOG GRID */
-.blog{
-  display:grid;
-  gap:12px;
-  margin-top:20px;
-}
-
+/* BLOG */
 .blog a{
   display:block;
-  padding:16px;
+  margin-top:10px;
+  padding:14px;
   border:1px solid var(--border);
-  border-radius:12px;
-  color:#ccc;
+  border-radius:10px;
+  color:#aaa;
   text-decoration:none;
-  transition:0.2s;
 }
 
 .blog a:hover{
@@ -215,17 +165,14 @@ ul{color:var(--accent);font-weight:600}
 <body>
 
 <nav>
-  <div class="logo">PROGPT</div>
-  <a href="https://whop.com/progpt" class="nav-cta">GET ACCESS</a>
+  <div>AI Visibility</div>
+  <a href="#">Access</a>
 </nav>
 
 <div class="container">
 
 <h1>AI is already <span>choosing</span> your competitors.</h1>
-<p class="sub">
-Search is dead. AI answers decide winners now.
-If you're not in those answers, you're invisible.
-</p>
+<p class="sub">If you’re not in AI answers, you don’t exist.</p>
 
 <!-- INPUT -->
 <div class="card" id="inputBox">
@@ -235,7 +182,7 @@ If you're not in those answers, you're invisible.
 
 <!-- SCAN -->
 <div id="scan" class="card">
-  <div id="log" class="log">Initializing scan...</div>
+  <div id="log">Scanning...</div>
   <div class="bar-bg"><div id="bar"></div></div>
 </div>
 
@@ -248,32 +195,29 @@ If you're not in those answers, you're invisible.
 
   <ul id="competitors"></ul>
 
-  <p id="loss" style="color:var(--danger);font-weight:700;margin-top:10px"></p>
+  <p id="loss" style="color:var(--danger);font-weight:700"></p>
 </div>
 
 <div class="card">
-  <h3>The AI Gap</h3>
+  <h3>Why this happens</h3>
   <div id="faq"></div>
 </div>
 
 <div class="card">
-  <h3>Reclaim your visibility</h3>
-  <input placeholder="your@email.com">
-  <button class="btn" onclick="window.location.href='https://whop.com/progpt'">
-    Fix this → $297
-  </button>
-  <a href="#" class="btn-alt">Join free Discord</a>
+  <h3>Fix your visibility</h3>
+  <input placeholder="email">
+  <button class="btn">Get full fix →</button>
 </div>
 
 </div>
 
 <!-- BLOG -->
 <div class="card">
-  <h3>Learn how AI ranks businesses</h3>
+  <h3>Learn</h3>
   <div class="blog">
-    <a href="#">How ChatGPT Chooses Businesses</a>
-    <a href="#">GEO vs SEO Explained</a>
-    <a href="#">Why You're Not Showing in AI</a>
+    <a href="#">How AI chooses businesses</a>
+    <a href="#">GEO vs SEO</a>
+    <a href="#">Why you're invisible</a>
   </div>
 </div>
 
@@ -287,16 +231,10 @@ function run(){
   inputBox.style.display="none";
   scan.style.display="block";
 
-  let logs=["Scanning...","Analyzing AI signals...","Checking competitors...","Finalizing..."];
-  let w=0,i=0;
-
+  let w=0;
   let int=setInterval(()=>{
     w+=2;
     bar.style.width=w+"%";
-
-    if(w%25===0 && i<logs.length){
-      log.innerText=logs[i++];
-    }
 
     if(w>=100){
       clearInterval(int);
@@ -321,7 +259,7 @@ function show(url){
     competitors.appendChild(li);
   });
 
-  let lost=Math.floor(Math.random()*20+12);
+  let lost=Math.floor(Math.random()*20+10);
   loss.innerText="Estimated loss: "+lost+"–"+(lost+10)+" leads/month";
 
   renderFAQ();
@@ -329,14 +267,13 @@ function show(url){
 
 function renderFAQ(){
   let data=[
-    ["Why am I invisible?","AI cannot verify your authority signals."],
-    ["What does that mean?","Your competitors have stronger structured data."],
-    ["Am I losing customers?","Yes, before they even reach Google."],
-    ["Fix?","We rebuild your AI visibility layer."]
+    ["Why invisible?","AI cannot verify your authority."],
+    ["What’s missing?","Structured data + entity signals."],
+    ["Impact?","You lose customers before search."],
+    ["Fix?","Rebuild AI visibility layer."]
   ];
 
   faq.innerHTML="";
-
   data.forEach(q=>{
     let d=document.createElement("div");
     d.className="faq-item";
