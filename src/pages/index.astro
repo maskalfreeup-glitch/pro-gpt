@@ -1,23 +1,24 @@
 ---
-// Astro logic
-const title = "ProGPT — Rank Inside AI Answers";
-const description = "Check if AI recommends your business. Run a free visibility audit.";
-const currentYear = new Date().getFullYear();
+// Meta
+const title = "AI Visibility Engine";
+const description = "Check if AI recommends your business.";
+const year = new Date().getFullYear();
 ---
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
-<meta name="description" content={description} />
+<meta name="description" content={description}>
 
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --bg:#f7f6f3;
+  --card:#ffffff;
   --border:#e8e8e3;
   --ink:#1a1a18;
   --muted:#6b6b63;
@@ -44,51 +45,49 @@ nav{
   padding:12px 20px;
 }
 
-.logo{font-weight:700;}
+.logo{font-weight:700}
 
 /* HERO */
 .hero{
   max-width:720px;
-  margin:80px auto 40px;
+  margin:70px auto 30px;
   text-align:center;
   padding:0 20px;
 }
 
 h1{
   font-family:'Instrument Serif',serif;
-  font-size:clamp(36px,8vw,64px);
+  font-size:clamp(34px,7vw,60px);
   line-height:1.1;
   margin:0;
 }
 
 .sub{
   color:var(--muted);
-  margin-top:16px;
-  font-size:18px;
-}
-
-/* SYSTEM LINE */
-.system{
-  font-size:12px;
-  color:var(--muted);
   margin-top:14px;
+  font-size:17px;
 }
 
-/* FORM */
-.form{
-  background:white;
+/* MACHINE CARD */
+.machine{
+  background:var(--card);
   border:1px solid var(--border);
-  border-radius:12px;
-  padding:6px;
+  border-radius:14px;
+  padding:16px;
+  margin-top:24px;
+}
+
+/* INPUT */
+.input-wrap{
   display:flex;
-  max-width:460px;
-  margin:24px auto;
+  gap:8px;
 }
 
 input{
   flex:1;
-  border:none;
-  padding:12px;
+  border:1px solid var(--border);
+  padding:14px;
+  border-radius:10px;
   font-size:16px;
   outline:none;
 }
@@ -97,10 +96,17 @@ button{
   background:var(--ink);
   color:white;
   border:none;
-  padding:12px 20px;
-  border-radius:8px;
+  padding:14px 18px;
+  border-radius:10px;
   font-weight:600;
   cursor:pointer;
+}
+
+/* STATUS */
+.status{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:10px;
 }
 
 /* SCAN */
@@ -117,57 +123,79 @@ button{
   background:var(--ink);
 }
 
-/* RESULT */
-.result-box{
-  max-width:460px;
-  margin:20px auto;
-  text-align:left;
-  border:1px solid var(--border);
-  background:white;
-  padding:16px;
+/* OUTPUT */
+.output{
+  margin-top:16px;
+  padding:12px;
   border-radius:10px;
+  background:#fafafa;
+  border:1px solid var(--border);
+  font-size:14px;
 }
 
-.danger{
-  color:var(--danger);
-  font-size:13px;
-  margin-top:6px;
-}
+.danger{color:var(--danger);}
 
-/* SECTION */
-.section{
-  max-width:800px;
-  margin:60px auto;
+/* FAQ (CLICK DROPS) */
+.faq{
+  max-width:720px;
+  margin:50px auto;
   padding:0 20px;
 }
 
-/* PRICING */
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:1px;
-  background:var(--border);
+.faq-item{
+  border-top:1px solid var(--border);
+  padding:14px 0;
+  cursor:pointer;
+}
+
+.faq-a{
+  display:none;
+  color:var(--muted);
+  margin-top:8px;
+  font-size:14px;
+}
+
+.faq-item.open .faq-a{display:block}
+
+/* BLOG */
+.blog{
+  max-width:720px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+.blog-card{
   border:1px solid var(--border);
+  padding:16px;
   border-radius:10px;
-  overflow:hidden;
+  margin-top:10px;
+  background:white;
 }
 
-.card{
-  background:var(--bg);
-  padding:20px;
+/* CTA */
+.cta{
+  max-width:720px;
+  margin:50px auto;
+  text-align:center;
 }
 
-.card.white{background:white;}
-
-.tag{
-  font-size:11px;
-  font-weight:700;
-  color:var(--accent);
+.cta a{
+  display:inline-block;
+  margin:10px;
+  padding:12px 18px;
+  border-radius:8px;
+  text-decoration:none;
 }
 
-@media(max-width:600px){
-  .form{flex-direction:column;}
-  .grid{grid-template-columns:1fr;}
+.primary{background:var(--ink);color:white;}
+.secondary{border:1px solid var(--border);color:var(--muted);}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  font-size:12px;
+  color:var(--muted);
+  padding:40px 0;
 }
 </style>
 </head>
@@ -175,76 +203,82 @@ button{
 <body>
 
 <nav>
-  <div class="logo">ProGPT</div>
+  <div class="logo">AI Visibility</div>
   <div>
-    <a href="#pricing" style="margin-right:10px; text-decoration:none; color:var(--muted);">Pricing</a>
-    <a href="https://whop.com/progpt" style="background:var(--ink);color:white;padding:6px 12px;border-radius:6px;text-decoration:none;">Start</a>
+    <a href="/blog" style="margin-right:10px;text-decoration:none;color:var(--muted)">Blog</a>
+    <a href="https://discord.gg/YOUR" style="text-decoration:none;color:var(--muted)">Discord</a>
   </div>
 </nav>
 
 <div class="hero">
+  <h1>Does AI recommend you?</h1>
+  <p class="sub">Run a check. See what AI sees.</p>
 
-<h1>Your business inside every AI answer</h1>
+  <div class="machine">
 
-<p class="sub">
-Check if AI actually recommends you — or your competitors.
-</p>
+    <div id="inputBox" class="input-wrap">
+      <input id="url" placeholder="yourwebsite.com">
+      <button onclick="run()">Run</button>
+    </div>
 
-<div class="system">
-● AI index active • Monitoring citations • Audit ready
+    <div class="status">System ready • Awaiting input</div>
+
+    <div id="scan">
+      <div class="status">Scanning AI signals...</div>
+      <div class="bar-bg"><div id="bar" class="bar"></div></div>
+    </div>
+
+    <div id="result" class="output">
+      <div><strong>Score:</strong> <span id="score"></span>/10</div>
+      <div class="danger">Not recommended in AI answers</div>
+    </div>
+
+  </div>
 </div>
 
-<!-- INPUT -->
-<div id="inputBox" class="form">
-  <input id="url" placeholder="yourwebsite.com">
-  <button onclick="run()">Check if AI recommends you →</button>
+<!-- FAQ -->
+<div class="faq">
+  <div class="faq-item">
+    <strong>Why am I not showing in AI?</strong>
+    <div class="faq-a">Your business lacks structured signals AI can verify.</div>
+  </div>
+
+  <div class="faq-item">
+    <strong>What improves visibility?</strong>
+    <div class="faq-a">Schema + entity authority + citation consistency.</div>
+  </div>
+
+  <div class="faq-item">
+    <strong>How fast does it change?</strong>
+    <div class="faq-a">Usually within 2–4 weeks after fixes.</div>
+  </div>
 </div>
 
-<!-- SCAN -->
-<div id="scan" style="max-width:460px;margin:20px auto;">
-  <div style="font-size:12px;color:var(--accent)">Scanning AI signals...</div>
-  <div class="bar-bg"><div class="bar" id="bar"></div></div>
+<!-- BLOG -->
+<div class="blog">
+  <h3>Research</h3>
+
+  <div class="blog-card">
+    <a href="/blog/how-ai-decides" style="text-decoration:none;color:var(--ink)">
+      How AI decides which business to recommend →
+    </a>
+  </div>
+
+  <div class="blog-card">
+    <a href="/blog/geo-vs-seo" style="text-decoration:none;color:var(--ink)">
+      GEO vs SEO — what changed →
+    </a>
+  </div>
 </div>
 
-<!-- RESULT -->
-<div id="result" class="result-box">
-  <strong>Visibility Score: <span id="score"></span>/10</strong>
-  <div class="danger">AI is not recommending your business</div>
+<!-- CTA -->
+<div class="cta">
+  <a href="https://discord.gg/YOUR" class="secondary">Join Discord</a>
+  <a href="https://whop.com/progpt" class="primary">Get Access</a>
 </div>
 
-</div>
-
-<!-- PRICING -->
-<div class="section" id="pricing">
-
-<p style="color:var(--muted);">
-Once you see your score, you’ll understand what needs fixing.
-</p>
-
-<div class="grid">
-
-<div class="card">
-  <div class="tag">FREE</div>
-  <h3>AI Audit</h3>
-  <p style="color:var(--muted)">Basic visibility score</p>
-</div>
-
-<div class="card white">
-  <div class="tag">PRO</div>
-  <h3>GEO Optimization</h3>
-  <p style="color:var(--muted)">Schema + AI ranking fixes</p>
-  <div style="font-weight:700;margin:10px 0;">$97</div>
-  <a href="https://whop.com/progpt" style="display:block;background:var(--ink);color:white;padding:10px;border-radius:6px;text-align:center;text-decoration:none;">
-    Fix visibility →
-  </a>
-</div>
-
-</div>
-
-</div>
-
-<footer style="text-align:center;color:var(--muted);font-size:13px;padding:40px 0;">
-© {currentYear} ProGPT
+<footer>
+© {year}
 </footer>
 
 <script is:inline>
@@ -257,7 +291,7 @@ function run(){
 
   let w=0;
   let int=setInterval(()=>{
-    w+=3;
+    w+=4;
     document.getElementById("bar").style.width=w+"%";
 
     if(w>=100){
@@ -274,6 +308,11 @@ function show(){
   let score=(2+Math.random()*2).toFixed(1);
   document.getElementById("score").innerText=score;
 }
+
+/* FAQ toggle */
+document.querySelectorAll(".faq-item").forEach(el=>{
+  el.onclick=()=>el.classList.toggle("open");
+});
 </script>
 
 </body>
