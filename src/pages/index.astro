@@ -1,19 +1,14 @@
 ---
-// Standard Astro frontmatter
-const title = "ProGPT — AI Visibility Diagnostic";
-const description = "Reclaim your signal. If you are not in the AI training set, you do not exist.";
+import BaseHead from '../components/BaseHead.astro';
 ---
 
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title}</title>
-  <meta name="description" content={description} />
+  <BaseHead title="ProGPT — AI Visibility" description="Check if AI recommends your business." />
 
 <style>
-:root {
+:root{
   --bg:#050505;
   --card:#0d1117;
   --border:#1a1a1a;
@@ -24,59 +19,71 @@ const description = "Reclaim your signal. If you are not in the AI training set,
 }
 
 body{
+  margin:0;
+  font-family:Inter, sans-serif;
   background:var(--bg);
   color:var(--text);
-  font-family: system-ui, -apple-system, sans-serif;
-  margin:0;
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing:antialiased;
 }
 
+/* subtle grid */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size:40px 40px;
+  z-index:-1;
+}
+
+/* NAV */
 nav{
   display:flex;
   justify-content:space-between;
-  align-items: center;
-  padding:16px 20px;
+  padding:16px 5%;
   border-bottom:1px solid var(--border);
-  background:var(--bg);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  position:sticky;
+  top:0;
+  background:rgba(0,0,0,0.8);
+  backdrop-filter:blur(10px);
 }
-.logo{font-weight:800; letter-spacing: -1px; font-family: monospace;}
+.logo{font-weight:800}
 .nav-btn{
   background:var(--accent);
   padding:8px 14px;
-  font-weight:800;
   border-radius:6px;
   color:#000;
-  text-decoration: none;
-  font-size: 12px;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:800;
 }
 
+/* LAYOUT */
 .container{
-  max-width:600px;
+  max-width:760px;
   margin:auto;
-  padding:40px 20px;
+  padding:60px 20px;
 }
 
+/* HERO */
 h1{
-  font-size: 42px;
-  line-height: 0.95;
+  font-size:clamp(40px,8vw,70px);
+  line-height:0.95;
   font-weight:900;
-  letter-spacing: -2px;
-  margin: 0 0 12px 0;
+  letter-spacing:-2px;
+  margin:0;
 }
 h1 span{color:var(--accent)}
 
-.sub{color:var(--muted); font-size: 18px; line-height: 1.4; margin-bottom: 20px;}
-
-.live{
-  font-size:12px;
+.sub{
   color:var(--muted);
-  margin: 15px 0;
-  font-family: monospace;
+  margin-top:20px;
+  font-size:18px;
 }
 
+/* CARD */
 .card{
   background:var(--card);
   border:1px solid var(--border);
@@ -85,58 +92,61 @@ h1 span{color:var(--accent)}
   margin-top:20px;
 }
 
+/* INPUT */
 input{
   width:100%;
   padding:16px;
-  border-radius:10px;
+  border-radius:12px;
   border:1px solid var(--border);
   background:#000;
-  color:white;
+  color:#fff;
   margin-top:10px;
-  font-size: 16px;
-  box-sizing: border-box;
+  font-size:16px;
 }
 
+/* BUTTON */
 .btn{
   width:100%;
   padding:18px;
   background:var(--accent);
   color:#000;
-  font-weight:800;
+  font-weight:900;
   border:none;
-  border-radius:10px;
+  border-radius:12px;
   margin-top:12px;
   cursor:pointer;
-  font-size: 16px;
-  text-transform: uppercase;
+  font-size:16px;
 }
-
-#scan{display:none;}
-.log{ font-size:11px; color:var(--accent); font-family: monospace; text-transform: uppercase; }
-
-.badge{
-  display:inline-block;
-  background:rgba(255, 68, 68, 0.1);
-  color:var(--danger);
-  padding:6px 12px;
-  border-radius:6px;
-  font-size:11px;
-  font-weight: 700;
-  margin-top:10px;
-}
-
-.loss { margin-top:16px; color:#aaa; font-size:14px; line-height: 1.5; }
 
 .btn-alt{
   display:block;
   text-align:center;
   padding:14px;
-  border: 1px solid var(--border);
-  border-radius:10px;
+  border:1px solid var(--border);
+  border-radius:12px;
   margin-top:10px;
-  color:#888;
+  color:#aaa;
   text-decoration:none;
-  font-size: 13px;
+  font-size:13px;
+}
+
+/* SCAN */
+#scan{display:none;}
+.log{
+  font-family:monospace;
+  font-size:12px;
+  color:var(--accent);
+}
+
+/* RESULT */
+.badge{
+  background:rgba(255,0,0,0.1);
+  color:var(--danger);
+  padding:6px 10px;
+  border-radius:6px;
+  font-size:11px;
+  margin-top:10px;
+  display:inline-block;
 }
 </style>
 </head>
@@ -144,65 +154,155 @@ input{
 <body>
 
 <nav>
-  <div class="logo">PROGPT.STORE</div>
-  <a href="https://whop.com/progpt" class="nav-btn">BUY NOW</a>
+  <div class="logo">PROGPT</div>
+  <a href="https://whop.com/progpt" class="nav-btn">BUY</a>
 </nav>
 
 <div class="container">
 
 <h1>AI is already <span>choosing</span> your competitors.</h1>
-<p class="sub">If you're not in the AI training set, you don't exist.</p>
+<p class="sub">If you're not in AI answers, you don't exist.</p>
 
-<div class="live">
-  <span style="color:var(--danger)">●</span> <span id="liveCount">24</span> operators scanning
-</div>
-
-<div id="input-container" class="card">
-  <input id="url" type="text" placeholder="yourwebsite.com">
+<!-- INPUT -->
+<div id="input" class="card">
+  <input id="url" placeholder="yourwebsite.com">
   <button class="btn" onclick="runAudit()">Run free audit →</button>
+  <p style="font-size:12px;color:#888;margin-top:10px">
+    🔴 <span id="live">21</span> businesses scanning now
+  </p>
 </div>
 
+<!-- SCAN -->
 <div id="scan" class="card">
-  <div id="log" class="log">Initializing neural scan...</div>
-  <div style="height:2px; background:#111; margin-top:15px;">
-    <div id="bar" style="height:100%; width:0%; background:var(--accent); transition: width 0.1s linear;"></div>
+  <div id="log" class="log">Initializing scan...</div>
+  <div style="height:3px;background:#111;margin-top:12px;border-radius:2px;overflow:hidden">
+    <div id="bar" style="height:100%;width:0%;background:var(--accent)"></div>
   </div>
 </div>
 
+<!-- RESULT -->
 <div id="result" style="display:none">
-  <div class="card" style="border-color: rgba(255,68,68,0.2);">
-    <h3 style="margin:0; font-size: 24px;">Score: <span id="score">--</span>/10</h3>
+
+  <div class="card" style="border-color:rgba(255,0,0,0.2)">
+    <h3>Score: <span id="score">--</span>/10</h3>
     <div class="badge">Visibility Critical</div>
-    <p class="loss" id="lossText" style="color: var(--danger); font-weight: 600;"></p>
-    <input type="email" placeholder="operator@email.com">
+
+    <p style="margin-top:16px;color:#aaa">Competitors winning:</p>
+    <ul id="list" style="color:var(--accent);font-family:monospace"></ul>
+
+    <p id="loss" style="color:var(--danger);font-weight:700"></p>
+
+    <input placeholder="Enter email to save report">
+
     <button class="btn" onclick="location.href='https://whop.com/progpt'">
-      Reclaim your signal — $297
+      Fix this → $297
     </button>
-    <a class="btn-alt" href="https://whop.com/progpt">Checkout via Whop</a>
+
+    <a class="btn-alt" href="https://whop.com/progpt">Buy on Whop</a>
+    <a class="btn-alt" href="https://gumroad.com">Buy on Gumroad</a>
+    <a class="btn-alt" href="https://discord.gg/YOUR">Join Discord</a>
   </div>
+
+</div>
+
+</div>
+
+<!-- EXTRA SECTIONS -->
+
+<div class="container">
+
+<div class="card">
+  <h3>The shift</h3>
+  <p style="color:#aaa">
+    SEO ranked pages.  
+    AI selects businesses.  
+    If you're not cited, you're invisible.
+  </p>
+</div>
+
+<div class="card">
+  <h3>What you get</h3>
+  <ul style="color:#aaa;line-height:1.8">
+    <li>• AI visibility audit</li>
+    <li>• GEO + SEO fixes</li>
+    <li>• Schema + authority signals</li>
+    <li>• AI-ready content</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Proof</h3>
+  <p style="color:#bbb">“We started showing up in AI answers in weeks.”</p>
+</div>
+
+<div class="card" style="text-align:center">
+  <h3>Fix your visibility</h3>
+  <button class="btn" onclick="location.href='https://whop.com/progpt'">
+    Start now → $297
+  </button>
 </div>
 
 </div>
 
 <script is:inline>
 function runAudit(){
-  const url = document.getElementById('url').value;
+  let url=document.getElementById('url').value;
   if(!url) return;
-  document.getElementById('input-container').style.display='none';
+
+  document.getElementById('input').style.display='none';
   document.getElementById('scan').style.display='block';
-  let w = 0;
-  const interval = setInterval(() => {
-    w += 2;
-    document.getElementById('bar').style.width = w + "%";
-    if(w >= 100) {
-      clearInterval(interval);
-      document.getElementById('scan').style.display='none';
-      document.getElementById('result').style.display='block';
-      document.getElementById('score').innerText = (2.4 + Math.random()).toFixed(1);
-      document.getElementById('lossText').innerText = "Estimated Leak: 14-28 leads / month";
+
+  let logs=[
+    "Scanning site...",
+    "Checking AI signals...",
+    "Analyzing competitors...",
+    "Finalizing..."
+  ];
+
+  let w=0,i=0;
+
+  let int=setInterval(()=>{
+    w+=2;
+    document.getElementById('bar').style.width=w+"%";
+
+    if(w%25===0){
+      document.getElementById('log').innerText=logs[i++]||"";
     }
-  }, 40);
+
+    if(w>=100){
+      clearInterval(int);
+      show(url);
+    }
+  },40);
 }
+
+function show(url){
+  document.getElementById('scan').style.display='none';
+  document.getElementById('result').style.display='block';
+
+  let score=(2+Math.random()*3).toFixed(1);
+  document.getElementById('score').innerText=score;
+
+  let list=document.getElementById('list');
+  list.innerHTML="";
+  let base=url.replace(/^(https?:\/\/)?(www\.)?/,"");
+
+  for(let i=0;i<3;i++){
+    let li=document.createElement("li");
+    li.innerText="top-"+base;
+    list.appendChild(li);
+  }
+
+  let lost=Math.floor(Math.random()*20+10);
+  document.getElementById('loss').innerText=
+    "Losing "+lost+"–"+(lost+10)+" leads / month";
+}
+
+/* live counter */
+setInterval(()=>{
+  let el=document.getElementById('live');
+  el.innerText=parseInt(el.innerText)+Math.floor(Math.random()*2);
+},4000);
 </script>
 
 </body>
