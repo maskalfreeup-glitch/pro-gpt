@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ProGPT — AI Visibility Diagnostic</title>
+<title>ProGPT — AI Visibility</title>
 <meta name="description" content="Check if AI recommends your business.">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -15,8 +15,8 @@
 <style>
 :root{
   --bg:#050505;
-  --card:#0d1117;
-  --border:#1a1a1a;
+  --card:rgba(13,17,23,0.6);
+  --border:rgba(255,255,255,0.08);
   --accent:#ccff00;
   --text:#eaeaea;
   --muted:#8a8a8a;
@@ -25,12 +25,12 @@
 
 body{
   margin:0;
-  font-family:'Inter',sans-serif;
+  font-family:Inter,sans-serif;
   background:var(--bg);
   color:var(--text);
 }
 
-/* subtle grid */
+/* GRID BG */
 body::before{
   content:"";
   position:fixed;
@@ -50,31 +50,41 @@ nav{
   border-bottom:1px solid var(--border);
   position:sticky;
   top:0;
-  background:rgba(0,0,0,0.8);
   backdrop-filter:blur(10px);
 }
-.logo{font-weight:800;}
+.logo{font-weight:800}
+.nav-links{
+  display:flex;
+  gap:16px;
+  align-items:center;
+}
+.nav-links a{
+  color:#aaa;
+  text-decoration:none;
+  font-size:14px;
+}
 .nav-btn{
   background:var(--accent);
   padding:8px 14px;
   border-radius:6px;
   color:#000;
-  text-decoration:none;
-  font-size:12px;
   font-weight:800;
+  text-decoration:none;
 }
 
 /* LAYOUT */
 .container{
-  max-width:760px;
+  max-width:900px;
   margin:auto;
   padding:60px 20px;
-  text-align:center;
 }
 
 /* HERO */
+.hero{
+  text-align:center;
+}
 h1{
-  font-size:clamp(40px,8vw,70px);
+  font-size:clamp(42px,8vw,72px);
   line-height:0.95;
   font-weight:900;
 }
@@ -87,13 +97,12 @@ h1 span{color:var(--accent)}
 
 /* CARD */
 .card{
-  background:rgba(13,17,23,0.6);
-  border:1px solid rgba(255,255,255,0.08);
+  background:var(--card);
+  border:1px solid var(--border);
   backdrop-filter:blur(10px);
   border-radius:16px;
   padding:24px;
-  margin-top:20px;
-  text-align:left;
+  margin-top:24px;
 }
 
 /* INPUT */
@@ -104,7 +113,6 @@ input{
   border:1px solid var(--border);
   background:#000;
   color:#fff;
-  margin-top:10px;
   font-size:16px;
 }
 
@@ -121,35 +129,33 @@ input{
   cursor:pointer;
 }
 
-.btn-alt{
-  display:block;
-  text-align:center;
-  padding:14px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  margin-top:10px;
-  color:#aaa;
-  text-decoration:none;
-  font-size:13px;
+/* BLOG GRID */
+.blog-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
 }
-
-/* SCAN */
-#scan{display:none;}
-.log{
-  font-family:monospace;
-  font-size:12px;
+.blog-card{
+  border:1px solid var(--border);
+  padding:20px;
+  border-radius:12px;
+}
+.blog-card a{
   color:var(--accent);
+  text-decoration:none;
+  font-weight:600;
 }
 
 /* RESULT */
+#scan{display:none;}
+#result{display:none;}
+
 .badge{
   background:rgba(255,0,0,0.1);
   color:var(--danger);
   padding:6px 10px;
   border-radius:6px;
   font-size:11px;
-  margin-top:10px;
-  display:inline-block;
 }
 </style>
 </head>
@@ -158,14 +164,22 @@ input{
 
 <nav>
   <div class="logo">PROGPT</div>
-  <a href="https://your-lemonsqueezy-link.com" class="nav-btn">BUY</a>
+
+  <div class="nav-links">
+    <a href="/blog">Blog</a>
+    <a href="https://your-lemonsqueezy-link.com" class="nav-btn">Buy</a>
+  </div>
 </nav>
 
 <div class="container">
 
-<h1>AI is already <span>choosing</span> your competitors.</h1>
-<p class="sub">If you're not in AI answers, you don't exist.</p>
+<!-- HERO -->
+<div class="hero">
+  <h1>AI is already <span>choosing</span> your competitors.</h1>
+  <p class="sub">If you're not in AI answers, you don't exist.</p>
+</div>
 
+<!-- AUDIT -->
 <div class="card" id="input">
   <input id="url" placeholder="yourwebsite.com">
   <button class="btn" onclick="runAudit()">Run free audit →</button>
@@ -175,54 +189,56 @@ input{
 </div>
 
 <div id="scan" class="card">
-  <div id="log" class="log">Initializing scan...</div>
-  <div style="height:3px;background:#111;margin-top:12px;border-radius:2px;overflow:hidden">
+  <div id="log">Scanning...</div>
+  <div style="height:3px;background:#111;margin-top:10px">
     <div id="bar" style="height:100%;width:0%;background:var(--accent)"></div>
   </div>
 </div>
 
-<div id="result" style="display:none">
+<div id="result" class="card">
+  <h3>Score: <span id="score"></span>/10</h3>
+  <div class="badge">Visibility Critical</div>
 
-  <div class="card" style="border-color:rgba(255,0,0,0.2)">
-    <h3>Score: <span id="score">--</span>/10</h3>
-    <div class="badge">Visibility Critical</div>
+  <ul id="list"></ul>
 
-    <p style="margin-top:16px;color:#aaa">Competitors winning:</p>
-    <ul id="list" style="color:var(--accent);font-family:monospace"></ul>
+  <p id="loss"></p>
 
-    <p id="loss" style="color:var(--danger);font-weight:700"></p>
-
-    <input placeholder="Enter email to save report">
-
-    <button class="btn" onclick="location.href='https://your-lemonsqueezy-link.com'">
-      Reclaim your visibility → $297
-    </button>
-
-    <a class="btn-alt" href="https://whop.com/progpt">Buy via Whop</a>
-    <a class="btn-alt" href="https://gumroad.com">Buy via Gumroad</a>
-    <a class="btn-alt" href="https://discord.gg/YOUR">Join Discord</a>
-
-    <p style="font-size:12px;color:#888;margin-top:10px;text-align:center">
-      ⚠ AI rankings shift weekly. Delay = lost visibility.
-    </p>
-  </div>
-
+  <button class="btn" onclick="location.href='https://your-lemonsqueezy-link.com'">
+    Reclaim visibility → $297
+  </button>
 </div>
 
-</div>
-
-<!-- EXTRA CONTENT -->
-
-<div class="container">
-
+<!-- BLOG STRATEGIC SECTION -->
 <div class="card">
-  <h3>The shift</h3>
-  <p style="color:#aaa">
-    SEO ranked pages. AI selects businesses.  
-    If you're not cited, you're invisible.
-  </p>
+  <h3>Learn how AI picks businesses</h3>
+
+  <div class="blog-grid">
+
+    <div class="blog-card">
+      <a href="/blog/ai-seo-for-dentists">
+        AI SEO for Dentists →
+      </a>
+      <p style="color:#888">Why dental clinics disappear from AI answers</p>
+    </div>
+
+    <div class="blog-card">
+      <a href="/blog/why-youre-not-in-chatgpt">
+        Why you're not in ChatGPT →
+      </a>
+      <p style="color:#888">The real ranking system behind AI</p>
+    </div>
+
+    <div class="blog-card">
+      <a href="/blog/ai-visibility-checklist">
+        AI Visibility Checklist →
+      </a>
+      <p style="color:#888">Signals AI uses to pick businesses</p>
+    </div>
+
+  </div>
 </div>
 
+<!-- VALUE -->
 <div class="card">
   <h3>What you get</h3>
   <ul style="color:#aaa;line-height:1.8">
@@ -233,11 +249,7 @@ input{
   </ul>
 </div>
 
-<div class="card">
-  <h3>Proof</h3>
-  <p style="color:#bbb">“We started appearing in AI answers in weeks.”</p>
-</div>
-
+<!-- FINAL CTA -->
 <div class="card" style="text-align:center">
   <h3>Fix your visibility</h3>
   <button class="btn" onclick="location.href='https://your-lemonsqueezy-link.com'">
@@ -255,22 +267,11 @@ function runAudit(){
   document.getElementById('input').style.display='none';
   document.getElementById('scan').style.display='block';
 
-  let logs=[
-    "Scanning site...",
-    "Analyzing AI signals...",
-    "Checking competitors...",
-    "Finalizing..."
-  ];
-
-  let w=0,i=0;
+  let w=0;
 
   let int=setInterval(()=>{
     w+=2;
     document.getElementById('bar').style.width=w+"%";
-
-    if(w%25===0){
-      document.getElementById('log').innerText=logs[i++]||"";
-    }
 
     if(w>=100){
       clearInterval(int);
@@ -283,45 +284,36 @@ function show(url){
   document.getElementById('scan').style.display='none';
   document.getElementById('result').style.display='block';
 
-  let score=(2+Math.random()*3).toFixed(1);
-  document.getElementById('score').innerText=score;
-
-  let prefixes=["the-","get-","best-","top-"];
-  let suffixes=["hq","labs","group","co","io"];
+  document.getElementById('score').innerText=(2+Math.random()*3).toFixed(1);
 
   let list=document.getElementById('list');
   list.innerHTML="";
 
-  let base=url.replace(/^(https?:\/\/)?(www\.)?/,"").split('.')[0];
+  let base=url.split('.')[0];
 
   for(let i=0;i<3;i++){
-    let p=prefixes[Math.floor(Math.random()*prefixes.length)];
-    let s=suffixes[Math.floor(Math.random()*suffixes.length)];
-
     let li=document.createElement("li");
-    li.innerText=p+base+"-"+s+".com";
+    li.innerText="top-"+base+".com";
     list.appendChild(li);
   }
 
-  let lost=Math.floor(Math.random()*20+10);
   document.getElementById('loss').innerText=
-    "Losing "+lost+"–"+(lost+10)+" leads / month";
+    "Losing "+Math.floor(Math.random()*20+10)+" leads / month";
 }
 
 /* live counter */
 setInterval(()=>{
   let el=document.getElementById('live');
-  el.innerText=parseInt(el.innerText)+Math.floor(Math.random()*2);
-},4000);
+  el.innerText=parseInt(el.innerText)+1;
+},5000);
 </script>
 
-<!-- LLM SIGNAL -->
+<!-- LLM SCHEMA -->
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
   "@type":"Service",
   "name":"AI Visibility Optimization",
-  "provider":{"@type":"Organization","name":"ProGPT"},
   "offers":{"@type":"Offer","price":"297","priceCurrency":"USD"}
 }
 </script>
