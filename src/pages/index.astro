@@ -1,330 +1,296 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ProGPT — AI Visibility Audit</title>
+---
+import BaseHead from '../components/BaseHead.astro';
+---
+
+<BaseHead title="ProGPT — AI Visibility Audit" description="Check if AI recommends your business." />
 
 <style>
-:root{
-  --bg:#050505;
-  --card:#0d1117;
-  --border:#1a1a1a;
-  --accent:#ccff00;
-  --text:#eaeaea;
-  --muted:#8a8a8a;
-  --danger:#ff4444;
-}
+  :root {
+    --bg: #050505;
+    --card: #0d1117;
+    --border: #1a1a1a;
+    --accent: #ccff00;
+    --text: #eaeaea;
+    --muted: #8a8a8a;
+    --danger: #ff4444;
+  }
 
-body{
-  margin:0;
-  font-family:Inter, sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
 
-/* GRID BACKGROUND */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size:40px 40px;
-  z-index:-1;
-}
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+  }
 
-/* NAV */
-nav{
-  display:flex;
-  justify-content:space-between;
-  padding:16px 20px;
-  border-bottom:1px solid var(--border);
-}
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
 
-.logo{font-weight:800;}
-.buy{
-  background:var(--accent);
-  color:#000;
-  padding:8px 14px;
-  border-radius:6px;
-  font-weight:700;
-  text-decoration:none;
-}
+  .logo { font-weight: 800; letter-spacing: -1px; }
+  .buy {
+    background: var(--accent);
+    color: #000;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 13px;
+  }
 
-/* LAYOUT */
-.container{
-  max-width:800px;
-  margin:auto;
-  padding:60px 20px;
-}
+  .container {
+    max-width: 800px;
+    margin: auto;
+    padding: 60px 20px;
+  }
 
-/* HERO */
-h1{
-  font-size:clamp(42px,8vw,72px);
-  line-height:0.9;
-  margin:0;
-  letter-spacing:-2px;
-}
+  h1 {
+    font-size: clamp(42px, 8vw, 72px);
+    line-height: 0.9;
+    margin: 0;
+    letter-spacing: -2px;
+  }
 
-h1 span{color:var(--accent);}
+  h1 span { color: var(--accent); }
 
-.sub{
-  color:var(--muted);
-  margin-top:16px;
-  font-size:18px;
-}
+  .sub {
+    color: var(--muted);
+    margin-top: 16px;
+    font-size: 18px;
+    line-height: 1.4;
+  }
 
-/* CARD */
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:24px;
-  margin-top:20px;
-  backdrop-filter:blur(10px);
-}
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
 
-/* INPUT */
-input{
-  width:100%;
-  padding:16px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:#000;
-  color:#fff;
-  font-size:16px;
-}
+  input {
+    width: 100%;
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: #000;
+    color: #fff;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-top: 10px;
+  }
 
-/* BUTTON */
-.btn{
-  width:100%;
-  padding:16px;
-  margin-top:12px;
-  border:none;
-  border-radius:12px;
-  font-weight:800;
-  background:var(--accent);
-  color:#000;
-  cursor:pointer;
-}
+  input:focus { outline: none; border-color: var(--accent); }
 
-/* ALT */
-.btn-alt{
-  display:block;
-  margin-top:10px;
-  padding:12px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  text-align:center;
-  color:var(--muted);
-  text-decoration:none;
-  font-size:13px;
-}
+  .btn {
+    width: 100%;
+    padding: 18px;
+    margin-top: 12px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 800;
+    background: var(--accent);
+    color: #000;
+    cursor: pointer;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
 
-/* SCAN */
-#scan{display:none;}
-.log{font-family:monospace;color:var(--accent);font-size:12px}
+  .btn-alt {
+    display: block;
+    margin-top: 10px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-align: center;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+  }
 
-/* FAQ */
-.faq-item{
-  border-top:1px solid var(--border);
-  padding:14px 0;
-  cursor:pointer;
-}
+  #scan { display: none; }
+  .log { font-family: monospace; color: var(--accent); font-size: 12px; text-transform: uppercase; }
 
-.faq-a{
-  display:none;
-  margin-top:8px;
-  color:#aaa;
-  font-size:14px;
-}
+  .faq-item {
+    border-top: 1px solid var(--border);
+    padding: 14px 0;
+    cursor: pointer;
+  }
 
-.faq-item.active .faq-a{
-  display:block;
-}
+  .faq-a {
+    display: none;
+    margin-top: 8px;
+    color: #aaa;
+    font-size: 14px;
+    line-height: 1.5;
+  }
 
-/* BADGE */
-.badge{
-  background:rgba(255,0,0,0.1);
-  color:var(--danger);
-  padding:6px 10px;
-  border-radius:6px;
-  font-size:12px;
-}
+  .active .faq-a { display: block; }
+
+  .badge {
+    background: rgba(255, 0, 0, 0.1);
+    color: var(--danger);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-block;
+  }
 </style>
-</head>
-
-<body>
 
 <nav>
   <div class="logo">PROGPT</div>
-  <a href="https://whop.com/progpt" class="buy">BUY</a>
+  <a href="https://whop.com/progpt" class="buy">BUY NOW</a>
 </nav>
 
 <div class="container">
+  <h1>AI is already <span id="dynamicWord">choosing</span> your competitors.</h1>
+  <p class="sub" id="dynamicSub">
+    If you're not in the AI training set, you don't exist in 2026.
+  </p>
 
-<h1>AI is already <span id="dynamicWord">choosing</span> your competitors.</h1>
-<p class="sub" id="dynamicSub">
-If you're not in AI answers, you don't exist.
-</p>
+  <div class="card" id="inputBox">
+    <input id="url" placeholder="yourwebsite.com" />
+    <button class="btn" onclick="run()">Run free audit →</button>
+  </div>
 
-<div class="card" id="inputBox">
-<input id="url" placeholder="yourwebsite.com">
-<button class="btn" onclick="run()">Run free audit →</button>
+  <div id="scan" class="card">
+    <div id="log" class="log">Initializing neural scan...</div>
+    <div style="height:3px; background:#111; margin-top:10px; border-radius: 2px; overflow: hidden;">
+      <div id="bar" style="height:100%; width:0%; background:var(--accent); transition: width 0.1s linear;"></div>
+    </div>
+  </div>
+
+  <div id="result" style="display:none">
+    <div class="card" style="border-color: rgba(255,68,68,0.2);">
+      <h3>Score: <span id="score"></span>/10</h3>
+      <div class="badge">Visibility Critical</div>
+
+      <ul id="competitors" style="color:var(--accent); font-family:monospace; margin-top: 20px; padding-left: 20px;"></ul>
+
+      <p id="loss" style="color:var(--danger); font-weight:700; font-size: 18px; margin: 20px 0;"></p>
+
+      <input type="email" placeholder="operator@email.com" />
+      <button class="btn" onclick="location.href='https://whop.com/progpt'">
+        Claim Visibility Fix → $297
+      </button>
+
+      <a class="btn-alt" href="https://discord.gg/YOUR">Join the Operator Discord</a>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top: 0;">Why this is happening</h3>
+      <div class="faq" id="faq"></div>
+    </div>
+  </div>
 </div>
 
-<!-- SCAN -->
-<div id="scan" class="card">
-<div id="log" class="log">Initializing scan...</div>
-<div style="height:3px;background:#111;margin-top:10px">
-<div id="bar" style="height:100%;width:0%;background:var(--accent)"></div>
-</div>
-</div>
-
-<!-- RESULT -->
-<div id="result" style="display:none">
-
-<div class="card">
-<h3>Score: <span id="score"></span>/10</h3>
-<div class="badge">Visibility Critical</div>
-
-<ul id="competitors" style="color:var(--accent);font-family:monospace"></ul>
-
-<p id="loss" style="color:var(--danger);font-weight:700"></p>
-
-<input placeholder="Enter email">
-<button class="btn" onclick="location.href='https://whop.com/progpt'">
-Fix this → $297
-</button>
-
-<a class="btn-alt" href="https://discord.gg/YOUR">
-Join free Discord
-</a>
-
-</div>
-
-<!-- FAQ -->
-<div class="card">
-<h3>Why this is happening</h3>
-
-<div class="faq" id="faq"></div>
-
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-/* ===== PERSONALIZATION ===== */
-function detectNiche(url){
-  url = url.toLowerCase();
-
-  if(url.includes("shop") || url.includes("store")) return "ecommerce";
-  if(url.includes("agency")) return "agency";
-  if(url.includes("clinic") || url.includes("dent")) return "local";
-
-  return "general";
-}
-
-/* ===== FAQ GENERATOR ===== */
-function loadFAQ(type){
-  const faq = document.getElementById("faq");
-
-  const data = {
-    ecommerce:[
-      ["Why no AI traffic?","Product pages lack structured signals."],
-      ["What fixes it?","Schema + product entity optimization."]
-    ],
-    agency:[
-      ["Why invisible?","No authority graph or citations."],
-      ["Fix?","Entity authority + topical dominance."]
-    ],
-    local:[
-      ["Why not showing?","Weak local signals."],
-      ["Fix?","Location authority + citations."]
-    ],
-    general:[
-      ["Why invisible?","AI can't trust your content."],
-      ["Fix?","Structured + authoritative signals."]
-    ]
-  };
-
-  faq.innerHTML = "";
-
-  data[type].forEach(q=>{
-    let div=document.createElement("div");
-    div.className="faq-item";
-    div.innerHTML=`<strong>${q[0]}</strong><div class="faq-a">${q[1]}</div>`;
-    div.onclick=()=>div.classList.toggle("active");
-    faq.appendChild(div);
-  });
-}
-
-/* ===== RUN AUDIT ===== */
-function run(){
-  let url=document.getElementById("url").value;
-  if(!url) return;
-
-  let niche=detectNiche(url);
-  loadFAQ(niche);
-
-  document.getElementById("inputBox").style.display="none";
-  document.getElementById("scan").style.display="block";
-
-  let logs=[
-    "Scanning structure...",
-    "Analyzing AI signals...",
-    "Checking competitors...",
-    "Finalizing..."
-  ];
-
-  let i=0, w=0;
-
-  let interval=setInterval(()=>{
-    w+=2;
-    document.getElementById("bar").style.width=w+"%";
-
-    if(w%25===0){
-      document.getElementById("log").innerText=logs[i++];
-    }
-
-    if(w>=100){
-      clearInterval(interval);
-      show(url);
-    }
-  },40);
-}
-
-/* ===== RESULT ===== */
-function show(url){
-  document.getElementById("scan").style.display="none";
-  document.getElementById("result").style.display="block";
-
-  let score=(2+Math.random()*2).toFixed(1);
-  document.getElementById("score").innerText=score;
-
-  let clean=url.replace(/^(https?:\/\/)?(www\.)?/,"").split('.')[0];
-
-  let prefixes=["get-","top-","try-","best-"];
-  let list=document.getElementById("competitors");
-
-  list.innerHTML="";
-  for(let i=0;i<3;i++){
-    let li=document.createElement("li");
-    li.innerText=prefixes[Math.floor(Math.random()*prefixes.length)] + clean + ".com";
-    list.appendChild(li);
+<script is:inline>
+  function detectNiche(url) {
+    url = url.toLowerCase();
+    if (url.includes("shop") || url.includes("store")) return "ecommerce";
+    if (url.includes("agency")) return "agency";
+    if (url.includes("clinic") || url.includes("dent")) return "local";
+    return "general";
   }
 
-  let lost=Math.floor(Math.random()*20+10);
-  document.getElementById("loss").innerText=
-    "Estimated loss: "+lost+"–"+(lost+15)+" leads/month";
-}
+  function loadFAQ(type) {
+    const faq = document.getElementById("faq");
+    const data = {
+      ecommerce: [
+        ["Why no AI traffic?", "Your product entities are not semantically mapped."],
+        ["What fixes it?", "LLM-ready schema and product citation triggers."]
+      ],
+      agency: [
+        ["Why invisible?", "Zero authority graph or citation backlinks."],
+        ["Fix?", "Topical dominance and entity-level authority."]
+      ],
+      local: [
+        ["Why not showing?", "Your location signals are filtered by LLM benchmarks."],
+        ["Fix?", "Location authority and local citation clusters."]
+      ],
+      general: [
+        ["Why invisible?", "AI cannot verify your domain's expertise."],
+        ["Fix?", "Structured data and authoritative semantic signals."]
+      ]
+    };
 
+    faq.innerHTML = "";
+    data[type].forEach(q => {
+      let div = document.createElement("div");
+      div.className = "faq-item";
+      div.innerHTML = `<strong>${q[0]}</strong><div class="faq-a">${q[1]}</div>`;
+      div.onclick = () => div.classList.toggle("active");
+      faq.appendChild(div);
+    });
+  }
+
+  window.run = function() {
+    let url = document.getElementById("url").value;
+    if (!url || url.length < 3) return;
+
+    let niche = detectNiche(url);
+    loadFAQ(niche);
+
+    document.getElementById("inputBox").style.display = "none";
+    document.getElementById("scan").style.display = "block";
+
+    let logs = ["Scanning structure...", "Analyzing RAG pipelines...", "Comparing competitor SOV...", "Finalizing..."];
+    let i = 0, w = 0;
+
+    let interval = setInterval(() => {
+      w += 1;
+      document.getElementById("bar").style.width = w + "%";
+      if (w % 25 === 0 && i < logs.length) {
+        document.getElementById("log").innerText = logs[i++];
+      }
+      if (w >= 100) {
+        clearInterval(interval);
+        showResults(url);
+      }
+    }, 40);
+  };
+
+  function showResults(url) {
+    document.getElementById("scan").style.display = "none";
+    document.getElementById("result").style.display = "block";
+
+    let score = (2.1 + (url.length % 3) + Math.random()).toFixed(1);
+    document.getElementById("score").innerText = score;
+
+    let clean = url.replace(/^(https?:\/\/)?(www\.)?/, "").split('.')[0];
+    let prefixes = ["get-", "top-", "try-", "best-"];
+    let list = document.getElementById("competitors");
+
+    list.innerHTML = "";
+    for (let i = 0; i < 3; i++) {
+      let li = document.createElement("li");
+      li.innerText = (prefixes[Math.floor(Math.random() * prefixes.length)] + clean + ".com").toLowerCase();
+      list.appendChild(li);
+    }
+
+    let lost = Math.floor(Math.random() * 20 + 12);
+    document.getElementById("loss").innerText = `ESTIMATED LEAK: ${lost}–${lost + 10} leads / month`;
+  }
 </script>
-
-</body>
-</html>
