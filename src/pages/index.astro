@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Visibility Engine</title>
 
 <style>
@@ -25,7 +25,7 @@ body{
   color:var(--text);
 }
 
-/* GRID BACKGROUND */
+/* GRID */
 body::before{
   content:"";
   position:fixed;
@@ -55,31 +55,44 @@ nav{
 
 /* LAYOUT */
 .container{
-  max-width:900px;
+  max-width:1000px;
   margin:auto;
-  padding:60px 20px;
+  padding:40px 20px;
 }
 
+/* HERO */
 h1{
-  font-size:clamp(40px,7vw,70px);
-  line-height:0.9;
+  font-size:clamp(36px,6vw,64px);
+  line-height:1;
   margin:0;
 }
 h1 span{color:var(--accent);}
-
 .sub{
   color:var(--muted);
-  margin-top:16px;
-  max-width:520px;
+  margin-top:12px;
 }
 
-/* PANEL */
+/* PANELS */
 .panel{
   background:var(--panel);
   border:1px solid var(--border);
   border-radius:14px;
   padding:20px;
   margin-top:20px;
+  box-shadow:0 0 30px rgba(0,255,159,0.04);
+}
+
+/* FLEX */
+.row{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:20px;
+}
+
+@media(min-width:900px){
+  .row{
+    grid-template-columns:2fr 1fr;
+  }
 }
 
 /* INPUT */
@@ -103,29 +116,19 @@ input{
   color:#000;
   font-weight:700;
   cursor:pointer;
+  transition:0.15s;
 }
+.btn:hover{filter:brightness(1.1);}
+
+/* TEXT */
+.muted{color:var(--muted);font-size:13px;}
+.badge{color:var(--danger);font-size:12px;margin-top:6px;}
 
 /* SCAN */
 #scan,#result,#paywall{display:none;}
 
-.bar-bg{
-  height:4px;
-  background:#111;
-  margin-top:10px;
-}
-.bar{
-  height:100%;
-  width:0%;
-  background:var(--accent);
-}
-
-/* TEXT */
-.muted{color:var(--muted); font-size:13px;}
-.badge{
-  color:var(--danger);
-  font-size:12px;
-  margin-top:6px;
-}
+.bar-bg{height:4px;background:#111;margin-top:10px;}
+.bar{height:100%;width:0%;background:var(--accent);}
 
 /* LIST */
 ul{padding-left:18px;}
@@ -154,23 +157,32 @@ li{margin:6px 0;}
 
 <div class="container">
 
+<!-- SYSTEM BAR -->
+<div class="panel" style="display:flex;justify-content:space-between;font-size:12px;">
+  <div>System: <span style="color:var(--accent)">Online</span></div>
+  <div>AI Index: Active</div>
+  <div>Usage: <span id="usageCount">0</span>/3</div>
+</div>
+
 <h1>AI is already <span>choosing</span> your competitors.</h1>
 <p class="sub">This engine checks if your business exists inside AI answers.</p>
 
-<!-- INPUT -->
+<div class="row">
+
+<!-- MAIN -->
+<div>
+
 <div class="panel" id="inputBox">
   <input id="url" placeholder="yourwebsite.com">
   <button class="btn" onclick="run()">Run audit</button>
-  <p class="muted">Free tier: 3 scans</p>
+  <div class="muted">Free tier: 3 scans</div>
 </div>
 
-<!-- SCAN -->
 <div id="scan" class="panel">
   <div id="log">Initializing scan...</div>
   <div class="bar-bg"><div class="bar" id="bar"></div></div>
 </div>
 
-<!-- RESULT -->
 <div id="result">
 
   <div class="panel">
@@ -190,15 +202,14 @@ li{margin:6px 0;}
 
 </div>
 
-<!-- PAYWALL -->
 <div id="paywall" class="panel">
   <h3>Limit reached</h3>
-  <p class="muted">Upgrade to continue scanning</p>
+  <p class="muted">Upgrade for full access</p>
 
   <ul>
-    <li>Unlimited audits</li>
+    <li>Unlimited scans</li>
     <li>Competitor insights</li>
-    <li>AI visibility fixes</li>
+    <li>AI optimization signals</li>
   </ul>
 
   <button class="btn" onclick="goPro()">Upgrade via Whop</button>
@@ -206,9 +217,21 @@ li{margin:6px 0;}
 
 </div>
 
+<!-- SIDE PANEL -->
+<div class="panel">
+  <div class="muted">LIVE SIGNALS</div>
+  <div class="muted">• Monitoring AI responses</div>
+  <div class="muted">• Tracking competitors</div>
+  <div class="muted">• Updating entity graph</div>
+</div>
+
+</div>
+
+</div>
+
 <script>
 
-/* USER ID */
+/* USER */
 function getUser(){
   let id=localStorage.getItem("uid");
   if(!id){
@@ -226,7 +249,14 @@ function incUsage(){
   let u=getUsage();
   u.scans++;
   localStorage.setItem("usage",JSON.stringify(u));
+  updateUsageUI();
 }
+
+/* UI UPDATE */
+function updateUsageUI(){
+  document.getElementById("usageCount").innerText=getUsage().scans;
+}
+updateUsageUI();
 
 /* LOCK */
 function isLocked(){
@@ -302,7 +332,7 @@ function renderFAQ(){
   let data=[
     ["Why not in AI results?","No structured entity data."],
     ["What fixes it?","GEO + schema optimization."],
-    ["Timeline?","2–4 weeks after indexing."]
+    ["Timeline?","2–4 weeks."]
   ];
 
   let el=document.getElementById("faq");
