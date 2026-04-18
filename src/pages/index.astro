@@ -1,190 +1,136 @@
 ---
+const title = "AI Visibility Audit";
+const description = "Check if ChatGPT recommends your business.";
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ProGPT — Rank inside AI search</title>
-
+    <title>{title}</title>
+    <meta name="description" content={description} />
     <style>
-      :root {
-        --bg: #0a0a0a;
-        --text: #ffffff;
-        --muted: #a0a0a0;
-        --accent: #7c5cff;
-        --card: #141414;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      }
-
       body {
-        background: var(--bg);
-        color: var(--text);
-        line-height: 1.6;
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #000;
+        color: #fff;
       }
 
       .container {
-        max-width: 1100px;
+        max-width: 700px;
         margin: 0 auto;
-        padding: 2rem;
+        padding: 60px 20px;
+        text-align: center;
       }
 
       h1 {
-        font-size: 3rem;
-        line-height: 1.2;
-      }
-
-      h2 {
         font-size: 2rem;
-        margin-bottom: 1rem;
+        margin-bottom: 10px;
       }
 
       p {
-        color: var(--muted);
-        margin: 1rem 0;
+        color: #aaa;
+        margin-bottom: 30px;
       }
 
-      .hero {
-        text-align: center;
-        padding: 6rem 2rem;
-      }
-
-      .cta-button {
-        display: inline-block;
-        margin-top: 1.5rem;
-        padding: 0.9rem 1.5rem;
-        background: var(--accent);
-        color: white;
-        text-decoration: none;
+      .input-box {
+        display: flex;
+        background: #111;
         border-radius: 8px;
-        font-weight: 600;
-      }
-
-      .section {
-        padding: 4rem 0;
-        text-align: center;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-        margin-top: 2rem;
-      }
-
-      .card {
-        background: var(--card);
-        padding: 1.5rem;
-        border-radius: 12px;
-      }
-
-      form {
-        margin-top: 2rem;
+        overflow: hidden;
+        margin-bottom: 20px;
       }
 
       input {
-        padding: 0.8rem;
-        width: 250px;
-        border-radius: 6px;
+        flex: 1;
+        padding: 14px;
         border: none;
-        margin-right: 0.5rem;
+        outline: none;
+        background: transparent;
+        color: #fff;
+        font-size: 1rem;
       }
 
       button {
-        padding: 0.8rem 1.2rem;
-        background: var(--accent);
+        background: #7C3AED;
         border: none;
+        padding: 14px 20px;
+        color: white;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      .result {
+        background: #111;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+        display: none;
+        text-align: left;
+      }
+
+      .score {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+
+      .cta {
+        margin-top: 20px;
+        display: block;
+        background: #7C3AED;
+        padding: 14px;
+        text-decoration: none;
         color: white;
         border-radius: 6px;
-        cursor: pointer;
+        font-weight: bold;
+        text-align: center;
       }
 
       footer {
-        text-align: center;
-        padding: 3rem 0;
-        font-size: 0.9rem;
-        color: var(--muted);
+        margin-top: 60px;
+        font-size: 0.8rem;
+        color: #666;
       }
     </style>
   </head>
 
   <body>
     <div class="container">
+      <h1>Check if ChatGPT recommends your business</h1>
+      <p>AI Visibility Audit for local businesses</p>
 
-      <!-- HERO -->
-      <section class="hero">
-        <h1>Rank inside ChatGPT & AI search</h1>
-        <p>
-          We help brands appear inside AI-generated answers using AEO/GEO systems.
-        </p>
+      <div class="input-box">
+        <input id="siteInput" placeholder="Enter your website..." />
+        <button onclick="runAudit()">Check</button>
+      </div>
 
-        <a href="#cta" class="cta-button">
-          Get your brand ranked
+      <div id="result" class="result">
+        <div class="score">AI Visibility Score: 3.2 / 10</div>
+        <div>❌ Not recommended in AI answers</div>
+        <div>⚠️ Weak positioning signals</div>
+
+        <a
+          class="cta"
+          href="https://yourstore.lemonsqueezy.com/checkout/buy/XXXX"
+          target="_blank"
+        >
+          Unlock full audit → $19
         </a>
-      </section>
+      </div>
 
-      <!-- HOW IT WORKS -->
-      <section class="section">
-        <h2>How it works</h2>
-
-        <div class="grid">
-          <div class="card">
-            <h3>Analyze</h3>
-            <p>We identify where your brand is missing in AI responses.</p>
-          </div>
-
-          <div class="card">
-            <h3>Optimize</h3>
-            <p>We structure your content for AI visibility (AEO/GEO).</p>
-          </div>
-
-          <div class="card">
-            <h3>Rank</h3>
-            <p>Your brand starts appearing in ChatGPT-style answers.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- WHY THIS MATTERS -->
-      <section class="section">
-        <h2>Search is changing</h2>
-        <p>
-          People are no longer clicking links. They’re asking AI.
-          If your brand isn’t inside those answers, you don’t exist.
-        </p>
-      </section>
-
-      <!-- FINAL CTA -->
-      <section class="section" id="cta">
-        <h2>Get your brand ranked inside AI</h2>
-        <p>Request early access or an audit.</p>
-
-        <form onsubmit="handleSubmit(event)">
-          <input type="email" placeholder="Enter your email" required />
-          <button type="submit">Get access</button>
-        </form>
-      </section>
-
-      <!-- FOOTER -->
       <footer>
-        <p>ProGPT — AI Search Optimization</p>
-        <p>© 2026</p>
+        progpt.store — AI Search Optimization
       </footer>
-
     </div>
 
     <script>
-      function handleSubmit(e) {
-        e.preventDefault();
-        const email = e.target.querySelector("input").value;
-        console.log("Captured email:", email);
-        alert("Thanks! We’ll reach out soon.");
+      function runAudit() {
+        const input = document.getElementById("siteInput").value;
+        if (!input) return;
+
+        // TEMP FAKE RESULT (replace with Worker later)
+        document.getElementById("result").style.display = "block";
       }
     </script>
   </body>
