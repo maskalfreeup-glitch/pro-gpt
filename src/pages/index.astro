@@ -30,9 +30,9 @@ const description = "We help local businesses appear inside AI-generated answers
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #ffffff;
-      --bg2: #f9f9f8;
-      --bg3: #f3f3f0;
+      --bg: #f7f6f3;
+      --bg2: #f0efe9;
+      --bg3: #e8e7df;
       --border: #e8e8e3;
       --border2: #d5d5ce;
       --ink: #1a1a18;
@@ -72,7 +72,7 @@ const description = "We help local businesses appear inside AI-generated answers
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255,255,255,0.92);
+      background: rgba(247,246,243,0.92);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
       padding: 0 1.5rem;
@@ -214,16 +214,16 @@ const description = "We help local businesses appear inside AI-generated answers
       font-weight: 400;
     }
 
-    /* Inline CTA */
     .hero-form {
       display: flex;
+      flex-direction: column;
       gap: 0.5rem;
-      max-width: 440px;
+      max-width: 400px;
       margin: 0 auto 1rem;
       background: var(--bg);
       border: 1.5px solid var(--border2);
-      border-radius: 10px;
-      padding: 0.35rem 0.35rem 0.35rem 1rem;
+      border-radius: 12px;
+      padding: 0.5rem;
       box-shadow: var(--shadow-md);
       transition: border-color 0.2s, box-shadow 0.2s;
     }
@@ -239,8 +239,9 @@ const description = "We help local businesses appear inside AI-generated answers
       outline: none;
       background: transparent;
       font-family: var(--font-sans);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--ink);
+      padding: 0.4rem 0.5rem;
     }
 
     .hero-input::placeholder { color: var(--ink4); }
@@ -249,14 +250,15 @@ const description = "We help local businesses appear inside AI-generated answers
       background: var(--ink);
       color: white;
       border: none;
-      border-radius: 7px;
-      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      padding: 0.75rem 1.2rem;
       font-family: var(--font-sans);
       font-size: 0.875rem;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
       transition: opacity 0.15s;
+      width: 100%;
     }
 
     .hero-submit:hover { opacity: 0.85; }
@@ -267,13 +269,22 @@ const description = "We help local businesses appear inside AI-generated answers
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 1rem;
+      gap: 1.25rem;
+      flex-wrap: wrap;
     }
 
     .hero-micro span {
       display: flex;
       align-items: center;
       gap: 0.3rem;
+    }
+
+    .hero-micro span::before {
+      content: '';
+      display: inline-block;
+      width: 4px; height: 4px;
+      background: var(--green);
+      border-radius: 50%;
     }
 
     /* â”€â”€ LOGO STRIP â”€â”€ */
@@ -678,7 +689,14 @@ const description = "We help local businesses appear inside AI-generated answers
       box-shadow: var(--shadow-sm);
     }
 
-    .t-stars { color: var(--amber); font-size: 0.75rem; margin-bottom: 0.6rem; }
+    .t-stars {
+      font-size: 0.72rem;
+      margin-bottom: 0.6rem;
+      letter-spacing: 2px;
+      color: var(--amber);
+    }
+
+    .t-stars::before { content: 'â˜… â˜… â˜… â˜… â˜…'; }
 
     .t-quote {
       font-size: 0.875rem;
@@ -1010,9 +1028,9 @@ const description = "We help local businesses appear inside AI-generated answers
       <button class="hero-submit" onclick="heroSubmit()">Check visibility â†’</button>
     </div>
     <div class="hero-micro">
-      <span>âœ“ Free Â· No signup</span>
-      <span>âœ“ Results in 30 seconds</span>
-      <span>âœ“ Real AI analysis</span>
+      <span>Free, no signup</span>
+      <span>Results in 30 seconds</span>
+      <span>Real AI analysis</span>
     </div>
   </div>
 
@@ -1050,7 +1068,7 @@ const description = "We help local businesses appear inside AI-generated answers
         <div class="section-tag">The shift</div>
         <h2 class="section-h">Search is changing.<br><em>Most businesses aren't.</em></h2>
         <p class="section-desc">
-          When someone asks ChatGPT for the best dentist, restaurant, or lawyer near them â€” AI picks one answer. There is no page two. If you're not in that answer, a competitor is.
+          When someone asks ChatGPT for the best dentist, restaurant, or lawyer near them, AI picks one answer. There is no page two. If you're not in that answer, a competitor is.
         </p>
         <a href="/audit" class="price-btn-out" style="display:inline-block; padding: 0.65rem 1.25rem; font-size: 0.85rem;">
           Check your visibility â†’
@@ -1059,14 +1077,14 @@ const description = "We help local businesses appear inside AI-generated answers
       <div class="problem-stats">
         <div class="stat-block">
           <div class="stat-num">90%</div>
-          <div class="stat-label">of local businesses are invisible in AI-generated recommendations â€” even with strong Google rankings.</div>
+          <div class="stat-label">of local businesses are invisible in AI-generated recommendations, even with strong Google rankings.</div>
         </div>
         <div class="stat-block">
           <div class="stat-num">1B+</div>
           <div class="stat-label">monthly active users across ChatGPT, Perplexity, and Google AI asking for local recommendations.</div>
         </div>
         <div class="stat-block">
-          <div class="stat-num">4â€“8 wk</div>
+          <div class="stat-num">4&ndash;8 wk</div>
           <div class="stat-label">typical time to see AI visibility improvements after GEO optimization is implemented.</div>
         </div>
       </div>
@@ -1081,17 +1099,17 @@ const description = "We help local businesses appear inside AI-generated answers
 
     <div class="steps-grid">
       <div class="step-cell">
-        <div class="step-index">01 â€” Analyze</div>
+        <div class="step-index">01 â€” ANALYZE</div>
         <div class="step-title">We audit your AI signals</div>
-        <p class="step-desc">Our engine fetches your site and checks every signal AI systems use to decide who to recommend â€” schema markup, content structure, local targeting, FAQ presence, and citation footprint.</p>
+        <p class="step-desc">Our engine fetches your site and checks every signal AI systems use to decide who to recommend: schema markup, content structure, local targeting, FAQ presence, and citation footprint.</p>
       </div>
       <div class="step-cell">
-        <div class="step-index">02 â€” Optimize</div>
+        <div class="step-index">02 â€” OPTIMIZE</div>
         <div class="step-title">We write the fixes</div>
-        <p class="step-desc">Schema code, FAQ content, local signal corrections â€” everything ready to implement. No developer required for most fixes. We give you the exact assets, not a generic checklist.</p>
+        <p class="step-desc">Schema code, FAQ content, local signal corrections. Everything ready to implement. No developer required for most fixes. We give you the exact assets, not a generic checklist.</p>
       </div>
       <div class="step-cell">
-        <div class="step-index">03 â€” Rank</div>
+        <div class="step-index">03 â€” RANK</div>
         <div class="step-title">Your brand appears in AI answers</div>
         <p class="step-desc">ChatGPT, Perplexity, and Google AI start recommending your business when customers ask. Every AI interaction that recommends you compounds your authority.</p>
       </div>
@@ -1117,7 +1135,7 @@ const description = "We help local businesses appear inside AI-generated answers
         <div class="check-icon-wrap">ðŸ“</div>
         <div class="check-content">
           <div class="check-name">Content Clarity</div>
-          <div class="check-desc-text">How clearly your homepage communicates what you do, who you serve, and where you operate â€” in a format AI systems can parse.</div>
+          <div class="check-desc-text">How clearly your homepage communicates what you do, who you serve, and where you operate, in a format AI systems can parse.</div>
         </div>
         <span class="check-tag tag-critical">Critical</span>
       </div>
@@ -1236,35 +1254,35 @@ const description = "We help local businesses appear inside AI-generated answers
     <h2 class="section-h" style="margin-bottom:2rem">What clients say</h2>
     <div class="testimonial-grid">
       <div class="testimonial-card">
-        <div class="t-stars">â˜…â˜…â˜…â˜…â˜…</div>
+        <div class="t-stars"></div>
         <p class="t-quote">"Within 6 weeks of implementing the schema fixes, our dental practice started appearing when people asked ChatGPT for dentists in our neighborhood. We've had 4 new patients mention they found us through AI."</p>
         <div class="t-author">
           <div class="t-avatar">MR</div>
           <div>
             <div class="t-name">Dr. M. Rodriguez</div>
-            <div class="t-role">Family Dentist Â· Dallas, TX</div>
+            <div class="t-role">Family Dentist &middot; Dallas, TX</div>
           </div>
         </div>
       </div>
       <div class="testimonial-card">
-        <div class="t-stars">â˜…â˜…â˜…â˜…â˜…</div>
-        <p class="t-quote">"I had no idea ChatGPT wasn't recommending my restaurant. The audit found three simple fixes â€” we implemented them in a weekend and now we appear in 'best brunch in Wicker Park' results."</p>
+        <div class="t-stars"></div>
+        <p class="t-quote">"I had no idea ChatGPT wasn't recommending my restaurant. The audit found three simple fixes &mdash; we implemented them in a weekend and now we appear in 'best brunch in Wicker Park' results."</p>
         <div class="t-author">
           <div class="t-avatar">JK</div>
           <div>
             <div class="t-name">Jamie K.</div>
-            <div class="t-role">Restaurant Owner Â· Chicago, IL</div>
+            <div class="t-role">Restaurant Owner &middot; Chicago, IL</div>
           </div>
         </div>
       </div>
       <div class="testimonial-card">
-        <div class="t-stars">â˜…â˜…â˜…â˜…â˜…</div>
+        <div class="t-stars"></div>
         <p class="t-quote">"As a personal injury attorney in Miami, appearing in AI recommendations is now essential. ProGPT found gaps I didn't know existed. The schema they wrote took 20 minutes to implement."</p>
         <div class="t-author">
           <div class="t-avatar">AL</div>
           <div>
             <div class="t-name">A. Lawson, Esq.</div>
-            <div class="t-role">Attorney Â· Miami, FL</div>
+            <div class="t-role">Attorney &middot; Miami, FL</div>
           </div>
         </div>
       </div>
@@ -1289,7 +1307,7 @@ const description = "We help local businesses appear inside AI-generated answers
         <input class="cta-input" id="ctaEmail" type="email" placeholder="your@email.com" />
         <button class="cta-btn" onclick="ctaSubmit()">Get free audit â†’</button>
       </div>
-      <div id="ctaSuccess">âœ“ Redirecting to your free audit...</div>
+      <div id="ctaSuccess">Redirecting to your free audit...</div>
       <p class="cta-micro">No spam Â· Unsubscribe anytime</p>
     </div>
   </div>
@@ -1309,19 +1327,19 @@ const description = "We help local businesses appear inside AI-generated answers
         <a href="https://whop.com/progpt" target="_blank">Whop</a>
         <a href="https://gumroad.com/l/progpt" target="_blank">Gumroad</a>
       </div>
-      <div class="footer-copy">Â© {new Date().getFullYear()} ProGPT Â· progpt.store</div>
+      <div class="footer-copy">&copy; {new Date().getFullYear()} ProGPT &middot; progpt.store</div>
     </div>
   </footer>
 
   <script>
     // â”€â”€ FAQ DATA â”€â”€
     const faqs = [
-      ["What is GEO and how is it different from SEO?", "GEO (Generative Engine Optimization) optimizes your business to appear in AI-generated answers from ChatGPT, Perplexity, and Google AI. Traditional SEO optimizes for search engine rankings and blue links. These are different systems with different signals â€” a business can rank #1 on Google and be invisible in AI answers."],
-      ["How does the free audit work?", "You enter your website URL. Our system fetches your site content and runs it through an AI analysis engine that checks the six key signals determining AI visibility. You get a scored report with your specific issues and quick wins â€” all in about 30 seconds."],
-      ["How long until I see results after implementing fixes?", "Most AI systems update their recommendation patterns within 4â€“8 weeks of structural changes going live. Schema markup fixes can show impact on the faster end. Content and FAQ changes typically take closer to 6â€“8 weeks."],
-      ["Do I need a developer to implement the fixes?", "For the GEO Starter package, no. We write the schema code as a copy-paste snippet for your website's header. Most website builders (Squarespace, Wix, WordPress, Webflow) have a custom code field where you paste it. FAQ content and NAP corrections are DIY-friendly."],
-      ["What types of businesses benefit most from GEO?", "Local service businesses with geographic intent searches see the highest ROI: restaurants, dental practices, law firms, contractors, real estate agents, medical practices, gyms, salons. Any business where customers search for 'near me' or '[service] in [city]' queries."],
-      ["Can I check a competitor's AI visibility?", "Yes â€” the audit engine works on any public website. Many clients audit 2â€“3 competitors to benchmark their own visibility gaps against what's already ranking in AI answers."],
+      ["What is GEO and how is it different from SEO?", "GEO (Generative Engine Optimization) optimizes your business to appear in AI-generated answers from ChatGPT, Perplexity, and Google AI. Traditional SEO optimizes for search engine rankings and blue links. These are different systems with different signals. A business can rank #1 on Google and be invisible in AI answers."],
+      ["How does the free audit work?", "You enter your website URL. Our system fetches your site content and runs it through an AI analysis engine that checks the six key signals determining AI visibility. You get a scored report with your specific issues and quick wins in about 30 seconds."],
+      ["How long until I see results after implementing fixes?", "Most AI systems update their recommendation patterns within 4 to 8 weeks of structural changes going live. Schema markup fixes can show impact on the faster end. Content and FAQ changes typically take closer to 6 to 8 weeks."],
+      ["Do I need a developer to implement the fixes?", "For the GEO Starter package, no. We write the schema code as a copy-paste snippet for your website header. Most website builders (Squarespace, Wix, WordPress, Webflow) have a custom code field where you paste it. FAQ content and NAP corrections are DIY-friendly."],
+      ["What types of businesses benefit most from GEO?", "Local service businesses with geographic intent searches see the highest ROI: restaurants, dental practices, law firms, contractors, real estate agents, medical practices, gyms, and salons. Any business where customers search for 'near me' or '[service] in [city]' queries."],
+      ["Can I check a competitor's AI visibility?", "Yes. The audit engine works on any public website. Many clients audit 2 to 3 competitors to benchmark their own visibility gaps against what is already ranking in AI answers."],
     ];
 
     const faqList = document.getElementById("faqList");
