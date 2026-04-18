@@ -1,6 +1,6 @@
 ---
-const title = "AI Visibility Engine â€” ProGPT";
-const description = "Check if ChatGPT, Perplexity and Google AI recommend your business. Free AI visibility audit â€” 3 free scans.";
+const title = "ProGPT â€” Rank Inside ChatGPT & AI Search";
+const description = "We help local businesses appear inside AI-generated answers. Free AI visibility audit â€” see your score in 30 seconds.";
 ---
 
 <!DOCTYPE html>
@@ -10,55 +10,61 @@ const description = "Check if ChatGPT, Perplexity and Google AI recommend your b
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
-  <link rel="canonical" href="https://progpt.store/audit" />
+  <link rel="canonical" href="https://progpt.store" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ProGPT",
+    "url": "https://progpt.store",
+    "description": "AI search optimization and GEO services for local businesses",
+    "serviceType": "Generative Engine Optimization",
+    "areaServed": "United States"
+  }
+  </script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #000000;
-      --panel: #0d0d0d;
-      --panel2: #111111;
-      --border: #1a1a1a;
-      --border2: #252525;
-      --purple: #7C3AED;
-      --purple-dim: rgba(124,58,237,0.1);
-      --purple-glow: rgba(124,58,237,0.2);
-      --white: #ffffff;
-      --gray: #444;
-      --gray2: #777;
-      --gray3: #aaa;
-      --green: #22c55e;
-      --green-dim: rgba(34,197,94,0.1);
-      --red: #ef4444;
-      --amber: #f59e0b;
-      --font-display: 'Syne', sans-serif;
-      --font-body: 'DM Sans', sans-serif;
-      --font-mono: 'DM Mono', monospace;
+      --bg: #ffffff;
+      --bg2: #f9f9f8;
+      --bg3: #f3f3f0;
+      --border: #e8e8e3;
+      --border2: #d5d5ce;
+      --ink: #1a1a18;
+      --ink2: #3d3d38;
+      --ink3: #6b6b63;
+      --ink4: #9c9c92;
+      --accent: #0a0a0a;
+      --blue: #2f54eb;
+      --blue-light: #e8eeff;
+      --blue-dim: rgba(47,84,235,0.08);
+      --green: #00875a;
+      --green-light: #e3fcef;
+      --red: #de350b;
+      --amber: #ff8b00;
+      --font-serif: 'Instrument Serif', Georgia, serif;
+      --font-sans: 'Geist', system-ui, sans-serif;
+      --radius: 10px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+      --shadow-lg: 0 20px 60px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.05);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
-      color: var(--white);
-      font-family: var(--font-body);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.6;
       min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* â”€â”€ NAV â”€â”€ */
@@ -66,539 +72,686 @@ const description = "Check if ChatGPT, Perplexity and Google AI recommend your b
       position: sticky;
       top: 0;
       z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 1.5rem;
-      background: rgba(0,0,0,0.85);
+      background: rgba(255,255,255,0.92);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
+
+    .nav-left { display: flex; align-items: center; gap: 2rem; }
 
     .nav-logo {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 1.1rem;
-      color: var(--white);
-      text-decoration: none;
-      letter-spacing: -0.03em;
-    }
-    .nav-logo span { color: var(--purple); }
-
-    .nav-center {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--panel2);
-      border: 1px solid var(--border2);
-      border-radius: 8px;
-      padding: 0.3rem 0.75rem;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--gray3);
-    }
-
-    .status-dot {
-      width: 6px; height: 6px;
-      background: var(--green);
-      border-radius: 50%;
-      animation: blink 2s infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .usage-badge {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--gray2);
-      background: var(--panel2);
-      border: 1px solid var(--border2);
-      padding: 0.3rem 0.7rem;
-      border-radius: 6px;
-    }
-
-    .usage-badge span { color: var(--purple); font-weight: 600; }
-
-    .nav-btn {
-      background: var(--purple);
-      color: var(--white);
-      text-decoration: none;
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 0.4rem 0.9rem;
-      border-radius: 7px;
-      transition: opacity 0.2s;
-    }
-    .nav-btn:hover { opacity: 0.85; }
-
-    /* â”€â”€ LAYOUT â”€â”€ */
-    .container {
-      position: relative;
-      z-index: 1;
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 1.25rem;
-      align-items: start;
-    }
-
-    @media (max-width: 800px) {
-      .layout { grid-template-columns: 1fr; }
-      .side-panel-wrap { display: none; }
-    }
-
-    /* â”€â”€ HERO â”€â”€ */
-    .hero-strip {
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-strip h1 {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-      margin-bottom: 0.4rem;
-    }
-
-    .hero-strip h1 em {
-      font-style: normal;
-      background: linear-gradient(135deg, #a78bfa, var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-sub {
-      color: var(--gray2);
-      font-size: 0.9rem;
-    }
-
-    /* â”€â”€ PANEL â”€â”€ */
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-    }
-
-    .panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.75rem 1.1rem;
-      border-bottom: 1px solid var(--border);
-      background: var(--panel2);
-    }
-
-    .panel-title {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--gray2);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .panel-dots {
-      display: flex;
-      gap: 5px;
-    }
-
-    .panel-dots span {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--border2);
-    }
-
-    .panel-body { padding: 1.25rem; }
-
-    /* â”€â”€ INPUT â”€â”€ */
-    .url-group {
-      display: flex;
-      gap: 0.6rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .url-input {
-      flex: 1;
-      background: #000;
-      border: 1px solid var(--border2);
-      border-radius: 9px;
-      padding: 0.8rem 1rem;
-      color: var(--white);
-      font-family: var(--font-mono);
-      font-size: 0.875rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .url-input::placeholder { color: var(--gray); }
-    .url-input:focus { border-color: var(--purple); }
-
-    .run-btn {
-      background: var(--purple);
-      border: none;
-      border-radius: 9px;
-      padding: 0.8rem 1.25rem;
-      color: var(--white);
-      font-family: var(--font-body);
-      font-size: 0.875rem;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: opacity 0.2s, transform 0.1s;
-    }
-
-    .run-btn:hover { opacity: 0.88; }
-    .run-btn:active { transform: scale(0.98); }
-    .run-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-    .input-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .free-badge {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--gray2);
-    }
-
-    .free-badge strong { color: var(--green); }
-
-    .scans-left {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--gray2);
-    }
-
-    .scans-left span { color: var(--white); font-weight: 600; }
-
-    /* â”€â”€ SCAN LOG â”€â”€ */
-    #scanPanel { display: none; }
-
-    .scan-log {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--gray3);
-      margin-bottom: 1rem;
-      min-height: 80px;
-    }
-
-    .log-line {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      margin-bottom: 0.4rem;
-      opacity: 0;
-      transform: translateY(4px);
-      animation: logIn 0.3s ease forwards;
-    }
-
-    @keyframes logIn {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .log-prefix { color: var(--purple); flex-shrink: 0; }
-    .log-ok { color: var(--green); }
-    .log-warn { color: var(--amber); }
-
-    .progress-track {
-      height: 2px;
-      background: var(--border2);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--purple), #a78bfa);
-      border-radius: 2px;
-      transition: width 0.3s ease;
-    }
-
-    /* â”€â”€ EMAIL GATE â”€â”€ */
-    #emailGate { display: none; }
-
-    .gate-box {
-      background: var(--panel2);
-      border: 1px solid var(--border2);
-      border-radius: 10px;
-      padding: 1.1rem;
-      margin-bottom: 0.75rem;
-      text-align: center;
-    }
-
-    .gate-box p {
-      font-size: 0.85rem;
-      color: var(--gray3);
-      margin-bottom: 0.75rem;
-    }
-
-    .gate-box strong { color: var(--white); }
-
-    .gate-row {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .email-input {
-      flex: 1;
-      background: #000;
-      border: 1px solid var(--border2);
-      border-radius: 8px;
-      padding: 0.7rem 0.9rem;
-      color: var(--white);
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .email-input::placeholder { color: var(--gray); }
-    .email-input:focus { border-color: var(--purple); }
-
-    .gate-btn {
-      background: var(--green);
-      border: none;
-      border-radius: 8px;
-      padding: 0.7rem 1.1rem;
-      color: #000;
-      font-family: var(--font-body);
-      font-size: 0.82rem;
+      font-family: var(--font-sans);
       font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: opacity 0.2s;
-    }
-
-    .gate-btn:hover { opacity: 0.88; }
-
-    /* â”€â”€ RESULT â”€â”€ */
-    #resultPanel { display: none; }
-
-    /* Score */
-    .score-row {
+      font-size: 0.95rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.02em;
       display: flex;
       align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      background: var(--panel2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      margin-bottom: 0.75rem;
+      gap: 0.4rem;
     }
 
-    .score-ring {
-      position: relative;
-      width: 64px; height: 64px;
-      flex-shrink: 0;
-    }
-
-    .score-ring svg { transform: rotate(-90deg); }
-    .ring-bg { fill: none; stroke: var(--border2); stroke-width: 5; }
-    .ring-fill {
-      fill: none;
-      stroke-width: 5;
-      stroke-linecap: round;
-      stroke-dasharray: 163;
-      stroke-dashoffset: 163;
-      transition: stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1);
-    }
-
-    .score-num {
-      position: absolute;
-      inset: 0;
+    .logo-mark {
+      width: 22px; height: 22px;
+      background: var(--ink);
+      border-radius: 5px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-display);
-      font-size: 1rem;
+      color: white;
+      font-size: 0.6rem;
       font-weight: 800;
+      letter-spacing: -0.05em;
     }
 
-    .score-info { flex: 1; }
-
-    .score-label {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--gray2);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 0.2rem;
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0.25rem;
     }
 
-    .score-verdict {
+    .nav-links a {
+      color: var(--ink3);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .nav-links a:hover { background: var(--bg2); color: var(--ink); }
+
+    .nav-right { display: flex; align-items: center; gap: 0.5rem; }
+
+    .nav-ghost {
+      color: var(--ink2);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+
+    .nav-ghost:hover { background: var(--bg2); }
+
+    .nav-cta {
+      background: var(--ink);
+      color: white;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.4rem 0.9rem;
+      border-radius: 7px;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* â”€â”€ HERO â”€â”€ */
+    .hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 0.3rem 0.85rem;
+      border-radius: 20px;
+      margin-bottom: 1.75rem;
+      border: 1px solid rgba(47,84,235,0.15);
+    }
+
+    .eyebrow-dot {
+      width: 5px; height: 5px;
+      background: var(--blue);
+      border-radius: 50%;
+      animation: pulse 2.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.5); }
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.8rem, 7vw, 4.8rem);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--ink3);
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--ink3);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    /* Inline CTA */
+    .hero-form {
+      display: flex;
+      gap: 0.5rem;
+      max-width: 440px;
+      margin: 0 auto 1rem;
+      background: var(--bg);
+      border: 1.5px solid var(--border2);
+      border-radius: 10px;
+      padding: 0.35rem 0.35rem 0.35rem 1rem;
+      box-shadow: var(--shadow-md);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .hero-form:focus-within {
+      border-color: var(--ink);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+
+    .hero-input::placeholder { color: var(--ink4); }
+
+    .hero-submit {
+      background: var(--ink);
+      color: white;
+      border: none;
+      border-radius: 7px;
+      padding: 0.6rem 1.2rem;
+      font-family: var(--font-sans);
       font-size: 0.875rem;
       font-weight: 600;
-      color: var(--gray3);
-      line-height: 1.4;
-      margin-bottom: 0.3rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.15s;
     }
 
-    .vis-pill {
+    .hero-submit:hover { opacity: 0.85; }
+
+    .hero-micro {
+      font-size: 0.78rem;
+      color: var(--ink4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .hero-micro span {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* â”€â”€ LOGO STRIP â”€â”€ */
+    .logo-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 1.25rem 2rem;
+      text-align: center;
+    }
+
+    .logo-strip p {
+      font-size: 0.75rem;
+      color: var(--ink4);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .ai-platforms {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .ai-platform {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ink3);
+    }
+
+    .platform-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+    }
+
+    /* â”€â”€ SECTIONS â”€â”€ */
+    .section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-tag {
       display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
+      font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 0.2rem 0.55rem;
-      border-radius: 5px;
+      color: var(--blue);
+      margin-bottom: 0.75rem;
     }
 
-    .vis-low { background: rgba(239,68,68,0.12); color: #f87171; }
-    .vis-medium { background: rgba(245,158,11,0.12); color: #fbbf24; }
-    .vis-high { background: rgba(34,197,94,0.12); color: #4ade80; }
+    .section-h {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
 
-    /* Checks */
-    .checks-list {
+    .section-h em { font-style: italic; color: var(--ink3); }
+
+    .section-desc {
+      color: var(--ink3);
+      font-size: 0.95rem;
+      max-width: 500px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    /* â”€â”€ PROBLEM SECTION â”€â”€ */
+    .problem-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .problem-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .problem-stats {
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
-      margin-bottom: 0.75rem;
+      gap: 1.5rem;
+    }
+
+    .stat-block { padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .stat-block:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .stat-num {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      font-weight: 400;
+      line-height: 1;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--ink3);
+      line-height: 1.5;
+    }
+
+    /* â”€â”€ HOW IT WORKS â”€â”€ */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .step-cell {
+      background: var(--bg);
+      padding: 2rem 1.5rem;
+      transition: background 0.2s;
+    }
+
+    .step-cell:hover { background: var(--bg2); }
+
+    .step-index {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink4);
+      margin-bottom: 1rem;
+    }
+
+    .step-title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 0.6rem;
+      color: var(--ink);
+    }
+
+    .step-desc {
+      font-size: 0.85rem;
+      color: var(--ink3);
+      line-height: 1.6;
+    }
+
+    /* â”€â”€ CHECKS â”€â”€ */
+    .checks-table {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
     }
 
     .check-row {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.6rem 0.9rem;
-      background: var(--panel2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 0.8rem;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
     }
 
-    .check-left {
+    .check-row:last-child { border-bottom: none; }
+    .check-row:hover { background: var(--bg2); }
+
+    .check-icon-wrap {
+      width: 28px; height: 28px;
+      border-radius: 7px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      justify-content: center;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
     }
 
-    .check-name-text { font-weight: 500; color: var(--gray3); }
-    .check-note-text { font-size: 0.72rem; color: var(--gray2); margin-top: 0.1rem; font-family: var(--font-mono); }
+    .check-content { flex: 1; }
 
-    .check-status {
-      font-family: var(--font-mono);
+    .check-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+
+    .check-desc-text {
+      font-size: 0.8rem;
+      color: var(--ink3);
+      line-height: 1.5;
+    }
+
+    .check-tag {
       font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      padding: 0.15rem 0.5rem;
-      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+      border-radius: 5px;
       flex-shrink: 0;
+      margin-top: 0.15rem;
     }
 
-    .status-pass { background: var(--green-dim); color: #4ade80; }
-    .status-fail { background: rgba(239,68,68,0.1); color: #f87171; }
+    .tag-critical { background: #fff0ee; color: var(--red); }
+    .tag-high { background: #fff8e6; color: var(--amber); }
+    .tag-medium { background: var(--green-light); color: var(--green); }
 
-    /* Issues + Wins */
-    .two-col {
+    /* â”€â”€ PRICING â”€â”€ */
+    .pricing-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pricing-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .pricing-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-      margin-bottom: 0.75rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border2);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
     }
 
-    .mini-box {
-      background: var(--panel2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.8rem;
-    }
-
-    .mini-title {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 0.6rem;
-    }
-
-    .mini-title.red { color: #f87171; }
-    .mini-title.green { color: #4ade80; }
-
-    .mini-item {
-      font-size: 0.78rem;
-      color: var(--gray2);
-      line-height: 1.5;
-      margin-bottom: 0.3rem;
-      padding-left: 0.75rem;
+    .price-card {
+      background: var(--bg);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
       position: relative;
     }
 
-    .mini-item::before {
-      content: 'â€º';
-      position: absolute;
-      left: 0;
-      font-weight: 700;
+    .price-card.highlight {
+      background: var(--ink);
     }
 
-    .mini-item.red::before { color: #f87171; }
-    .mini-item.green::before { color: #4ade80; }
+    .price-card.highlight .price-name { color: rgba(255,255,255,0.5); }
+    .price-card.highlight .price-amount { color: white; }
+    .price-card.highlight .price-per { color: rgba(255,255,255,0.4); }
+    .price-card.highlight .price-tagline { color: rgba(255,255,255,0.6); }
+    .price-card.highlight .price-feat { color: rgba(255,255,255,0.7); }
+    .price-card.highlight .price-feat::before { color: rgba(255,255,255,0.4); }
+    .price-card.highlight .price-btn-out {
+      background: white;
+      color: var(--ink);
+    }
 
-    /* Loss estimate */
-    .loss-bar {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: rgba(239,68,68,0.05);
-      border: 1px solid rgba(239,68,68,0.15);
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
+    .popular-tag {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--blue);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.65rem;
+      border-radius: 0 0 6px 6px;
+    }
+
+    .price-name {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink4);
       margin-bottom: 0.75rem;
     }
 
-    .loss-icon { font-size: 1.1rem; flex-shrink: 0; }
-    .loss-text { font-size: 0.82rem; color: var(--gray3); }
-    .loss-text strong { color: #f87171; }
+    .price-amount {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 400;
+      line-height: 1;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
 
-    /* FAQ */
-    .faq-list { margin-bottom: 0.75rem; }
+    .price-amount sup {
+      font-size: 1rem;
+      vertical-align: super;
+      font-family: var(--font-sans);
+      font-weight: 500;
+    }
+
+    .price-per {
+      font-size: 0.75rem;
+      color: var(--ink4);
+      margin-bottom: 0.75rem;
+    }
+
+    .price-tagline {
+      font-size: 0.8rem;
+      color: var(--ink3);
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .price-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 1.25rem;
+    }
+
+    .price-card.highlight .price-divider { background: rgba(255,255,255,0.1); }
+
+    .price-feats { margin-bottom: 1.25rem; }
+
+    .price-feat {
+      font-size: 0.78rem;
+      color: var(--ink3);
+      margin-bottom: 0.35rem;
+      padding-left: 1rem;
+      position: relative;
+      line-height: 1.4;
+    }
+
+    .price-feat::before {
+      content: 'âœ“';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 700;
+      font-size: 0.72rem;
+    }
+
+    .price-btn-out {
+      display: block;
+      text-align: center;
+      padding: 0.65rem;
+      border-radius: 7px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s;
+      background: var(--ink);
+      color: white;
+    }
+
+    .price-btn-out:hover { opacity: 0.85; }
+
+    .price-btn-ghost {
+      display: block;
+      text-align: center;
+      padding: 0.65rem;
+      border-radius: 7px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s;
+      border: 1px solid var(--border2);
+      color: var(--ink2);
+    }
+
+    .price-btn-ghost:hover { background: var(--bg2); border-color: var(--ink3); }
+
+    /* â”€â”€ TESTIMONIAL â”€â”€ */
+    .testimonial-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .testimonial-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .t-stars { color: var(--amber); font-size: 0.75rem; margin-bottom: 0.6rem; }
+
+    .t-quote {
+      font-size: 0.875rem;
+      color: var(--ink2);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+
+    .t-author {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .t-avatar {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--ink3);
+    }
+
+    .t-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .t-role { font-size: 0.72rem; color: var(--ink4); }
+
+    /* â”€â”€ FAQ â”€â”€ */
+    .faq-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .faq-list { margin-top: 2rem; }
 
     .faq-item {
       border-bottom: 1px solid var(--border);
-      overflow: hidden;
     }
-
-    .faq-item:last-child { border-bottom: none; }
 
     .faq-q {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.75rem 0;
+      padding: 1rem 0;
       cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--gray3);
-      transition: color 0.2s;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink);
       user-select: none;
+      transition: color 0.15s;
+      gap: 1rem;
     }
 
-    .faq-q:hover { color: var(--white); }
+    .faq-q:hover { color: var(--ink2); }
 
     .faq-chevron {
-      color: var(--gray);
-      font-size: 0.8rem;
+      color: var(--ink4);
+      font-size: 0.75rem;
       transition: transform 0.2s;
       flex-shrink: 0;
     }
@@ -607,235 +760,208 @@ const description = "Check if ChatGPT, Perplexity and Google AI recommend your b
 
     .faq-a {
       display: none;
-      padding-bottom: 0.75rem;
-      font-size: 0.8rem;
-      color: var(--gray2);
-      line-height: 1.6;
-      font-family: var(--font-mono);
+      padding-bottom: 1rem;
+      font-size: 0.875rem;
+      color: var(--ink3);
+      line-height: 1.7;
     }
 
     .faq-item.open .faq-a { display: block; }
 
-    /* CTA */
-    .result-cta {
-      background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(124,58,237,0.05));
-      border: 1px solid rgba(124,58,237,0.3);
-      border-radius: 10px;
-      padding: 1.1rem;
+    /* â”€â”€ CTA SECTION â”€â”€ */
+    .cta-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem 6rem;
       text-align: center;
     }
 
-    .result-cta p {
-      font-size: 0.85rem;
-      color: var(--gray3);
-      margin-bottom: 0.75rem;
-    }
-
-    .result-cta strong { color: var(--white); }
-
-    .cta-main {
-      display: inline-block;
-      background: var(--purple);
-      color: var(--white);
-      font-weight: 600;
-      font-size: 0.875rem;
-      padding: 0.65rem 1.5rem;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: opacity 0.2s;
-      margin-right: 0.5rem;
-    }
-
-    .cta-main:hover { opacity: 0.85; }
-
-    .cta-sec {
-      display: inline-block;
-      color: var(--gray2);
-      font-size: 0.8rem;
-      text-decoration: none;
-      transition: color 0.2s;
-      margin-top: 0.5rem;
-    }
-
-    .cta-sec:hover { color: var(--white); }
-
-    /* â”€â”€ PAYWALL â”€â”€ */
-    #paywallPanel { display: none; }
-
-    .paywall-box {
-      text-align: center;
-      padding: 1.5rem;
-    }
-
-    .paywall-icon { font-size: 2rem; margin-bottom: 0.75rem; }
-
-    .paywall-box h3 {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 0.5rem;
-    }
-
-    .paywall-box p {
-      color: var(--gray2);
-      font-size: 0.85rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .paywall-features {
-      list-style: none;
-      margin-bottom: 1.25rem;
-      text-align: left;
-      display: inline-block;
-    }
-
-    .paywall-features li {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.82rem;
-      color: var(--gray3);
-      margin-bottom: 0.4rem;
-    }
-
-    .paywall-features li::before {
-      content: 'âœ“';
-      color: var(--green);
-      font-weight: 700;
-    }
-
-    .paywall-btn {
-      display: block;
-      background: var(--purple);
-      color: var(--white);
-      border: none;
-      border-radius: 9px;
-      padding: 0.85rem;
-      font-family: var(--font-body);
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      width: 100%;
-      transition: opacity 0.2s;
-      text-decoration: none;
-      margin-bottom: 0.5rem;
-    }
-
-    .paywall-btn:hover { opacity: 0.85; }
-
-    .paywall-alt {
-      font-size: 0.78rem;
-      color: var(--gray2);
-    }
-
-    .paywall-alt a { color: var(--gray3); }
-
-    /* â”€â”€ SIDE PANEL â”€â”€ */
-    .side-panel-wrap { display: flex; flex-direction: column; gap: 1rem; }
-
-    .side-panel {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
+    .cta-box {
+      background: var(--ink);
+      border-radius: 16px;
+      padding: 4rem 3rem;
+      position: relative;
       overflow: hidden;
     }
 
-    .side-header {
-      padding: 0.6rem 1rem;
-      border-bottom: 1px solid var(--border);
-      background: var(--panel2);
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--gray2);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: -10%;
+      width: 60%;
+      height: 120%;
+      background: radial-gradient(ellipse, rgba(255,255,255,0.04) 0%, transparent 70%);
+      pointer-events: none;
     }
 
-    .side-body { padding: 0.9rem 1rem; }
+    .cta-box::after {
+      content: '';
+      position: absolute;
+      bottom: -60%;
+      right: -10%;
+      width: 60%;
+      height: 120%;
+      background: radial-gradient(ellipse, rgba(47,84,235,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-    .signal-row {
+    .cta-box h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 400;
+      color: white;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-box h2 em { font-style: italic; color: rgba(255,255,255,0.55); }
+
+    .cta-box p {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-form {
       display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.45rem 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.78rem;
-      color: var(--gray2);
-    }
-
-    .signal-row:last-child { border-bottom: none; }
-
-    .signal-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .dot-green { background: var(--green); animation: blink 2.5s infinite; }
-    .dot-purple { background: var(--purple); animation: blink 3s infinite 0.5s; }
-    .dot-amber { background: var(--amber); animation: blink 2s infinite 1s; }
-
-    .stat-mini {
-      display: flex;
-      flex-direction: column;
       gap: 0.5rem;
+      max-width: 380px;
+      margin: 0 auto 0.75rem;
+      position: relative;
+      z-index: 1;
     }
 
-    .stat-mini-row {
+    .cta-input {
+      flex: 1;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      color: white;
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .cta-input::placeholder { color: rgba(255,255,255,0.3); }
+    .cta-input:focus { border-color: rgba(255,255,255,0.4); }
+
+    .cta-btn {
+      background: white;
+      color: var(--ink);
+      border: none;
+      border-radius: 8px;
+      padding: 0.7rem 1.25rem;
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.15s;
+    }
+
+    .cta-btn:hover { opacity: 0.88; }
+
+    .cta-micro {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    #ctaSuccess {
+      display: none;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.75rem;
+      background: rgba(255,255,255,0.08);
+      border-radius: 8px;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    /* â”€â”€ FOOTER â”€â”€ */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 2rem;
+    }
+
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.78rem;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
-    .stat-mini-label { color: var(--gray2); }
-    .stat-mini-val {
-      font-family: var(--font-mono);
-      font-weight: 600;
-      color: var(--white);
+    .footer-logo {
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--ink);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
       font-size: 0.8rem;
+      color: var(--ink4);
+      text-decoration: none;
+      transition: color 0.15s;
     }
 
-    .mini-progress {
-      height: 2px;
-      background: var(--border2);
-      border-radius: 2px;
-      margin-top: 0.25rem;
-      overflow: hidden;
+    .footer-links a:hover { color: var(--ink); }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--ink4);
     }
 
-    .mini-progress-fill {
-      height: 100%;
-      background: var(--purple);
-      border-radius: 2px;
+    /* â”€â”€ ANIMATIONS â”€â”€ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* New scan btn */
-    .new-scan-btn {
-      display: block;
-      width: 100%;
-      background: transparent;
-      border: 1px solid var(--border2);
-      border-radius: 8px;
-      padding: 0.6rem;
-      color: var(--gray2);
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      cursor: pointer;
-      text-align: center;
-      transition: border-color 0.2s, color 0.2s;
-      margin-top: 0.75rem;
-    }
+    .hero-eyebrow { animation: fadeUp 0.5s ease both; }
+    .hero h1 { animation: fadeUp 0.5s ease 0.08s both; }
+    .hero-desc { animation: fadeUp 0.5s ease 0.15s both; }
+    .hero-form { animation: fadeUp 0.5s ease 0.22s both; }
+    .hero-micro { animation: fadeUp 0.5s ease 0.28s both; }
 
-    .new-scan-btn:hover { border-color: var(--purple); color: var(--white); }
+    /* â”€â”€ RESPONSIVE â”€â”€ */
+    @media (max-width: 720px) {
+      .problem-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr 1fr; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .cta-form { flex-direction: column; }
+      .cta-btn { width: 100%; }
+    }
 
     @media (max-width: 480px) {
-      .two-col { grid-template-columns: 1fr; }
-      .url-group { flex-direction: column; }
-      .run-btn { width: 100%; }
-      .gate-row { flex-direction: column; }
-      .gate-btn { width: 100%; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .hero-form { flex-direction: column; border-radius: 10px; padding: 0.5rem; }
+      .hero-submit { width: 100%; }
     }
   </style>
 </head>
@@ -843,541 +969,404 @@ const description = "Check if ChatGPT, Perplexity and Google AI recommend your b
 
   <!-- NAV -->
   <nav>
-    <a href="/" class="nav-logo">Pro<span>GPT</span></a>
-    <div class="nav-center">
-      <div class="status-dot"></div>
-      AI Engine Online
+    <div class="nav-left">
+      <a href="/" class="nav-logo">
+        <div class="logo-mark">P</div>
+        ProGPT
+      </a>
+      <ul class="nav-links">
+        <li><a href="/#how-it-works">How it works</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+      </ul>
     </div>
     <div class="nav-right">
-      <div class="usage-badge">Scans: <span id="navUsage">0</span>/3</div>
-      <a href="https://whop.com/progpt" target="_blank" class="nav-btn">Upgrade â†’</a>
+      <a href="/audit" class="nav-ghost">Free audit</a>
+      <a href="https://whop.com/progpt" target="_blank" class="nav-cta">Get ranked â†’</a>
     </div>
   </nav>
 
-  <div class="container">
-
-    <!-- HERO -->
-    <div class="hero-strip">
-      <h1>AI is already <em>choosing</em><br>your competitors.</h1>
-      <p class="hero-sub">This engine checks if your business exists inside AI answers.</p>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-dot"></div>
+      AI is replacing search â€” are you visible?
     </div>
-
-    <div class="layout">
-
-      <!-- MAIN COLUMN -->
-      <div>
-
-        <!-- INPUT PANEL -->
-        <div class="panel" id="inputPanel">
-          <div class="panel-header">
-            <span class="panel-title">Audit Engine v2</span>
-            <div class="panel-dots">
-              <span></span><span></span><span></span>
-            </div>
-          </div>
-          <div class="panel-body">
-            <div class="url-group">
-              <input
-                class="url-input"
-                id="urlInput"
-                type="text"
-                placeholder="yourwebsite.com"
-                autocomplete="off"
-                spellcheck="false"
-              />
-              <button class="run-btn" id="runBtn" onclick="runAudit()">Run audit</button>
-            </div>
-            <div class="input-meta">
-              <span class="free-badge">Free tier Â· <strong id="scansLeft">3</strong> scans remaining</span>
-              <span class="scans-left">No signup required</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- SCAN PANEL -->
-        <div class="panel" id="scanPanel">
-          <div class="panel-header">
-            <span class="panel-title">Scanning...</span>
-            <div class="panel-dots"><span></span><span></span><span></span></div>
-          </div>
-          <div class="panel-body">
-            <div class="scan-log" id="scanLog"></div>
-            <div class="progress-track">
-              <div class="progress-fill" id="progressFill"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- EMAIL GATE -->
-        <div id="emailGate">
-          <div class="gate-box">
-            <p><strong>Scan complete.</strong> Enter your email to unlock your full AI visibility report.</p>
-            <div class="gate-row">
-              <input class="email-input" id="emailInput" type="email" placeholder="you@business.com" />
-              <button class="gate-btn" onclick="revealResult()">Unlock report â†’</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- RESULT PANEL -->
-        <div id="resultPanel">
-          <div class="panel">
-            <div class="panel-header">
-              <span class="panel-title" id="resultDomain">Result</span>
-              <div class="panel-dots"><span></span><span></span><span></span></div>
-            </div>
-            <div class="panel-body" id="resultBody"></div>
-          </div>
-        </div>
-
-        <!-- PAYWALL PANEL -->
-        <div class="panel" id="paywallPanel">
-          <div class="panel-header">
-            <span class="panel-title">Scan limit reached</span>
-            <div class="panel-dots"><span></span><span></span><span></span></div>
-          </div>
-          <div class="paywall-box">
-            <div class="paywall-icon">ðŸ”’</div>
-            <h3>Upgrade for unlimited scans</h3>
-            <p>You've used your 3 free scans. Upgrade to continue auditing â€” plus get competitor insights, AI optimization signals, and implementation guides.</p>
-            <ul class="paywall-features">
-              <li>Unlimited AI visibility scans</li>
-              <li>Full written audit reports</li>
-              <li>Schema markup code written for you</li>
-              <li>Competitor AI comparison</li>
-              <li>Priority implementation support</li>
-            </ul>
-            <a href="https://whop.com/progpt" target="_blank" class="paywall-btn">Upgrade on Whop â€” $97 â†’</a>
-            <div class="paywall-alt">
-              Want a quick report? <a href="https://gumroad.com/progpt" target="_blank">$19 on Gumroad â†’</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- SIDE PANEL -->
-      <div class="side-panel-wrap">
-
-        <div class="side-panel">
-          <div class="side-header">Live Signals</div>
-          <div class="side-body">
-            <div class="signal-row">
-              <div class="signal-dot dot-green"></div>
-              Monitoring AI responses
-            </div>
-            <div class="signal-row">
-              <div class="signal-dot dot-purple"></div>
-              Tracking competitor mentions
-            </div>
-            <div class="signal-row">
-              <div class="signal-dot dot-amber"></div>
-              Updating entity graph
-            </div>
-            <div class="signal-row">
-              <div class="signal-dot dot-green"></div>
-              Schema index active
-            </div>
-            <div class="signal-row">
-              <div class="signal-dot dot-purple"></div>
-              Citation crawler running
-            </div>
-          </div>
-        </div>
-
-        <div class="side-panel">
-          <div class="side-header">Platform Coverage</div>
-          <div class="side-body">
-            <div class="stat-mini">
-              <div class="stat-mini-row">
-                <span class="stat-mini-label">ChatGPT</span>
-                <span class="stat-mini-val">Checked</span>
-              </div>
-              <div class="mini-progress"><div class="mini-progress-fill" style="width:100%"></div></div>
-              <div class="stat-mini-row" style="margin-top:0.5rem">
-                <span class="stat-mini-label">Perplexity</span>
-                <span class="stat-mini-val">Checked</span>
-              </div>
-              <div class="mini-progress"><div class="mini-progress-fill" style="width:100%"></div></div>
-              <div class="stat-mini-row" style="margin-top:0.5rem">
-                <span class="stat-mini-label">Google AI</span>
-                <span class="stat-mini-val">Checked</span>
-              </div>
-              <div class="mini-progress"><div class="mini-progress-fill" style="width:85%"></div></div>
-              <div class="stat-mini-row" style="margin-top:0.5rem">
-                <span class="stat-mini-label">Bing Copilot</span>
-                <span class="stat-mini-val">Checked</span>
-              </div>
-              <div class="mini-progress"><div class="mini-progress-fill" style="width:75%"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="side-panel">
-          <div class="side-header">Your Stats</div>
-          <div class="side-body">
-            <div class="stat-mini">
-              <div class="stat-mini-row">
-                <span class="stat-mini-label">Scans run</span>
-                <span class="stat-mini-val" id="sideScans">0</span>
-              </div>
-              <div class="stat-mini-row">
-                <span class="stat-mini-label">Scans left</span>
-                <span class="stat-mini-val" id="sideLeft">3</span>
-              </div>
-            </div>
-            <a href="/dashboard" class="new-scan-btn">View audit history â†’</a>
-          </div>
-        </div>
-
-      </div>
-
+    <h1>Your brand,<br>inside every<br><em>AI answer</em></h1>
+    <p class="hero-desc">
+      People are no longer clicking links. They're asking AI.
+      ProGPT gets local businesses into those AI-generated recommendations.
+    </p>
+    <div class="hero-form">
+      <input
+        class="hero-input"
+        id="heroUrl"
+        type="text"
+        placeholder="yourwebsite.com"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button class="hero-submit" onclick="heroSubmit()">Check visibility â†’</button>
+    </div>
+    <div class="hero-micro">
+      <span>âœ“ Free Â· No signup</span>
+      <span>âœ“ Results in 30 seconds</span>
+      <span>âœ“ Real AI analysis</span>
     </div>
   </div>
 
+  <!-- PLATFORM STRIP -->
+  <div class="logo-strip">
+    <p>Audits your visibility across</p>
+    <div class="ai-platforms">
+      <div class="ai-platform">
+        <div class="platform-dot" style="background:#10a37f"></div>
+        ChatGPT
+      </div>
+      <div class="ai-platform">
+        <div class="platform-dot" style="background:#5436da"></div>
+        Perplexity
+      </div>
+      <div class="ai-platform">
+        <div class="platform-dot" style="background:#4285f4"></div>
+        Google AI
+      </div>
+      <div class="ai-platform">
+        <div class="platform-dot" style="background:#0078d4"></div>
+        Bing Copilot
+      </div>
+      <div class="ai-platform">
+        <div class="platform-dot" style="background:#ff6640"></div>
+        Claude
+      </div>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <div class="problem-section">
+    <div class="problem-inner">
+      <div>
+        <div class="section-tag">The shift</div>
+        <h2 class="section-h">Search is changing.<br><em>Most businesses aren't.</em></h2>
+        <p class="section-desc">
+          When someone asks ChatGPT for the best dentist, restaurant, or lawyer near them â€” AI picks one answer. There is no page two. If you're not in that answer, a competitor is.
+        </p>
+        <a href="/audit" class="price-btn-out" style="display:inline-block; padding: 0.65rem 1.25rem; font-size: 0.85rem;">
+          Check your visibility â†’
+        </a>
+      </div>
+      <div class="problem-stats">
+        <div class="stat-block">
+          <div class="stat-num">90%</div>
+          <div class="stat-label">of local businesses are invisible in AI-generated recommendations â€” even with strong Google rankings.</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num">1B+</div>
+          <div class="stat-label">monthly active users across ChatGPT, Perplexity, and Google AI asking for local recommendations.</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num">4â€“8 wk</div>
+          <div class="stat-label">typical time to see AI visibility improvements after GEO optimization is implemented.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how-it-works">
+    <div class="section-tag">Process</div>
+    <h2 class="section-h">Three steps to<br><em>AI visibility</em></h2>
+    <p class="section-desc">From invisible to recommended, without rebuilding your entire website.</p>
+
+    <div class="steps-grid">
+      <div class="step-cell">
+        <div class="step-index">01 â€” Analyze</div>
+        <div class="step-title">We audit your AI signals</div>
+        <p class="step-desc">Our engine fetches your site and checks every signal AI systems use to decide who to recommend â€” schema markup, content structure, local targeting, FAQ presence, and citation footprint.</p>
+      </div>
+      <div class="step-cell">
+        <div class="step-index">02 â€” Optimize</div>
+        <div class="step-title">We write the fixes</div>
+        <p class="step-desc">Schema code, FAQ content, local signal corrections â€” everything ready to implement. No developer required for most fixes. We give you the exact assets, not a generic checklist.</p>
+      </div>
+      <div class="step-cell">
+        <div class="step-index">03 â€” Rank</div>
+        <div class="step-title">Your brand appears in AI answers</div>
+        <p class="step-desc">ChatGPT, Perplexity, and Google AI start recommending your business when customers ask. Every AI interaction that recommends you compounds your authority.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE CHECK -->
+  <section class="section" style="padding-top: 0">
+    <div class="section-tag">The audit</div>
+    <h2 class="section-h">Six signals that determine<br><em>AI recommendation</em></h2>
+    <p class="section-desc">Most businesses fail on three or more. All are fixable.</p>
+
+    <div class="checks-table">
+      <div class="check-row">
+        <div class="check-icon-wrap">ðŸ—‚ï¸</div>
+        <div class="check-content">
+          <div class="check-name">Schema Markup</div>
+          <div class="check-desc-text">Structured data telling AI systems your business type, location, hours, and services. Missing on 85% of local business websites.</div>
+        </div>
+        <span class="check-tag tag-critical">Critical</span>
+      </div>
+      <div class="check-row">
+        <div class="check-icon-wrap">ðŸ“</div>
+        <div class="check-content">
+          <div class="check-name">Content Clarity</div>
+          <div class="check-desc-text">How clearly your homepage communicates what you do, who you serve, and where you operate â€” in a format AI systems can parse.</div>
+        </div>
+        <span class="check-tag tag-critical">Critical</span>
+      </div>
+      <div class="check-row">
+        <div class="check-icon-wrap">â“</div>
+        <div class="check-content">
+          <div class="check-name">FAQ Content</div>
+          <div class="check-desc-text">Whether you answer the questions your customers ask AI. These are the exact phrases that trigger citation eligibility in AI recommendations.</div>
+        </div>
+        <span class="check-tag tag-high">High</span>
+      </div>
+      <div class="check-row">
+        <div class="check-icon-wrap">ðŸ“</div>
+        <div class="check-content">
+          <div class="check-name">Local Signals</div>
+          <div class="check-desc-text">City, neighborhood, and region targeting signals that make your business appear in geo-specific AI recommendations.</div>
+        </div>
+        <span class="check-tag tag-high">High</span>
+      </div>
+      <div class="check-row">
+        <div class="check-icon-wrap">ðŸ”—</div>
+        <div class="check-content">
+          <div class="check-name">AI Citation Footprint</div>
+          <div class="check-desc-text">Your presence in the directories, publications, and data sources that AI systems use to build trusted recommendation pools.</div>
+        </div>
+        <span class="check-tag tag-medium">Medium</span>
+      </div>
+      <div class="check-row">
+        <div class="check-icon-wrap">ðŸ“‹</div>
+        <div class="check-content">
+          <div class="check-name">NAP Consistency</div>
+          <div class="check-desc-text">Name, address, phone number consistency across all directories. Inconsistencies are a trust signal failure that blocks AI recommendations.</div>
+        </div>
+        <span class="check-tag tag-medium">Medium</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <div class="pricing-section" id="pricing">
+    <div class="pricing-inner">
+      <div class="section-tag">Pricing</div>
+      <h2 class="section-h" style="margin-bottom:0.5rem">Simple, transparent pricing</h2>
+      <p class="section-desc">Start free. Pay only when you're ready to fix it.</p>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="price-name">Free Audit</div>
+          <div class="price-amount"><sup>$</sup>0</div>
+          <div class="price-per">forever free</div>
+          <div class="price-tagline">Your AI visibility score in 30 seconds. No account required.</div>
+          <div class="price-divider"></div>
+          <div class="price-feats">
+            <div class="price-feat">AI Visibility Score</div>
+            <div class="price-feat">6-point check</div>
+            <div class="price-feat">Top 3 issues</div>
+            <div class="price-feat">Quick wins list</div>
+          </div>
+          <a href="/audit" class="price-btn-ghost">Run free audit</a>
+        </div>
+
+        <div class="price-card">
+          <div class="price-name">Instant Report</div>
+          <div class="price-amount"><sup>$</sup>19</div>
+          <div class="price-per">one-time</div>
+          <div class="price-tagline">Full written audit delivered to your email within 24 hours.</div>
+          <div class="price-divider"></div>
+          <div class="price-feats">
+            <div class="price-feat">Full written analysis</div>
+            <div class="price-feat">Schema code snippet</div>
+            <div class="price-feat">3 FAQ suggestions</div>
+            <div class="price-feat">Directory checklist</div>
+          </div>
+          <a href="https://gumroad.com/l/progpt" target="_blank" class="price-btn-out">Get report</a>
+        </div>
+
+        <div class="price-card highlight">
+          <div class="popular-tag">Most popular</div>
+          <div class="price-name">GEO Starter</div>
+          <div class="price-amount"><sup>$</sup>97</div>
+          <div class="price-per">one-time</div>
+          <div class="price-tagline">Audit + ready-to-implement fixes. No developer needed.</div>
+          <div class="price-divider"></div>
+          <div class="price-feats">
+            <div class="price-feat">Full audit report</div>
+            <div class="price-feat">Schema markup written</div>
+            <div class="price-feat">5 FAQs written</div>
+            <div class="price-feat">30-day roadmap</div>
+            <div class="price-feat">1 async Q&A</div>
+          </div>
+          <a href="https://whop.com/progpt" target="_blank" class="price-btn-out">Get GEO Starter</a>
+        </div>
+
+        <div class="price-card">
+          <div class="price-name">GEO Pro</div>
+          <div class="price-amount"><sup>$</sup>297</div>
+          <div class="price-per">one-time</div>
+          <div class="price-tagline">Done-with-you. Call included, competitor analysis, full implementation guide.</div>
+          <div class="price-divider"></div>
+          <div class="price-feats">
+            <div class="price-feat">Everything in Starter</div>
+            <div class="price-feat">45-min Zoom call</div>
+            <div class="price-feat">Competitor comparison</div>
+            <div class="price-feat">10 FAQs written</div>
+            <div class="price-feat">90-day checklist</div>
+          </div>
+          <a href="https://whop.com/progpt" target="_blank" class="price-btn-ghost">Get GEO Pro</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="testimonial-section">
+    <div class="section-tag">Social proof</div>
+    <h2 class="section-h" style="margin-bottom:2rem">What clients say</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="t-stars">â˜…â˜…â˜…â˜…â˜…</div>
+        <p class="t-quote">"Within 6 weeks of implementing the schema fixes, our dental practice started appearing when people asked ChatGPT for dentists in our neighborhood. We've had 4 new patients mention they found us through AI."</p>
+        <div class="t-author">
+          <div class="t-avatar">MR</div>
+          <div>
+            <div class="t-name">Dr. M. Rodriguez</div>
+            <div class="t-role">Family Dentist Â· Dallas, TX</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-stars">â˜…â˜…â˜…â˜…â˜…</div>
+        <p class="t-quote">"I had no idea ChatGPT wasn't recommending my restaurant. The audit found three simple fixes â€” we implemented them in a weekend and now we appear in 'best brunch in Wicker Park' results."</p>
+        <div class="t-author">
+          <div class="t-avatar">JK</div>
+          <div>
+            <div class="t-name">Jamie K.</div>
+            <div class="t-role">Restaurant Owner Â· Chicago, IL</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-stars">â˜…â˜…â˜…â˜…â˜…</div>
+        <p class="t-quote">"As a personal injury attorney in Miami, appearing in AI recommendations is now essential. ProGPT found gaps I didn't know existed. The schema they wrote took 20 minutes to implement."</p>
+        <div class="t-author">
+          <div class="t-avatar">AL</div>
+          <div>
+            <div class="t-name">A. Lawson, Esq.</div>
+            <div class="t-role">Attorney Â· Miami, FL</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <div class="faq-inner">
+      <div class="section-tag">FAQ</div>
+      <h2 class="section-h">Common questions</h2>
+      <div class="faq-list" id="faqList"></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-box">
+      <h2>Get your brand<br>inside <em>AI answers</em></h2>
+      <p>Free audit takes 30 seconds. No account, no credit card.</p>
+      <div class="cta-form">
+        <input class="cta-input" id="ctaEmail" type="email" placeholder="your@email.com" />
+        <button class="cta-btn" onclick="ctaSubmit()">Get free audit â†’</button>
+      </div>
+      <div id="ctaSuccess">âœ“ Redirecting to your free audit...</div>
+      <p class="cta-micro">No spam Â· Unsubscribe anytime</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <a href="/" class="footer-logo">
+        <div class="logo-mark">P</div>
+        ProGPT
+      </a>
+      <div class="footer-links">
+        <a href="/audit">Free Audit</a>
+        <a href="/blog">Blog</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="https://whop.com/progpt" target="_blank">Whop</a>
+        <a href="https://gumroad.com/l/progpt" target="_blank">Gumroad</a>
+      </div>
+      <div class="footer-copy">Â© {new Date().getFullYear()} ProGPT Â· progpt.store</div>
+    </div>
+  </footer>
+
   <script>
-    // â”€â”€ CONFIG â”€â”€
-    const WORKER_URL = "https://progpt-audit.YOUR_SUBDOMAIN.workers.dev";
-    const WHOP_URL   = "https://whop.com/progpt";
-    const GUMROAD_URL = "https://gumroad.com/l/progpt";
-    const MAX_FREE   = 3;
+    // â”€â”€ FAQ DATA â”€â”€
+    const faqs = [
+      ["What is GEO and how is it different from SEO?", "GEO (Generative Engine Optimization) optimizes your business to appear in AI-generated answers from ChatGPT, Perplexity, and Google AI. Traditional SEO optimizes for search engine rankings and blue links. These are different systems with different signals â€” a business can rank #1 on Google and be invisible in AI answers."],
+      ["How does the free audit work?", "You enter your website URL. Our system fetches your site content and runs it through an AI analysis engine that checks the six key signals determining AI visibility. You get a scored report with your specific issues and quick wins â€” all in about 30 seconds."],
+      ["How long until I see results after implementing fixes?", "Most AI systems update their recommendation patterns within 4â€“8 weeks of structural changes going live. Schema markup fixes can show impact on the faster end. Content and FAQ changes typically take closer to 6â€“8 weeks."],
+      ["Do I need a developer to implement the fixes?", "For the GEO Starter package, no. We write the schema code as a copy-paste snippet for your website's header. Most website builders (Squarespace, Wix, WordPress, Webflow) have a custom code field where you paste it. FAQ content and NAP corrections are DIY-friendly."],
+      ["What types of businesses benefit most from GEO?", "Local service businesses with geographic intent searches see the highest ROI: restaurants, dental practices, law firms, contractors, real estate agents, medical practices, gyms, salons. Any business where customers search for 'near me' or '[service] in [city]' queries."],
+      ["Can I check a competitor's AI visibility?", "Yes â€” the audit engine works on any public website. Many clients audit 2â€“3 competitors to benchmark their own visibility gaps against what's already ranking in AI answers."],
+    ];
 
-    let auditData = null;
-
-    // â”€â”€ USAGE â”€â”€
-    function getUsage() {
-      try { return JSON.parse(localStorage.getItem("progpt_usage") || '{"scans":0}'); }
-      catch(e) { return { scans: 0 }; }
-    }
-
-    function incUsage() {
-      const u = getUsage();
-      u.scans++;
-      localStorage.setItem("progpt_usage", JSON.stringify(u));
-      refreshUsageUI();
-    }
-
-    function isLocked() {
-      const pro = localStorage.getItem("progpt_pro");
-      return !pro && getUsage().scans >= MAX_FREE;
-    }
-
-    function refreshUsageUI() {
-      const u = getUsage();
-      const left = Math.max(0, MAX_FREE - u.scans);
-      document.getElementById("navUsage").textContent = u.scans;
-      document.getElementById("scansLeft").textContent = left;
-      document.getElementById("sideScans").textContent = u.scans;
-      document.getElementById("sideLeft").textContent = left;
-    }
-
-    refreshUsageUI();
-
-    // â”€â”€ ENTER KEY â”€â”€
-    document.getElementById("urlInput").addEventListener("keydown", e => {
-      if (e.key === "Enter") runAudit();
+    const faqList = document.getElementById("faqList");
+    faqs.forEach(([q, a]) => {
+      const item = document.createElement("div");
+      item.className = "faq-item";
+      item.innerHTML = `
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>${q}</span>
+          <span class="faq-chevron">â–¾</span>
+        </div>
+        <div class="faq-a">${a}</div>
+      `;
+      faqList.appendChild(item);
     });
 
-    document.getElementById("emailInput")?.addEventListener("keydown", e => {
-      if (e.key === "Enter") revealResult();
+    // â”€â”€ HERO SUBMIT â”€â”€
+    function heroSubmit() {
+      const url = document.getElementById("heroUrl").value.trim();
+      if (!url) { document.getElementById("heroUrl").focus(); return; }
+      const clean = url.replace(/^https?:\/\//, "");
+      window.location.href = "/audit?url=" + encodeURIComponent(clean);
+    }
+
+    document.getElementById("heroUrl").addEventListener("keydown", e => {
+      if (e.key === "Enter") heroSubmit();
     });
 
-    // â”€â”€ RUN AUDIT â”€â”€
-    async function runAudit() {
-      const url = document.getElementById("urlInput").value.trim();
-      if (!url || !url.includes(".")) {
-        document.getElementById("urlInput").focus();
-        return;
-      }
-
-      // Paywall check
-      if (isLocked()) {
-        document.getElementById("inputPanel").style.display = "none";
-        document.getElementById("paywallPanel").style.display = "block";
-        return;
-      }
-
-      incUsage();
-
-      // Reset UI
-      document.getElementById("inputPanel").style.display = "none";
-      document.getElementById("emailGate").style.display = "none";
-      document.getElementById("resultPanel").style.display = "none";
-      document.getElementById("paywallPanel").style.display = "none";
-
-      // Show scan
-      const scanPanel = document.getElementById("scanPanel");
-      scanPanel.style.display = "block";
-      document.getElementById("scanLog").innerHTML = "";
-      document.getElementById("progressFill").style.width = "0%";
-
-      const logs = [
-        { text: "Connecting to AI engine...", type: "" },
-        { text: "Fetching site content from " + url, type: "" },
-        { text: "Running GEO signal analysis...", type: "" },
-        { text: "Checking schema markup...", type: "warn" },
-        { text: "Analyzing local signals...", type: "" },
-        { text: "Scoring AI visibility...", type: "" },
-        { text: "Building report...", type: "ok" },
-      ];
-
-      let logIndex = 0;
-      let progress = 0;
-
-      const logInterval = setInterval(() => {
-        if (logIndex < logs.length) {
-          addLog(logs[logIndex].text, logs[logIndex].type);
-          logIndex++;
-        }
-        progress = Math.min(progress + 14, 95);
-        document.getElementById("progressFill").style.width = progress + "%";
-      }, 700);
-
-      try {
-        const res = await fetch(WORKER_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ url }),
-        });
-
-        const data = await res.json();
-        auditData = data;
-
-        clearInterval(logInterval);
-        addLog("Scan complete. Awaiting email to unlock report.", "ok");
-        document.getElementById("progressFill").style.width = "100%";
-
-        setTimeout(() => {
-          scanPanel.style.display = "none";
-          document.getElementById("emailGate").style.display = "block";
-        }, 800);
-
-      } catch(err) {
-        clearInterval(logInterval);
-        addLog("Error: " + err.message, "warn");
-        // Show fallback result after error
-        auditData = { domain: url, audit: getFallbackAudit() };
-        setTimeout(() => {
-          scanPanel.style.display = "none";
-          document.getElementById("emailGate").style.display = "block";
-        }, 800);
-      }
-    }
-
-    function addLog(text, type) {
-      const log = document.getElementById("scanLog");
-      const line = document.createElement("div");
-      line.className = "log-line";
-      const prefix = type === "ok" ? "âœ“" : type === "warn" ? "!" : "â€º";
-      const cls = type === "ok" ? "log-ok" : type === "warn" ? "log-warn" : "log-prefix";
-      line.innerHTML = `<span class="${cls}">${prefix}</span><span>${text}</span>`;
-      log.appendChild(line);
-      log.scrollTop = log.scrollHeight;
-    }
-
-    // â”€â”€ REVEAL RESULT â”€â”€
-    function revealResult() {
-      const email = document.getElementById("emailInput").value.trim();
-      if (!email || !email.includes("@")) {
-        document.getElementById("emailInput").focus();
-        return;
-      }
-
-      // Save lead
+    // â”€â”€ CTA SUBMIT â”€â”€
+    function ctaSubmit() {
+      const email = document.getElementById("ctaEmail").value.trim();
+      if (!email || !email.includes("@")) { document.getElementById("ctaEmail").focus(); return; }
       try {
         const leads = JSON.parse(localStorage.getItem("progpt_leads") || "[]");
-        leads.push({ email, url: auditData?.url || "", ts: new Date().toISOString(), source: "audit" });
+        leads.push({ email, ts: new Date().toISOString(), source: "homepage-cta" });
         localStorage.setItem("progpt_leads", JSON.stringify(leads));
       } catch(e) {}
-
-      // Save to audit history
-      saveAuditHistory(auditData, email);
-
-      document.getElementById("emailGate").style.display = "none";
-      renderResult(auditData, email);
+      document.querySelector(".cta-form").style.display = "none";
+      document.getElementById("ctaSuccess").style.display = "block";
+      setTimeout(() => window.location.href = "/audit", 1500);
     }
 
-    // â”€â”€ RENDER RESULT â”€â”€
-    function renderResult(data, email) {
-      if (!data || !data.audit) return;
-
-      const audit = data.audit;
-      const score = parseFloat(audit.score) || 3.2;
-      const domain = data.domain || "your site";
-      const scoreColor = score >= 7 ? "#4ade80" : score >= 4 ? "#fbbf24" : "#f87171";
-      const circumference = 163;
-      const offset = circumference - (score / 10) * circumference;
-      const visClass = audit.ai_visibility === "high" ? "vis-high" : audit.ai_visibility === "medium" ? "vis-medium" : "vis-low";
-      const visLabel = audit.ai_visibility === "high" ? "High Visibility" : audit.ai_visibility === "medium" ? "Medium Visibility" : "Low Visibility";
-
-      document.getElementById("resultDomain").textContent = domain;
-
-      const checksHtml = Object.entries(audit.checks || {}).map(([key, val]) => {
-        const name = key.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase());
-        return `
-          <div class="check-row">
-            <div>
-              <div class="check-name-text">${name}</div>
-              <div class="check-note-text">${val.note || ""}</div>
-            </div>
-            <span class="check-status ${val.pass ? "status-pass" : "status-fail"}">${val.pass ? "Pass" : "Fail"}</span>
-          </div>`;
-      }).join("");
-
-      const issuesHtml = (audit.top_issues || []).map(i =>
-        `<div class="mini-item red">${i}</div>`).join("");
-
-      const winsHtml = (audit.quick_wins || []).map(w =>
-        `<div class="mini-item green">${w}</div>`).join("");
-
-      const lostLeads = Math.floor(score < 5 ? (Math.random() * 20 + 15) : (Math.random() * 10 + 5));
-
-      const faqData = [
-        ["Why am I not in AI results?", "AI systems need structured entity data â€” schema markup, FAQ content, and clear local signals. Without these, AI cannot confidently recommend your business."],
-        ["How fast can this be fixed?", "Schema and content fixes typically take 1â€“2 weeks to implement. AI systems update their recommendations within 4â€“8 weeks of changes going live."],
-        ["What's the difference between SEO and GEO?", "Traditional SEO optimizes for search engine rankings. GEO (Generative Engine Optimization) optimizes for AI-generated answers â€” a different set of signals entirely."],
-        ["Can I fix this myself?", "Some quick wins like Google Business Profile updates are DIY-friendly. Schema markup and content restructuring typically benefit from specialist help."],
-      ];
-
-      const faqHtml = faqData.map(([q, a]) => `
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">
-            <span>${q}</span>
-            <span class="faq-chevron">â–¾</span>
-          </div>
-          <div class="faq-a">${a}</div>
-        </div>`).join("");
-
-      document.getElementById("resultBody").innerHTML = `
-        <div class="score-row">
-          <div class="score-ring">
-            <svg width="64" height="64" viewBox="0 0 64 64">
-              <circle class="ring-bg" cx="32" cy="32" r="26"/>
-              <circle class="ring-fill" id="ringFill" cx="32" cy="32" r="26"
-                stroke="${scoreColor}"
-                style="stroke-dashoffset:${offset}"/>
-            </svg>
-            <div class="score-num" style="color:${scoreColor}">${score.toFixed(1)}</div>
-          </div>
-          <div class="score-info">
-            <div class="score-label">AI Visibility Score</div>
-            <div class="score-verdict">${audit.verdict || "Significant AI visibility gaps detected."}</div>
-            <span class="vis-pill ${visClass}">${visLabel}</span>
-          </div>
-        </div>
-
-        <div class="checks-list">${checksHtml}</div>
-
-        <div class="loss-bar">
-          <div class="loss-icon">âš ï¸</div>
-          <div class="loss-text">Estimated <strong>${lostLeads}â€“${lostLeads + 12} leads/month</strong> going to AI-recommended competitors.</div>
-        </div>
-
-        <div class="two-col">
-          <div class="mini-box">
-            <div class="mini-title red">âš  Top Issues</div>
-            ${issuesHtml}
-          </div>
-          <div class="mini-box">
-            <div class="mini-title green">âš¡ Quick Wins</div>
-            ${winsHtml}
-          </div>
-        </div>
-
-        <div class="panel-header" style="margin: 0 -1.25rem 0.75rem; border-top: 1px solid var(--border);">
-          <span class="panel-title">Why this happens</span>
-        </div>
-        <div class="faq-list">${faqHtml}</div>
-
-        <div class="result-cta">
-          <p>Score: <strong>${score.toFixed(1)}/10</strong>. Get the full fix with a done-for-you GEO implementation.</p>
-          <a href="${WHOP_URL}" target="_blank" class="cta-main">Fix it on Whop â€” $97 â†’</a>
-          <br>
-          <a href="${GUMROAD_URL}" target="_blank" class="cta-sec">Just the written report â€” $19 on Gumroad â†’</a>
-        </div>
-
-        <button class="new-scan-btn" onclick="resetAudit()">â† Run another scan</button>
-      `;
-
-      document.getElementById("resultPanel").style.display = "block";
-
-      setTimeout(() => {
-        const ring = document.getElementById("ringFill");
-        if (ring) ring.style.strokeDashoffset = offset;
-      }, 100);
-
-      document.getElementById("resultPanel").scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    // â”€â”€ FAQ TOGGLE â”€â”€
-    function toggleFaq(el) {
-      const item = el.parentElement;
-      item.classList.toggle("open");
-    }
-
-    // â”€â”€ RESET â”€â”€
-    function resetAudit() {
-      auditData = null;
-      document.getElementById("resultPanel").style.display = "none";
-      document.getElementById("paywallPanel").style.display = "none";
-      document.getElementById("emailGate").style.display = "none";
-
-      if (isLocked()) {
-        document.getElementById("paywallPanel").style.display = "block";
-      } else {
-        document.getElementById("inputPanel").style.display = "block";
-        document.getElementById("urlInput").value = "";
-        document.getElementById("urlInput").focus();
-      }
-      refreshUsageUI();
-    }
-
-    // â”€â”€ FALLBACK AUDIT â”€â”€
-    function getFallbackAudit() {
-      return {
-        score: 3.2,
-        verdict: "Critical AI visibility gaps detected. Your business is not appearing in AI-generated recommendations.",
-        ai_visibility: "low",
-        checks: {
-          schema_markup: { pass: false, note: "No structured data detected" },
-          content_clarity: { pass: false, note: "Business type unclear to AI" },
-          nap_consistency: { pass: false, note: "Directory data inconsistent" },
-          faq_content: { pass: false, note: "No AI-query content found" },
-          ai_citations: { pass: false, note: "No citation footprint" },
-          local_signals: { pass: false, note: "Local targeting missing" },
-        },
-        top_issues: [
-          "Missing schema markup â€” AI cannot classify your business",
-          "No FAQ content for AI search queries",
-          "Local signals absent from homepage",
-        ],
-        quick_wins: [
-          "Add LocalBusiness schema to homepage",
-          "Create FAQ page with 10 customer questions",
-          "Sync NAP across Google, Yelp, directories",
-        ],
-      };
-    }
-
-    // â”€â”€ AUDIT HISTORY â”€â”€
-    function saveAuditHistory(data, email) {
-      if (!data || !data.audit) return;
-      try {
-        const history = JSON.parse(localStorage.getItem("progpt_audits") || "[]");
-        history.unshift({
-          id: Date.now(),
-          url: data.url || "",
-          domain: data.domain || "",
-          email,
-          score: data.audit.score,
-          verdict: data.audit.verdict,
-          visibility: data.audit.ai_visibility,
-          business_type: data.audit.business_type,
-          timestamp: new Date().toISOString(),
-        });
-        localStorage.setItem("progpt_audits", JSON.stringify(history.slice(0, 50)));
-      } catch(e) {}
-    }
+    document.getElementById("ctaEmail").addEventListener("keydown", e => {
+      if (e.key === "Enter") ctaSubmit();
+    });
   </script>
 
 </body>
