@@ -1,28 +1,26 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>AI Visibility Engine</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --bg:#050505;
-  --card:#0d1117;
+  --panel:#0d1117;
   --border:#1a1a1a;
   --accent:#00ff9f;
   --text:#eaeaea;
-  --muted:#8a8a8a;
+  --muted:#777;
   --danger:#ff4444;
 }
 
-*{box-sizing:border-box}
+*{box-sizing:border-box;}
 
 body{
   margin:0;
-  font-family:Inter,sans-serif;
+  font-family:Inter,system-ui;
   background:var(--bg);
   color:var(--text);
 }
@@ -33,9 +31,9 @@ body::before{
   position:fixed;
   inset:0;
   background:
-    linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);
-  background-size:50px 50px;
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size:40px 40px;
   z-index:-1;
 }
 
@@ -47,50 +45,41 @@ nav{
   border-bottom:1px solid var(--border);
 }
 
-.logo{
-  font-weight:800;
-  letter-spacing:-1px;
-}
-
-.nav-links a{
+.logo{font-weight:800;}
+.links a{
   color:var(--muted);
   margin-left:16px;
   text-decoration:none;
   font-size:14px;
 }
 
-.nav-links a:hover{color:#fff}
-
 /* LAYOUT */
 .container{
-  max-width:820px;
+  max-width:900px;
   margin:auto;
-  padding:80px 20px;
+  padding:60px 20px;
 }
 
-/* HERO */
 h1{
-  font-size:clamp(42px,8vw,72px);
-  line-height:.9;
+  font-size:clamp(40px,7vw,70px);
+  line-height:0.9;
   margin:0;
 }
-
-h1 span{color:var(--accent)}
+h1 span{color:var(--accent);}
 
 .sub{
-  margin-top:16px;
   color:var(--muted);
-  font-size:18px;
+  margin-top:16px;
   max-width:520px;
 }
 
-/* CARD */
-.card{
-  background:var(--card);
+/* PANEL */
+.panel{
+  background:var(--panel);
   border:1px solid var(--border);
-  border-radius:16px;
-  padding:24px;
-  margin-top:24px;
+  border-radius:14px;
+  padding:20px;
+  margin-top:20px;
 }
 
 /* INPUT */
@@ -101,77 +90,55 @@ input{
   border:1px solid var(--border);
   background:#000;
   color:#fff;
-  font-size:16px;
 }
 
 /* BUTTON */
 .btn{
   width:100%;
   padding:16px;
-  margin-top:12px;
+  margin-top:10px;
   border:none;
   border-radius:10px;
-  font-weight:800;
   background:var(--accent);
   color:#000;
+  font-weight:700;
   cursor:pointer;
 }
 
 /* SCAN */
-#scan,#result{display:none}
+#scan,#result,#paywall{display:none;}
 
 .bar-bg{
   height:4px;
   background:#111;
-  margin-top:12px;
-  border-radius:10px;
+  margin-top:10px;
 }
-
-#bar{
+.bar{
   height:100%;
   width:0%;
   background:var(--accent);
 }
 
-/* RESULT */
+/* TEXT */
+.muted{color:var(--muted); font-size:13px;}
 .badge{
-  background:rgba(255,0,0,0.1);
   color:var(--danger);
-  padding:6px 10px;
-  border-radius:6px;
   font-size:12px;
+  margin-top:6px;
 }
 
-ul{color:var(--accent)}
-
-.loss{
-  color:var(--danger);
-  font-weight:700;
-  margin-top:16px;
-}
+/* LIST */
+ul{padding-left:18px;}
+li{margin:6px 0;}
 
 /* FAQ */
 .faq-item{
   border-top:1px solid var(--border);
-  padding:12px 0;
+  padding:10px 0;
   cursor:pointer;
 }
-
-.faq-a{display:none;color:#aaa;margin-top:6px}
-.faq-item.active .faq-a{display:block}
-
-/* FOOTER CTA (soft) */
-.footer{
-  text-align:center;
-  margin-top:60px;
-  color:var(--muted);
-}
-
-.footer a{
-  color:var(--accent);
-  text-decoration:none;
-  margin:0 8px;
-}
+.faq-a{display:none;color:#aaa;font-size:13px;}
+.faq-item.active .faq-a{display:block;}
 </style>
 </head>
 
@@ -179,78 +146,126 @@ ul{color:var(--accent)}
 
 <nav>
   <div class="logo">AI VISIBILITY</div>
-  <div class="nav-links">
+  <div class="links">
     <a href="/blog">Blog</a>
-    <a href="/about">About</a>
-    <a href="/contact">Contact</a>
+    <a href="#">Discord</a>
   </div>
 </nav>
 
 <div class="container">
 
 <h1>AI is already <span>choosing</span> your competitors.</h1>
-<p class="sub">This engine shows whether your business exists inside AI answers.</p>
+<p class="sub">This engine checks if your business exists inside AI answers.</p>
 
 <!-- INPUT -->
-<div class="card" id="inputBox">
+<div class="panel" id="inputBox">
   <input id="url" placeholder="yourwebsite.com">
   <button class="btn" onclick="run()">Run audit</button>
+  <p class="muted">Free tier: 3 scans</p>
 </div>
 
 <!-- SCAN -->
-<div id="scan" class="card">
-  <div id="log">Scanning site…</div>
-  <div class="bar-bg"><div id="bar"></div></div>
+<div id="scan" class="panel">
+  <div id="log">Initializing scan...</div>
+  <div class="bar-bg"><div class="bar" id="bar"></div></div>
 </div>
 
 <!-- RESULT -->
 <div id="result">
 
-<div class="card">
-  <h3>Score: <span id="score"></span>/10</h3>
-  <div class="badge">Low AI Visibility</div>
+  <div class="panel">
+    <h3>Score: <span id="score"></span>/10</h3>
+    <div class="badge">LOW AI TRUST</div>
 
-  <ul id="competitors"></ul>
+    <p class="muted">AI is recommending:</p>
+    <ul id="competitors"></ul>
 
-  <p id="loss" class="loss"></p>
-</div>
+    <p id="loss" style="color:var(--danger);font-weight:700;"></p>
+  </div>
 
-<div class="card">
-  <h3>Why this happens</h3>
-  <div id="faq"></div>
-</div>
-
-<div class="card">
-  <h3>Next step</h3>
-  <p style="color:var(--muted)">
-    Full system access, deeper analysis, and fixes are available inside the private environment.
-  </p>
-</div>
+  <div class="panel">
+    <h3>Why this happens</h3>
+    <div id="faq"></div>
+  </div>
 
 </div>
 
-<!-- FOOTER -->
-<div class="footer">
-  <p>
-    <a href="#">Join Discord</a> · 
-    <a href="#">Request Access</a>
-  </p>
+<!-- PAYWALL -->
+<div id="paywall" class="panel">
+  <h3>Limit reached</h3>
+  <p class="muted">Upgrade to continue scanning</p>
+
+  <ul>
+    <li>Unlimited audits</li>
+    <li>Competitor insights</li>
+    <li>AI visibility fixes</li>
+  </ul>
+
+  <button class="btn" onclick="goPro()">Upgrade via Whop</button>
 </div>
 
 </div>
 
 <script>
+
+/* USER ID */
+function getUser(){
+  let id=localStorage.getItem("uid");
+  if(!id){
+    id="u_"+Math.random().toString(36).slice(2);
+    localStorage.setItem("uid",id);
+  }
+  return id;
+}
+
+/* USAGE */
+function getUsage(){
+  return JSON.parse(localStorage.getItem("usage")||'{"scans":0}');
+}
+function incUsage(){
+  let u=getUsage();
+  u.scans++;
+  localStorage.setItem("usage",JSON.stringify(u));
+}
+
+/* LOCK */
+function isLocked(){
+  let pro=localStorage.getItem("pro");
+  let u=getUsage();
+  return !pro && u.scans>=3;
+}
+
+/* RUN */
 function run(){
   let url=document.getElementById("url").value;
-  if(!url.includes(".")) return alert("enter valid domain");
+  if(!url.includes(".")) return alert("Enter valid domain");
 
-  inputBox.style.display="none";
-  scan.style.display="block";
+  if(isLocked()){
+    document.getElementById("paywall").style.display="block";
+    return;
+  }
 
-  let w=0;
+  incUsage();
+
+  document.getElementById("inputBox").style.display="none";
+  document.getElementById("scan").style.display="block";
+
+  let logs=[
+    "Scanning structure...",
+    "Analyzing AI signals...",
+    "Checking competitors...",
+    "Finalizing..."
+  ];
+
+  let w=0,i=0;
   let int=setInterval(()=>{
     w+=2;
-    bar.style.width=w+"%";
+    document.getElementById("bar").style.width=w+"%";
+
+    if(w%25===0 && i<logs.length){
+      document.getElementById("log").innerText=logs[i++];
+    }
+
     if(w>=100){
       clearInterval(int);
       show(url);
@@ -258,45 +273,55 @@ function run(){
   },40);
 }
 
+/* RESULT */
 function show(url){
-  scan.style.display="none";
-  result.style.display="block";
+  document.getElementById("scan").style.display="none";
+  document.getElementById("result").style.display="block";
 
-  score.innerText=(2+Math.random()*2).toFixed(1);
+  document.getElementById("score").innerText=(2+Math.random()*2).toFixed(1);
 
-  let clean=url.split('.')[0];
-  let prefixes=["top-","best-","get-"];
+  let clean=url.replace(/^(https?:\/\/)?(www\.)?/,"").split('.')[0];
+  let list=document.getElementById("competitors");
+  list.innerHTML="";
 
-  competitors.innerHTML="";
-  prefixes.forEach(p=>{
+  ["top-","best-","get-"].forEach(p=>{
     let li=document.createElement("li");
     li.innerText=p+clean+".com";
-    competitors.appendChild(li);
+    list.appendChild(li);
   });
 
   let lost=Math.floor(Math.random()*20+10);
-  loss.innerText="Estimated loss: "+lost+"–"+(lost+10)+" leads/month";
+  document.getElementById("loss").innerText=
+    "Estimated loss: "+lost+"–"+(lost+10)+" leads/month";
 
   renderFAQ();
 }
 
+/* FAQ */
 function renderFAQ(){
   let data=[
-    ["Why invisible?","AI cannot verify your authority."],
-    ["What’s missing?","Structured data and entity signals."],
-    ["Impact?","Customers choose competitors automatically."],
-    ["Fix?","Rebuild your AI visibility layer."]
+    ["Why not in AI results?","No structured entity data."],
+    ["What fixes it?","GEO + schema optimization."],
+    ["Timeline?","2–4 weeks after indexing."]
   ];
 
-  faq.innerHTML="";
+  let el=document.getElementById("faq");
+  el.innerHTML="";
+
   data.forEach(q=>{
     let d=document.createElement("div");
     d.className="faq-item";
-    d.innerHTML=`<strong>${q[0]}</strong><div class="faq-a">${q[1]}</div>`;
+    d.innerHTML="<strong>"+q[0]+"</strong><div class='faq-a'>"+q[1]+"</div>";
     d.onclick=()=>d.classList.toggle("active");
-    faq.appendChild(d);
+    el.appendChild(d);
   });
 }
+
+/* WHOP */
+function goPro(){
+  window.location.href="https://whop.com/progpt";
+}
+
 </script>
 
 </body>
