@@ -37,94 +37,90 @@ nav{
   border-bottom:1px solid var(--border);
 }
 
-.logo{font-weight:700}
-.nav a{margin-left:16px;text-decoration:none;color:var(--muted);font-size:14px}
+.logo{font-weight:600}
+.nav a{
+  margin-left:16px;
+  text-decoration:none;
+  color:var(--muted);
+  font-size:14px;
+}
 
 /* HERO */
 .hero{
-  max-width:680px;
-  margin:70px auto 20px;
-  text-align:center;
+  max-width:640px;
+  margin:60px auto;
   padding:0 20px;
 }
 
 h1{
   font-family:'Instrument Serif',serif;
-  font-size:clamp(38px,7vw,64px);
+  font-size:clamp(36px,6vw,56px);
   line-height:1.05;
   margin:0;
 }
 
 .sub{
-  color:var(--muted);
-  margin-top:14px;
-  font-size:18px;
-}
-
-/* TENSION */
-.tension{
-  font-size:13px;
-  color:#8a8a82;
   margin-top:10px;
+  color:var(--muted);
+  font-size:16px;
 }
 
 /* MACHINE */
 .machine{
-  background:var(--card);
+  margin-top:24px;
   border:1px solid var(--border);
-  border-radius:18px;
-  padding:20px;
-  margin-top:28px;
-  box-shadow:0 8px 30px rgba(0,0,0,0.04);
+  border-radius:12px;
+  background:var(--card);
+  padding:14px;
 }
 
-.input-wrap{
+/* INPUT */
+.input{
   display:flex;
-  gap:8px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  overflow:hidden;
 }
 
 input{
   flex:1;
-  padding:16px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  font-size:16px;
+  border:none;
+  padding:14px;
+  font-size:15px;
   background:#fafafa;
 }
 
 button{
-  min-width:130px;
-  background:var(--ink);
-  color:white;
   border:none;
-  padding:16px;
-  border-radius:12px;
-  font-weight:700;
+  background:var(--ink);
+  color:#fff;
+  padding:14px 16px;
+  font-weight:600;
   cursor:pointer;
 }
 
+/* SYSTEM TEXT */
 .status{
+  margin-top:10px;
   font-size:12px;
   color:var(--muted);
-  margin-top:10px;
   font-family:monospace;
 }
 
-.micro{
+.log{
+  margin-top:4px;
   font-size:12px;
-  color:#9a9a92;
-  margin-top:6px;
+  color:#888;
+  font-family:monospace;
 }
 
-/* STATES */
-#scan,#result,#emailGate,#paywall{display:none;}
+/* SCAN */
+#scan,#result,#gate{display:none;}
 
 .bar-bg{
-  height:4px;
+  height:3px;
   background:#eee;
-  margin-top:12px;
-  border-radius:10px;
-  overflow:hidden;
+  margin-top:10px;
 }
 
 .bar{
@@ -134,49 +130,33 @@ button{
 }
 
 /* RESULT */
-.output{
-  margin-top:18px;
-  padding:16px;
+.result{
+  margin-top:12px;
+  padding:12px;
   background:#fafafa;
-  border-radius:12px;
-  border:1px solid var(--border);
-  text-align:left;
+  border-radius:8px;
+  font-size:14px;
 }
 
 .score{
-  font-size:28px;
+  font-size:24px;
   font-weight:700;
 }
 
-.danger{
+.bad{
   color:var(--danger);
-  font-weight:600;
   margin-top:4px;
 }
 
 ul{
-  padding-left:18px;
+  padding-left:16px;
   color:var(--danger);
-  margin-top:10px;
 }
 
-/* CTA */
-.cta{
-  text-align:center;
-  margin-top:16px;
+/* GATE */
+.gate{
+  margin-top:12px;
 }
-
-.cta a{
-  display:inline-block;
-  margin:6px;
-  padding:12px 18px;
-  border-radius:8px;
-  text-decoration:none;
-  font-size:14px;
-}
-
-.primary{background:var(--ink);color:white;}
-.secondary{border:1px solid var(--border);color:var(--ink);}
 
 footer{
   text-align:center;
@@ -198,69 +178,56 @@ footer{
 </nav>
 
 <div class="hero">
-  <h1>AI is already choosing your competitors.</h1>
-  <p class="sub">Reveal whether your business exists inside AI answers.</p>
 
-  <div class="tension">
-    Most businesses score below 3/10
-  </div>
+  <h1>
+    AI already chose<br>
+    your competitors.
+  </h1>
+
+  <p class="sub">
+    This system checks if you exist in AI answers.
+  </p>
 
   <div class="machine">
 
-    <div id="inputBox" class="input-wrap">
-      <input id="url" placeholder="yourwebsite.com">
-      <button onclick="run()">Reveal →</button>
+    <div id="inputBox" class="input">
+      <input id="url" placeholder="enter domain">
+      <button onclick="run()">run</button>
     </div>
 
     <div id="status" class="status">
-      AI index active • waiting query
+      AI index: active • waiting input
     </div>
 
-    <div class="micro">
-      competitors already being selected
+    <div id="log" class="log">
+      system idle
     </div>
 
     <div id="scan">
       <div class="bar-bg"><div id="bar" class="bar"></div></div>
     </div>
 
-    <div id="result" class="output">
+    <div id="result" class="result">
       <div class="score"><span id="score"></span>/10</div>
-      <div class="danger">Not recommended in AI answers</div>
+      <div class="bad">not present in AI answers</div>
 
       <div style="margin-top:10px;">
-        AI prefers:
+        competitors:
         <ul id="competitors"></ul>
       </div>
     </div>
 
-    <div id="emailGate" class="output">
-      <strong>You're missing critical ranking signals</strong>
-      <p style="font-size:13px;color:var(--muted);">
-        Get the exact signals AI requires to recommend you
-      </p>
-
-      <input id="email" placeholder="your@email.com">
-      <button onclick="unlock()">Unlock report →</button>
-    </div>
-
-    <div id="paywall" class="output">
-      <strong>Scan limit reached</strong>
-      <p style="font-size:13px;color:var(--muted);">
-        Monitor competitors + fix your AI visibility system
-      </p>
-
-      <div class="cta">
-        <a href="https://whop.com/progpt" class="primary">Upgrade Access</a>
-        <a href="https://discord.gg/progpt" class="secondary">Join Research</a>
-      </div>
+    <div id="gate" class="gate">
+      <input id="email" placeholder="email to unlock full report">
+      <button onclick="unlock()">unlock →</button>
     </div>
 
   </div>
+
 </div>
 
 <footer>
-© {year} ProGPT
+© {year}
 </footer>
 
 <script is:inline>
@@ -268,58 +235,70 @@ let scans = localStorage.getItem("scans") || 0;
 
 function run(){
   let url=document.getElementById("url").value;
-  if(!url || !url.includes(".")) return;
+  if(!url.includes(".")) return;
 
   if(scans >= 3){
-    document.getElementById("inputBox").style.display="none";
-    document.getElementById("paywall").style.display="block";
+    window.location.href="https://whop.com/progpt";
     return;
   }
 
   scans++;
   localStorage.setItem("scans", scans);
 
-  document.getElementById("inputBox").style.display="none";
   document.getElementById("scan").style.display="block";
-  document.getElementById("status").innerText="Analyzing AI ranking layer...";
+  document.getElementById("status").innerText="analyzing AI layer...";
+  
+  let logs=[
+    "mapping entities...",
+    "checking citations...",
+    "evaluating ranking...",
+    "finalizing..."
+  ];
 
   let w=0;
+  let i=0;
+
   let int=setInterval(()=>{
-    w+=4;
+    w+=5;
     document.getElementById("bar").style.width=w+"%";
+
+    if(w % 25 === 0 && i < logs.length){
+      document.getElementById("log").innerText=logs[i++];
+    }
 
     if(w>=100){
       clearInterval(int);
       show(url);
     }
-  },35);
+  },40);
 }
 
 function show(url){
   document.getElementById("scan").style.display="none";
   document.getElementById("result").style.display="block";
 
-  let score=(1 + Math.random()*2).toFixed(1);
+  let score=(1+Math.random()*2).toFixed(1);
   document.getElementById("score").innerText=score;
 
   let clean=url.split('.')[0];
   let list=document.getElementById("competitors");
   list.innerHTML="";
 
-  [""+clean+"pro.com","try"+clean+".com","best"+clean+".co"].forEach(c=>{
+  ["best"+clean+".com","try"+clean+".co","top"+clean+".io"].forEach(c=>{
     let li=document.createElement("li");
     li.innerText=c;
     list.appendChild(li);
   });
 
   setTimeout(()=>{
-    document.getElementById("emailGate").style.display="block";
-  },1200);
+    document.getElementById("gate").style.display="block";
+  },1000);
 }
 
 function unlock(){
   let email=document.getElementById("email").value;
   if(!email.includes("@")) return;
+
   window.location.href="https://whop.com/progpt";
 }
 </script>
