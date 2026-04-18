@@ -18,14 +18,14 @@ body {
   font-family: -apple-system, sans-serif;
 }
 
-/* GRID */
+/* GRID BACKGROUND */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(124,58,237,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(124,58,237,0.04) 1px, transparent 1px);
+    linear-gradient(rgba(37,99,235,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37,99,235,0.05) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none;
 }
@@ -69,19 +69,19 @@ h1 {
 }
 
 .audit-box button {
-  background: linear-gradient(135deg,#7C3AED,#9333EA);
+  background: linear-gradient(135deg,#2563EB,#1D4ED8);
   border: none;
   padding: 16px 22px;
   color: white;
   font-weight: 600;
   cursor: pointer;
+  box-shadow: 0 0 20px rgba(37,99,235,0.25);
 }
 
 /* STATUS */
 .status {
   margin-top: 20px;
   color: #aaa;
-  font-size: 0.9rem;
 }
 
 /* RESULT */
@@ -95,11 +95,7 @@ h1 {
   border: 1px solid #1a1a1a;
 }
 
-.score {
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-
+.score { font-size: 1.4rem; font-weight: 700; }
 .bad { color: #ff4d4d; }
 .warn { color: #ffaa00; }
 
@@ -122,7 +118,7 @@ h1 {
 .lead-form button {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg,#7C3AED,#9333EA);
+  background: linear-gradient(135deg,#2563EB,#1D4ED8);
   border: none;
   border-radius: 8px;
   color: white;
@@ -135,7 +131,7 @@ h1 {
   display: block;
   margin-top: 14px;
   padding: 14px;
-  background: linear-gradient(135deg,#7C3AED,#9333EA);
+  background: linear-gradient(135deg,#2563EB,#1D4ED8);
   text-align: center;
   border-radius: 10px;
   color: white;
@@ -143,7 +139,7 @@ h1 {
   font-weight: bold;
 }
 
-/* SECTION */
+/* SECTIONS */
 .section {
   margin-top: 70px;
   text-align: left;
@@ -178,14 +174,41 @@ h1 {
 
 .buy-card.main {
   grid-column: span 2;
-  border: 1px solid #7C3AED;
+  border: 1px solid #2563EB;
 }
 
-.buy-title {
+.buy-title { font-weight: bold; }
+.buy-desc { font-size: 0.8rem; color: #777; }
+
+/* TILE NAV (DRAG STYLE LOOK) */
+.tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.tile {
+  padding: 20px;
+  background: #0f0f0f;
+  border: 1px solid #222;
+  border-radius: 12px;
+  text-decoration: none;
+  color: white;
+  transition: transform 0.2s;
+}
+
+.tile:hover {
+  transform: translateY(-3px);
+  border-color: #2563EB;
+}
+
+.tile-title {
   font-weight: bold;
+  margin-bottom: 5px;
 }
 
-.buy-desc {
+.tile-desc {
   font-size: 0.8rem;
   color: #777;
 }
@@ -195,7 +218,6 @@ footer {
   margin-top: 60px;
   color: #444;
   font-size: 0.8rem;
-  text-align: center;
 }
 </style>
 </head>
@@ -221,60 +243,43 @@ footer {
   <div class="bad">❌ Not recommended</div>
   <div class="warn">⚠ Weak authority signals</div>
 
-  <p style="color:#777; margin-top:10px;">
-  AI cannot confidently select your business.
-  </p>
+  <p style="color:#777;">AI cannot confidently select your business.</p>
 
-  <!-- LEAD FORM -->
   <div id="leadForm" class="lead-form">
     <input placeholder="Your name" />
     <input id="email" placeholder="Your email" />
     <button onclick="submitLead()">Get full report</button>
   </div>
 
-  <!-- PAID CTA -->
   <a id="paidCTA" href="https://your-lemonsqueezy-link.com" class="cta" style="display:none;">
-    Fix this for me →
+    Fix this →
   </a>
 </div>
-
-<!-- BIG FORM -->
-<section class="section">
-<h2>Get your full AI audit</h2>
-<p>We analyze your business and show exactly why AI is not recommending you.</p>
-
-<div class="lead-form" style="display:block;">
-  <input placeholder="Website" />
-  <input placeholder="Your name" />
-  <input placeholder="Email" />
-  <button>Get full audit →</button>
-</div>
-</section>
 
 <!-- STORY -->
 <section class="section">
 <h2>The shift</h2>
 <p>
-Search is no longer pages. AI selects a few businesses and ignores the rest.
+AI doesn’t rank pages.  
+It selects businesses.  
 Most are invisible.
 </p>
 </section>
 
 <!-- BUY -->
 <section class="section">
-<h2>Fix your visibility</h2>
-<p>Choose how you want to work with us.</p>
+<h2>Start fixing your visibility</h2>
 
 <div class="buy-grid">
 
 <a href="https://your-lemonsqueezy-link.com" class="buy-card main">
 <div class="buy-title">Direct (Recommended)</div>
-<div class="buy-desc">Fastest access</div>
+<div class="buy-desc">Fastest access + priority support</div>
 </a>
 
 <a href="https://whop.com/your-link" class="buy-card">
 <div class="buy-title">Whop</div>
-<div class="buy-desc">Community access</div>
+<div class="buy-desc">Access + community</div>
 </a>
 
 <a href="https://gumroad.com/your-link" class="buy-card">
@@ -282,9 +287,33 @@ Most are invisible.
 <div class="buy-desc">Simple checkout</div>
 </a>
 
-<a href="https://fiverr.com/your-link" class="buy-card">
-<div class="buy-title">Fiverr</div>
-<div class="buy-desc">Marketplace</div>
+</div>
+</section>
+
+<!-- NAV TILES -->
+<section class="section">
+<h2>Explore</h2>
+
+<div class="tiles">
+
+<a href="/blog" class="tile">
+<div class="tile-title">Blog</div>
+<div class="tile-desc">AI visibility case studies</div>
+</a>
+
+<a href="/about" class="tile">
+<div class="tile-title">About</div>
+<div class="tile-desc">Who we are & what we do</div>
+</a>
+
+<a href="/dashboard" class="tile">
+<div class="tile-title">Dashboard</div>
+<div class="tile-desc">Client tools & reports</div>
+</a>
+
+<a href="/audit" class="tile">
+<div class="tile-title">Run Audit</div>
+<div class="tile-desc">Check another business</div>
 </a>
 
 </div>
@@ -293,10 +322,6 @@ Most are invisible.
 <!-- FINAL CLOSE -->
 <section class="section">
 <h2>You are either recommended… or invisible</h2>
-<p>
-AI doesn’t show 10 results. It shows a few.
-If you're not there, you're not chosen.
-</p>
 
 <a href="https://your-lemonsqueezy-link.com" class="cta">
 Fix my visibility →
@@ -311,16 +336,13 @@ progpt.store — AI Search Optimization
 
 <script>
 function startAudit() {
-  const site = document.getElementById("siteInput").value;
-  if (!site) return;
+  const val = document.getElementById("siteInput").value;
+  if (!val) return;
 
   const status = document.getElementById("status");
 
   status.innerText = "Scanning...";
-  
-  setTimeout(() => {
-    status.innerText = "Analyzing...";
-  }, 800);
+  setTimeout(() => status.innerText = "Analyzing...", 800);
 
   setTimeout(() => {
     status.innerText = "";
