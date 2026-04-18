@@ -1,11 +1,12 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>ProGPT — AI Visibility</title>
+<title>ProGPT — AI Visibility Audit</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
 
 <style>
 :root{
@@ -14,59 +15,27 @@
   --border:#1a1a1a;
   --text:#eaeaea;
   --muted:#8a8a8a;
-  --accent:#4f7cff;
+  --accent:#00ff88;
 }
-
-/* BASE */
-*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  font-family:Inter, sans-serif;
+  font-family:Inter,sans-serif;
   background:var(--bg);
   color:var(--text);
-  overflow-x:hidden;
+  margin:0;
 }
 
-/* BACKGROUND GRID */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background-image:
-    linear-gradient(#111 1px, transparent 1px),
-    linear-gradient(90deg,#111 1px, transparent 1px);
-  background-size:40px 40px;
-  opacity:0.2;
-  z-index:-1;
-}
-
-/* GLOW ORB */
-body::after{
-  content:"";
-  position:fixed;
-  width:500px;
-  height:500px;
-  background:radial-gradient(circle, rgba(79,124,255,0.25), transparent 70%);
-  top:20%;
-  left:50%;
-  transform:translateX(-50%);
-  filter:blur(80px);
-  z-index:-1;
-}
-
+/* CONTAINER */
 .container{
   max-width:720px;
   margin:auto;
   padding:24px;
 }
 
+/* HERO */
 h1{
-  font-size:40px;
+  font-size:38px;
   line-height:1.1;
-}
-
-h2{
-  font-size:22px;
 }
 
 p{
@@ -74,24 +43,17 @@ p{
   margin-top:8px;
 }
 
-.section{
-  margin-top:60px;
-}
-
+/* CARD */
 .card{
   background:var(--card);
   border:1px solid var(--border);
   padding:18px;
   border-radius:14px;
-  margin-top:12px;
-  transition:0.3s;
+  margin-top:16px;
 }
 
-.card:hover{
-  border-color:#2a2a2a;
-}
-
-input,select{
+/* INPUT */
+input{
   width:100%;
   padding:14px;
   border-radius:10px;
@@ -101,6 +63,7 @@ input,select{
   margin-top:10px;
 }
 
+/* BUTTON */
 button{
   margin-top:14px;
   width:100%;
@@ -108,54 +71,32 @@ button{
   border-radius:10px;
   border:none;
   background:var(--accent);
-  color:white;
+  color:black;
   font-weight:600;
   cursor:pointer;
-  transition:0.2s;
 }
 
-button:hover{
-  transform:translateY(-1px);
-}
-
-.cta-main{
+/* DISCORD CTA */
+.discord{
   display:block;
   text-align:center;
-  margin-top:18px;
-  padding:16px;
-  border-radius:12px;
-  background:var(--accent);
-  color:white;
-  font-weight:600;
-  text-decoration:none;
-  box-shadow:0 0 20px rgba(79,124,255,0.4);
-}
-
-.cta-alt a{
-  display:block;
-  text-align:center;
-  margin-top:10px;
+  margin-top:14px;
   padding:14px;
   border-radius:10px;
-  border:1px solid var(--border);
-  color:var(--text);
+  border:1px solid #5865f2;
+  color:#8ea1ff;
   text-decoration:none;
 }
 
-/* SCANNING */
-.scan{
-  display:none;
-  margin-top:20px;
-  text-align:center;
-}
+/* SCAN */
+.scan{ display:none; margin-top:20px; }
 
 .loader{
-  width:100%;
   height:6px;
   background:#111;
   border-radius:6px;
   overflow:hidden;
-  margin-top:12px;
+  margin-top:10px;
 }
 
 .loader span{
@@ -171,7 +112,7 @@ button:hover{
   100%{width:100%}
 }
 
-/* LIVE ACTIVITY */
+/* LIVE */
 .live{
   font-size:13px;
   color:var(--muted);
@@ -179,21 +120,10 @@ button:hover{
 }
 
 .dot{
-  display:inline-block;
-  width:8px;
-  height:8px;
-  background:red;
-  border-radius:50%;
+  width:8px;height:8px;background:var(--accent);
+  display:inline-block;border-radius:50%;
   margin-right:6px;
-  animation:pulse 1.2s infinite;
 }
-
-@keyframes pulse{
-  0%{opacity:1}
-  50%{opacity:0.3}
-  100%{opacity:1}
-}
-
 </style>
 </head>
 
@@ -201,98 +131,67 @@ button:hover{
 
 <div class="container">
 
-<!-- HERO -->
-<section class="section">
-<h1>AI already chose your competitors.</h1>
-<p>If you're not in AI answers, you don't exist.</p>
+<h1>AI is already ranking your competitors.</h1>
+<p>If you're not in AI answers, you're invisible.</p>
 
 <div class="live">
-  <span class="dot"></span>
-  <span id="liveCount">12</span> businesses checked in the last hour
+<span class="dot"></span>
+<span id="liveCount">17</span> audits running now
 </div>
 
-</section>
-
-<!-- AUDIT -->
-<section class="section">
-
-<h2>Check your AI visibility</h2>
-
+<!-- INPUT -->
 <div id="step1" class="card">
-  <input id="website" placeholder="yourwebsite.com">
-  <button onclick="startScan()">Check →</button>
+<input id="website" placeholder="yourwebsite.com">
+<button onclick="startScan()">Run free audit →</button>
 </div>
 
-<!-- SCANNING -->
+<!-- SCAN -->
 <div id="scan" class="scan">
-  <p id="scanText">Scanning your site…</p>
-  <div class="loader"><span></span></div>
+<p id="scanText">Scanning your site…</p>
+<div class="loader"><span></span></div>
 </div>
 
 <!-- RESULT -->
 <div id="result" style="display:none;margin-top:20px">
 
-  <div class="card">
-    <h2 id="scoreText">Score: 3.2 / 10</h2>
-
-    <p>AI is not recommending your business.</p>
-
-    <ul style="margin-top:10px;color:#aaa;font-size:14px">
-      <li>Weak authority signals</li>
-      <li>No structured data</li>
-      <li>No AI content</li>
-    </ul>
-
-    <p style="margin-top:10px">
-      Competitors are taking your traffic.
-    </p>
-
-    <input id="email" placeholder="Enter email for full report">
-    <button onclick="saveLead()">Get full report →</button>
-
-  </div>
-
-</div>
-
-</section>
-
-<!-- VALUE -->
-<section class="section">
-
-<h2>What you get</h2>
-
 <div class="card">
-  Done-for-you AI optimization
-</div>
 
-<div class="card">
-  Schema + AI content signals
-</div>
+<h2 id="scoreText">Score: 3.1 / 10</h2>
 
-<div class="card">
-  Authority + local ranking fixes
-</div>
+<p style="margin-top:10px">
+AI is not recommending your business.
+</p>
 
-</section>
+<ul style="margin-top:10px;color:#aaa;font-size:14px">
+<li>No structured AI signals</li>
+<li>Weak authority footprint</li>
+<li>Competitors dominating results</li>
+</ul>
 
-<!-- CTA -->
-<section class="section">
+<p style="margin-top:10px">
+Fix this → get full breakdown + execution plan inside Discord.
+</p>
 
-<h2>Fix your visibility</h2>
+<input id="email" placeholder="Enter email to unlock audit">
 
-<p>One-time setup · Results in 4–8 weeks</p>
+<button onclick="saveLead()">Unlock full audit →</button>
 
-<a href="https://your-lemonsqueezy-link.com" class="cta-main">
-Start now → $297
+<a href="https://whop.com/progpt" class="discord">
+Enter Discord System (via Whop) →
 </a>
 
-<div class="cta-alt">
-  <a href="https://whop.com">Buy on Whop</a>
-  <a href="https://gumroad.com">Buy on Gumroad</a>
-  <a href="https://discord.gg/YOUR">Join Discord</a>
 </div>
 
-</section>
+</div>
+
+<!-- VALUE -->
+<div class="card">
+<h3>What happens next</h3>
+<p>• Full audit breakdown<br>
+• GEO + SEO fixes<br>
+• AI content strategy<br>
+• Done-for-you execution</p>
+</div>
 
 </div>
 
@@ -302,10 +201,10 @@ function startScan(){
   document.getElementById("scan").style.display="block";
 
   let texts=[
-    "Scanning your website…",
+    "Scanning website…",
     "Analyzing AI signals…",
     "Checking competitors…",
-    "Evaluating authority…"
+    "Evaluating ranking gaps…"
   ];
 
   let i=0;
@@ -342,8 +241,8 @@ function saveLead(){
 setInterval(()=>{
   let el=document.getElementById("liveCount");
   let num=parseInt(el.innerText);
-  el.innerText=num+Math.floor(Math.random()*3);
-},5000);
+  el.innerText=num+Math.floor(Math.random()*2);
+},4000);
 </script>
 
 </body>
