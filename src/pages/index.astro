@@ -1,5 +1,5 @@
 ---
-const title = "ProGPT - AI Visibility Audit";
+const title = "ProGPT — AI Visibility";
 const description = "Check if AI recommends your business.";
 ---
 
@@ -8,93 +8,103 @@ const description = "Check if AI recommends your business.";
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>{title}</title>
 <meta name="description" content={description} />
 
 <style>
 :root{
-  --bg:#060608;
-  --surface:#0d0d12;
-  --border:rgba(255,255,255,0.07);
-  --orange:#ff6b1a;
-  --red:#ff4444;
-  --text:#f0ede8;
-  --muted:#8a8294;
+  --bg:#05060a;
+  --surface:#0c0d14;
+  --glass:rgba(255,255,255,0.04);
+  --border:rgba(255,255,255,0.08);
+  --text:#f5f5f7;
+  --muted:#8b90a0;
+  --accent:#4f7cff;
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
+
 body{
+  font-family:system-ui, sans-serif;
   background:var(--bg);
   color:var(--text);
-  font-family:system-ui, sans-serif;
 }
 
-/* LAYOUT */
+/* CONTAINER */
 .wrap{
-  max-width:680px;
+  max-width:900px;
   margin:auto;
-  padding:24px;
+  padding:28px;
 }
 
 /* HERO */
-h1{
-  font-size:2.6rem;
-  line-height:1.2;
-  margin-bottom:12px;
+.hero{
+  padding:80px 0 60px;
 }
 
-.hero-sub{
+h1{
+  font-size:3.2rem;
+  line-height:1.1;
+  margin-bottom:16px;
+}
+
+.hero p{
   color:var(--muted);
-  margin-bottom:24px;
+  font-size:1.1rem;
+  margin-bottom:28px;
 }
 
 /* INPUT */
 .audit-box{
   display:flex;
+  background:var(--surface);
   border:1px solid var(--border);
-  border-radius:12px;
+  border-radius:14px;
   overflow:hidden;
+  box-shadow:0 0 40px rgba(79,124,255,0.15);
 }
 
 .audit-box input{
   flex:1;
-  padding:14px;
+  padding:16px;
   background:transparent;
   border:none;
   color:white;
+  font-size:1rem;
 }
 
 .audit-box button{
-  background:var(--orange);
+  background:var(--accent);
   border:none;
-  padding:14px 20px;
+  padding:16px 24px;
   color:white;
+  font-weight:600;
   cursor:pointer;
 }
 
 /* RESULT */
 .result{
   display:none;
-  margin-top:24px;
+  margin-top:30px;
   background:var(--surface);
   border:1px solid var(--border);
-  border-radius:12px;
+  border-radius:14px;
 }
 
 .score{
-  font-size:2.4rem;
-  padding:20px;
-  color:var(--red);
+  font-size:2.5rem;
+  padding:24px;
+  color:#ff5a5a;
 }
 
 .verdict{
-  padding:0 20px;
+  padding:0 24px;
   font-weight:600;
-  color:var(--red);
 }
 
 .result p{
-  padding:10px 20px;
+  padding:12px 24px;
   color:var(--muted);
 }
 
@@ -105,41 +115,42 @@ h1{
 
 .gate input{
   width:100%;
+  padding:14px;
   margin-bottom:10px;
-  padding:12px;
+  border-radius:10px;
   border:1px solid var(--border);
   background:#000;
   color:white;
-  border-radius:8px;
 }
 
 .gate button{
   width:100%;
   padding:14px;
-  background:var(--orange);
+  background:var(--accent);
   border:none;
+  border-radius:10px;
   color:white;
-  border-radius:8px;
 }
 
 /* CTA */
 .cta{
   display:block;
   text-align:center;
+  padding:16px;
   margin-top:12px;
-  padding:14px;
-  background:var(--orange);
+  background:var(--accent);
   border-radius:10px;
   color:white;
   text-decoration:none;
 }
 
-/* SECTIONS */
+/* SECTION */
 .section{
-  margin-top:50px;
+  margin-top:80px;
 }
 
 .section h2{
+  font-size:1.8rem;
   margin-bottom:10px;
 }
 
@@ -147,43 +158,80 @@ h1{
   color:var(--muted);
 }
 
-/* BUY */
-.buy-grid{
+/* SOCIAL PROOF */
+.proof{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
   margin-top:20px;
 }
 
-.buy-card{
-  padding:16px;
+.metric{
+  background:var(--glass);
   border:1px solid var(--border);
-  border-radius:10px;
-  background:var(--surface);
-  text-decoration:none;
-  color:white;
+  padding:20px;
+  border-radius:12px;
+  text-align:center;
 }
 
-.buy-card.main{
-  grid-column:span 2;
-  border-color:var(--orange);
+.metric h3{
+  font-size:1.6rem;
+}
+
+/* TESTIMONIALS */
+.testimonials{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:20px;
+}
+
+.testimonial{
+  background:var(--glass);
+  border:1px solid var(--border);
+  padding:18px;
+  border-radius:12px;
+  font-size:0.95rem;
+  color:#cfcfe3;
+}
+
+/* BUY */
+.buy{
+  display:grid;
+  gap:12px;
+  margin-top:20px;
+}
+
+.buy a{
+  padding:16px;
+  border-radius:12px;
+  text-align:center;
+  text-decoration:none;
+  color:white;
+  border:1px solid var(--border);
+  background:var(--surface);
+}
+
+.buy .main{
+  border-color:var(--accent);
+  box-shadow:0 0 30px rgba(79,124,255,0.2);
 }
 
 /* NAV */
 .tiles{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
+  gap:12px;
   margin-top:20px;
 }
 
 .tile{
-  padding:16px;
+  padding:18px;
+  border-radius:12px;
+  background:var(--surface);
   border:1px solid var(--border);
-  border-radius:10px;
   text-decoration:none;
   color:white;
-  background:var(--surface);
 }
 </style>
 </head>
@@ -191,75 +239,80 @@ h1{
 <body>
 <div class="wrap">
 
+<!-- HERO -->
+<div class="hero">
 <h1>Check if AI recommends your business</h1>
-<p class="hero-sub">If you're not in AI answers, you don't exist.</p>
+<p>If you're not in AI answers, your competitors are.</p>
 
 <div class="audit-box">
-  <input id="siteInput" placeholder="yourwebsite.com" />
+  <input placeholder="yourwebsite.com" />
   <button onclick="startAudit()">Check</button>
 </div>
 
-<!-- RESULT -->
 <div id="result" class="result">
-
   <div class="score">3.2 / 10</div>
+  <div class="verdict">Low AI visibility</div>
+  <p>Your competitors are being recommended instead.</p>
 
-  <div class="verdict">You are invisible in AI search</div>
-
-  <p>
-    If someone asks AI for your service, your competitors are shown — not you.
-  </p>
-
-  <!-- GATE -->
-  <div id="gate" class="gate">
-
+  <div class="gate">
     <input placeholder="Your name" />
-    <input id="email" placeholder="Your email" />
-
+    <input placeholder="Your email" />
     <button onclick="unlock()">Get full report</button>
 
-    <!-- CTA AFTER -->
     <div id="ctaBlock" style="display:none">
-
-      <p style="margin-top:10px;">
-        Most businesses with your score are never shown in AI results.
-      </p>
-
       <a href="https://your-lemonsqueezy-link.com" class="cta">
-        Fix my AI visibility →
+        Fix my visibility →
       </a>
-
-      <p style="font-size:0.7rem; color:#888; text-align:center;">
-        Secure checkout • Also on Gumroad & Whop
-      </p>
-
     </div>
-
   </div>
-
+</div>
 </div>
 
-<!-- STORY -->
+<!-- PROOF -->
 <div class="section">
-<h2>The shift</h2>
-<p>
-AI selects businesses, not pages.  
-Most businesses are invisible.
-</p>
+<h2>Results</h2>
+
+<div class="proof">
+  <div class="metric">
+    <h3>+212%</h3>
+    <p>Visibility increase</p>
+  </div>
+  <div class="metric">
+    <h3>3.4x</h3>
+    <p>More leads</p>
+  </div>
+  <div class="metric">
+    <h3>4–8 weeks</h3>
+    <p>Typical results</p>
+  </div>
+</div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="section">
+<h2>What clients say</h2>
+
+<div class="testimonials">
+  <div class="testimonial">
+    “We started showing up in AI answers within weeks. Leads doubled.”
+  </div>
+  <div class="testimonial">
+    “This changed how customers find us. Huge impact.”
+  </div>
+</div>
 </div>
 
 <!-- BUY -->
 <div class="section">
 <h2>Start fixing your visibility</h2>
 
-<div class="buy-grid">
-  <a href="https://your-lemonsqueezy-link.com" class="buy-card main">
-    Direct (Recommended)
+<div class="buy">
+  <a href="https://your-lemonsqueezy-link.com" class="main">
+    Direct (recommended)
   </a>
-  <a href="https://gumroad.com/your-link" class="buy-card">Gumroad</a>
-  <a href="https://whop.com/your-link" class="buy-card">Whop</a>
+  <a href="#">Gumroad</a>
+  <a href="#">Whop</a>
 </div>
-
 </div>
 
 <!-- NAV -->
@@ -271,6 +324,7 @@ Most businesses are invisible.
   <a href="/about" class="tile">About</a>
   <a href="/dashboard" class="tile">Dashboard</a>
   <a href="/audit" class="tile">Run Audit</a>
+</div>
 </div>
 
 </div>
@@ -285,6 +339,5 @@ function unlock(){
 }
 </script>
 
-</div>
 </body>
 </html>
