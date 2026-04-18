@@ -25,7 +25,7 @@ import BaseHead from '../components/BaseHead.astro';
       color:var(--text);
     }
 
-    /* GRID */
+    /* subtle grid */
     body::before{
       content:"";
       position:fixed;
@@ -40,17 +40,21 @@ import BaseHead from '../components/BaseHead.astro';
     nav{
       display:flex;
       justify-content:space-between;
+      align-items:center;
       padding:16px 20px;
       border-bottom:1px solid var(--border);
     }
+
+    .logo{font-weight:900;letter-spacing:-1px;}
 
     .buy{
       background:var(--accent);
       color:#000;
       padding:8px 14px;
       border-radius:6px;
-      font-weight:700;
+      font-weight:800;
       text-decoration:none;
+      font-size:13px;
     }
 
     .container{
@@ -63,6 +67,7 @@ import BaseHead from '../components/BaseHead.astro';
       font-size:clamp(42px,8vw,72px);
       line-height:0.9;
       margin:0;
+      letter-spacing:-2px;
     }
 
     h1 span{color:var(--accent);}
@@ -71,6 +76,7 @@ import BaseHead from '../components/BaseHead.astro';
       color:var(--muted);
       margin-top:16px;
       font-size:18px;
+      max-width:520px;
     }
 
     .card{
@@ -88,6 +94,13 @@ import BaseHead from '../components/BaseHead.astro';
       border:1px solid var(--border);
       background:#000;
       color:#fff;
+      font-size:16px;
+      box-sizing:border-box;
+    }
+
+    input:focus{
+      outline:none;
+      border-color:var(--accent);
     }
 
     .btn{
@@ -96,10 +109,16 @@ import BaseHead from '../components/BaseHead.astro';
       margin-top:12px;
       border:none;
       border-radius:12px;
-      font-weight:800;
+      font-weight:900;
       background:var(--accent);
       color:#000;
       cursor:pointer;
+      font-size:16px;
+      transition:0.1s;
+    }
+
+    .btn:active{
+      transform:scale(0.98);
     }
 
     .btn-alt{
@@ -117,6 +136,16 @@ import BaseHead from '../components/BaseHead.astro';
     #scan{display:none;}
     .log{font-family:monospace;color:var(--accent);font-size:12px;}
 
+    .badge{
+      display:inline-block;
+      background:rgba(255,0,0,0.1);
+      color:var(--danger);
+      padding:6px 10px;
+      border-radius:6px;
+      font-size:12px;
+      margin-top:10px;
+    }
+
     .faq-item{
       border-top:1px solid var(--border);
       padding:12px 0;
@@ -128,18 +157,20 @@ import BaseHead from '../components/BaseHead.astro';
       color:#aaa;
       margin-top:6px;
       font-size:14px;
+      line-height:1.5;
     }
 
     .faq-item.active .faq-a{
       display:block;
     }
 
-    .badge{
-      background:rgba(255,0,0,0.1);
-      color:var(--danger);
-      padding:6px 10px;
-      border-radius:6px;
-      font-size:12px;
+    #competitors{
+      list-style:none;
+      padding:0;
+    }
+
+    #competitors li{
+      padding:4px 0;
     }
 
   </style>
@@ -148,35 +179,30 @@ import BaseHead from '../components/BaseHead.astro';
 <body>
 
 <nav>
-  <div>PROGPT</div>
+  <div class="logo">PROGPT</div>
   <a href="https://whop.com/progpt" class="buy">BUY</a>
 </nav>
 
 <div class="container">
 
 <h1>AI is already <span>choosing</span> your competitors.</h1>
-<p class="sub">If you're not in AI answers, you don't exist.</p>
-
-<!-- SHIFT -->
-<div class="card">
-  <h3>The shift</h3>
-  <p style="color:#aaa">
-    Search ranked pages. AI selects businesses.
-    Only a few get recommended.
-  </p>
-</div>
+<p class="sub">If you're not cited in AI answers, your business is effectively invisible.</p>
 
 <!-- INPUT -->
 <div class="card" id="inputBox">
-  <input id="url" placeholder="yourwebsite.com">
-  <button class="btn" onclick="run()">Run free audit →</button>
+  <h3>Run AI Visibility Audit</h3>
+  <input id="url" type="text" placeholder="yourwebsite.com">
+  <button class="btn" id="runBtn">Run free audit →</button>
+  <p style="color:#555;font-size:12px;margin-top:10px;text-align:center;">
+    Takes ~5 seconds. No signup required.
+  </p>
 </div>
 
 <!-- SCAN -->
 <div id="scan" class="card">
-  <div id="log" class="log">Scanning...</div>
-  <div style="height:3px;background:#111;margin-top:10px">
-    <div id="bar" style="height:100%;width:0%;background:var(--accent)"></div>
+  <div id="log" class="log">Initializing scan...</div>
+  <div style="height:4px;background:#111;margin-top:15px;border-radius:10px;overflow:hidden;">
+    <div id="bar" style="height:100%;width:0%;background:var(--accent);transition:width 0.2s ease;"></div>
   </div>
 </div>
 
@@ -184,54 +210,74 @@ import BaseHead from '../components/BaseHead.astro';
 <div id="result" style="display:none">
 
   <div class="card">
-    <h3>Score: <span id="score"></span>/10</h3>
-    <div class="badge">Low visibility</div>
+    <h3>Audit Score: <span id="score" style="color:var(--accent)"></span>/10</h3>
+    <div class="badge">CRITICAL: Low AI Trust</div>
 
-    <ul id="competitors" style="color:var(--accent);margin-top:10px"></ul>
+    <p style="margin-top:20px;font-size:14px;color:var(--muted);">
+      AI agents are recommending these competitors instead:
+    </p>
 
-    <p id="loss" style="color:var(--danger);font-weight:700"></p>
+    <ul id="competitors" style="color:var(--accent);font-weight:600;"></ul>
+
+    <p id="loss" style="color:var(--danger);font-weight:700;background:rgba(255,68,68,0.1);padding:10px;border-radius:8px;text-align:center;"></p>
   </div>
 
   <!-- FAQ -->
   <div class="card">
-    <h3>Why this happens</h3>
+    <h3>Why you're losing traffic</h3>
     <div id="faq"></div>
   </div>
 
   <!-- CTA -->
   <div class="card">
-    <input placeholder="email">
-    <button class="btn" onclick="location.href='https://whop.com/progpt'">
+    <h3>Fix your visibility</h3>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:15px;">
+      We rebuild your site for AI ranking systems. Done-for-you.
+    </p>
+
+    <input type="email" placeholder="Enter your email">
+    <button class="btn" onclick="window.location.href='https://whop.com/progpt'">
       Fix this → $297
     </button>
-    <a class="btn-alt" href="https://discord.gg/YOUR">Join Discord</a>
+
+    <a class="btn-alt" href="https://discord.gg/YOUR">Join free Discord</a>
   </div>
 
 </div>
 
+<!-- SHIFT -->
+<div class="card">
+  <h3>The shift</h3>
+  <p style="color:#aaa;line-height:1.6;">
+    Search ranked pages. AI selects businesses.  
+    If your site isn’t structured for LLM extraction, you are excluded.
+  </p>
 </div>
 
-<script>
+</div>
+
+<script is:inline>
+
 function detect(url){
   url=url.toLowerCase();
-  if(url.includes("shop")) return "ecommerce";
-  if(url.includes("agency")) return "agency";
+  if(url.includes("shop")||url.includes("store")) return "ecommerce";
+  if(url.includes("agency")||url.includes("design")) return "agency";
   return "general";
 }
 
-function faq(type){
+function renderFaq(type){
   const map={
     ecommerce:[
-      ["Why no AI traffic?","Products lack structured signals"],
-      ["Fix?","Schema + entity optimization"]
+      ["Why no AI traffic?","Products lack structured data AI can verify."],
+      ["Fix?","Schema + entity optimization."]
     ],
     agency:[
-      ["Why invisible?","No authority signals"],
-      ["Fix?","Topical authority"]
+      ["Why invisible?","No authority graph or citations."],
+      ["Fix?","Topical authority buildout."]
     ],
     general:[
-      ["Why invisible?","AI cannot trust your site"],
-      ["Fix?","Structured + authority signals"]
+      ["Why invisible?","AI cannot trust your content."],
+      ["Fix?","Structured + authority signals."]
     ]
   };
 
@@ -247,46 +293,65 @@ function faq(type){
   });
 }
 
-function run(){
-  let url=document.getElementById("url").value;
-  if(!url) return;
-
-  faq(detect(url));
-
-  document.getElementById("inputBox").style.display="none";
-  document.getElementById("scan").style.display="block";
-
-  let w=0;
-  let interval=setInterval(()=>{
-    w+=2;
-    document.getElementById("bar").style.width=w+"%";
-    if(w>=100){
-      clearInterval(interval);
-      show(url);
-    }
-  },40);
-}
-
-function show(url){
+function showResult(url){
   document.getElementById("scan").style.display="none";
   document.getElementById("result").style.display="block";
 
-  document.getElementById("score").innerText=(2+Math.random()*2).toFixed(1);
+  document.getElementById("score").innerText=(1.8+Math.random()*1.5).toFixed(1);
 
-  let clean=url.split('.')[0];
+  let clean=url.replace(/^(https?:\/\/)?(www\.)?/,"").split('.')[0];
   let list=document.getElementById("competitors");
   list.innerHTML="";
 
   ["top-","get-","best-"].forEach(p=>{
     let li=document.createElement("li");
-    li.innerText=p+clean+".com";
+    li.innerText="→ "+p+clean+".com";
     list.appendChild(li);
   });
 
-  let lost=Math.floor(Math.random()*20+10);
+  let lost=Math.floor(Math.random()*20+15);
   document.getElementById("loss").innerText=
-    "Losing "+lost+"–"+(lost+10)+" leads/month";
+    "Estimated loss: "+lost+"–"+(lost+12)+" leads/month";
 }
+
+document.getElementById('runBtn').addEventListener('click', () => {
+
+  let url=document.getElementById("url").value;
+  if(!url || !url.includes(".")){
+    alert("Enter valid domain");
+    return;
+  }
+
+  renderFaq(detect(url));
+
+  document.getElementById("inputBox").style.display="none";
+  document.getElementById("scan").style.display="block";
+
+  let w=0;
+  let logs=[
+    "Scanning structure...",
+    "Analyzing AI signals...",
+    "Checking competitors...",
+    "Finalizing report..."
+  ];
+
+  let i=0;
+
+  let interval=setInterval(()=>{
+    w+=2;
+    document.getElementById("bar").style.width=w+"%";
+
+    if(w%25===0 && i<logs.length){
+      document.getElementById("log").innerText=logs[i++];
+    }
+
+    if(w>=100){
+      clearInterval(interval);
+      showResult(url);
+    }
+  },50);
+});
+
 </script>
 
 </body>
