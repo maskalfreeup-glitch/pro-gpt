@@ -2112,18 +2112,22 @@ Score: [X.X]/10 â€” [one-line verdict specific to this domain type]
 
 Under 280 words. Be direct, domain-specific. No generic advice.`;
 
+  /* â”€â”€ Call Cloudflare Worker (secure, key never in browser) â”€â”€ */
+  const WORKER_URL = 'https://progpt-backend.REPLACE_YOUR_SUBDOMAIN.workers.dev';
+
   let fullText='', score=null;
   try {
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
+    const r=await fetch(WORKER_URL+'/audit',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
+      body:JSON.stringify({domain})
     });
     if(!r.ok) throw new Error('status '+r.status);
     const data=await r.json();
-    fullText=data.content.map(b=>b.text||'').join('');
-    const m=fullText.match(/Score:\s*([\d.]+)/i)||fullText.match(/([\d]\.\d)\/10/);
-    if(m) score=m[1];
+    if(!data.ok) throw new Error(data.error||'Worker error');
+    fullText=data.text||'';
+    score=data.score||null;
+    if(fullText) { setP(88,'Processing'); tLog('Model: '+data.model,'ok'); await sl(200); }
   } catch(e) {
     tLog('Fallback analysis model active','warn');
     score=(1.6+Math.random()*3.4).toFixed(1);
@@ -2170,12 +2174,13 @@ function submitEmail() {
   /* Fire-and-forget to n8n webhook â€” swap URL when ready */
   const domain = document.getElementById('a-dlabel') ? document.getElementById('a-dlabel').textContent : '';
   const score  = document.getElementById('a-num') ? document.getElementById('a-num').textContent : '';
-  // Uncomment and set your n8n webhook URL:
-  // fetch('https://your-n8n-webhook-url/webhook/progpt-leads', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify({ email, domain, score, ts: new Date().toISOString() })
-  // }).catch(() => {});
+  /* Posts to the same Cloudflare Worker â€” no key exposed */
+  const WORKER_URL = 'https://progpt-backend.REPLACE_YOUR_SUBDOMAIN.workers.dev';
+  fetch(WORKER_URL+'/email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, domain, score, ts: new Date().toISOString() })
+  }).catch(() => {});
   setTimeout(() => {
     document.getElementById('ec-form').style.display = 'none';
     document.getElementById('ec-success').style.display = 'flex';
