@@ -4,7 +4,13 @@
 // global function scope needed by inline onclick handlers
 ---
 
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#000000" />
+<title>ProGPT â€” AI Visibility Audit &amp; GEO Tools</title>
+<meta name="description" content="Free AI visibility audit. See how ChatGPT, Perplexity, and Claude evaluate your domain. Get your AI Trust Score, schema gaps, and priority fixes." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
   href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@300;400;500&display=swap"
   rel="stylesheet"
@@ -45,9 +51,11 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 :focus-visible { outline: 2px solid rgba(255,255,255,.35); outline-offset: 2px; border-radius: 4px; }
+button { -webkit-tap-highlight-color: transparent; }
 button:active, a:active { opacity: .82; }
+a { -webkit-tap-highlight-color: transparent; }
 
 body {
   font-family: var(--g);
@@ -55,6 +63,8 @@ body {
   color: var(--gray2);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  min-height: 100dvh;
+  min-height: 100vh; /* fallback */
 }
 
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -116,7 +126,7 @@ body {
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    PAGE SYSTEM
 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-.page { display: none; scroll-margin-top: 52px; }
+.page { display: none; scroll-margin-top: 52px; min-height: 0; }
 .page.active { display: block; }
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
 
@@ -584,6 +594,8 @@ body {
 .dash {
   background: var(--bg1); border: 1px solid var(--line);
   border-radius: var(--r4); overflow: hidden;
+  /* Prevent internal content from breaking layout */
+  contain: layout;
 }
 .dash-titlebar {
   background: var(--bg2); border-bottom: 1px solid var(--line);
@@ -660,7 +672,7 @@ body {
   border: 1px solid var(--line);
 }
 .sr-k { font-family: var(--m); font-size: 10px; color: var(--gray6); letter-spacing: .5px; }
-.sr-v { font-family: var(--m); font-size: 11px; font-weight: 500; }
+.sr-v { font-family: var(--m); font-size: 11px; font-weight: 500; word-break: break-all; text-align: right; max-width: 60%; }
 .sr-v.bad  { color: #f87171; }
 .sr-v.warn { color: #fbbf24; }
 .sr-v.ok   { color: #4ade80; }
@@ -936,21 +948,22 @@ footer {
 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media(max-width:767px){
 
-  /* NAV */
   .nav { padding:0 14px; height:48px; }
   .nav-tabs { display:none; }
   .nav-sep { display:none; }
   .nav-pill.ghost { display:none; }
-  .nav-pill.solid { padding:5px 11px; font-size:12px; max-width:140px; overflow:hidden; }
+  .nav-pill.solid { padding:6px 12px; font-size:12.5px; gap:5px; }
   .nav-pill.solid .nav-console-label { display:none; }
   .nav-pill.solid .nav-console-short { display:inline; }
   .nav-logo { font-size:14px; }
 
   /* MOBILE NAV â€” bottom tab bar */
-  body { padding-bottom:60px; }
+  body { padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px)); }
   .mobile-tabbar {
     position:fixed; bottom:0; left:0; right:0; z-index:600;
-    height:60px; background:rgba(0,0,0,.95);
+    height: calc(60px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background:rgba(0,0,0,.95);
     border-top:1px solid var(--line);
     backdrop-filter:blur(20px) saturate(180%);
     display:flex; align-items:stretch;
@@ -959,8 +972,8 @@ footer {
     flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
     gap:3px; cursor:pointer; border:none; background:none;
     font-size:10px; font-weight:500; color:var(--gray6);
-    letter-spacing:.3px; transition:color .15s; padding:0;
-    text-decoration:none;
+    letter-spacing:.3px; transition:color .15s; padding:0 0 env(safe-area-inset-bottom, 0px);
+    text-decoration:none; -webkit-tap-highlight-color: transparent;
   }
   .mtb-tab.active { color:var(--white); }
   .mtb-tab svg { width:18px; height:18px; }
@@ -1024,10 +1037,12 @@ footer {
   .dash-url-row { width:100%; }
   .dash-go-btn { width:100%; justify-content:center; padding:13px; border-radius:var(--r2); font-size:14px; }
   .dash-prefix { font-size:11.5px; padding:0 10px; }
-  .dash-url-row input { font-size:13px; }
+  /* font-size 16px prevents iOS auto-zoom on input focus */
+  .dash-url-row input { font-size:16px; }
 
   .dash-panels { grid-template-columns:1fr; }
-  .dp.terminal,.dp.report { grid-column:1; }
+  /* In single-col layout, span overrides are irrelevant but must be reset */
+  .dp.terminal, .dp.report { grid-column: 1 / -1; }
   .dp { padding:14px; }
   .score-big-num { font-size:56px; letter-spacing:-4px; }
   .term-scroll { height:130px; }
@@ -1043,7 +1058,7 @@ footer {
   .blog-hd p  { font-size:13px; }
   .blog-controls { gap:8px; margin-bottom:18px; }
   .blog-search-wrap { width:100%; }
-  .blog-search-wrap input { min-width:0; flex:1; }
+  .blog-search-wrap input { min-width:0; flex:1; font-size:16px; } /* 16px prevents iOS zoom */
   .blog-cats { gap:5px; }
   .bcat { font-size:12px; padding:5px 11px; }
   .blog-feat .bpc { display:block; }
@@ -1088,7 +1103,13 @@ footer {
 }
 
 /* â”€â”€â”€ Hide footer on mobile â€” tabbar handles nav â”€â”€â”€ */
-@media(max-width:767px){ footer { display:none !important; } }
+@media(max-width:767px){
+  footer { display:none !important; }
+  /* Prevent any page from creating excess whitespace below tabbar */
+  .page.active { padding-bottom: 0; }
+  #page-audit, #page-blog, #page-about { padding-bottom: 24px; }
+  #page-store .store-body { padding-bottom: 24px; }
+}
 </style>
 
 
@@ -1729,10 +1750,16 @@ footer {
 /* â”€â”€ ROUTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function gotoPage(p) {
   document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-  document.getElementById('page-' + p).classList.add('active');
+  const pg = document.getElementById('page-' + p);
+  if(!pg) return;
+  pg.classList.add('active');
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   const t = document.getElementById('tab-' + p);
   if(t) t.classList.add('active');
+  /* sync mobile tab bar */
+  document.querySelectorAll('.mtb-tab').forEach(t => t.classList.remove('active'));
+  const mt = document.querySelector('.mtb-tab[data-page="' + p + '"]');
+  if(mt) mt.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 document.querySelectorAll('a[href="#"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
@@ -1896,6 +1923,7 @@ async function runAudit() {
   document.getElementById('a-empty').style.display='none';
   document.getElementById('a-scan').style.display='';
   document.getElementById('a-result').style.display='none';
+  if(aTimer) { clearInterval(aTimer); aTimer=null; }
   aEl=0; aTimer=setInterval(()=>{ aEl++; document.getElementById('a-time').textContent=aEl+'s'; },1000);
 
   const steps=[
@@ -1981,14 +2009,5 @@ Under 280 words. Be direct, domain-specific. No generic advice.`;
   document.getElementById('a-result').style.display='';
 }
 
-/* â”€â”€ MOBILE TAB SYNC â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-(function(){
-  const _orig = gotoPage;
-  gotoPage = function(p){
-    _orig(p);
-    document.querySelectorAll('.mtb-tab').forEach(t => t.classList.remove('active'));
-    const mt = document.querySelector('.mtb-tab[data-page="'+p+'"]');
-    if(mt) mt.classList.add('active');
-  };
-})();
+
 </script>
