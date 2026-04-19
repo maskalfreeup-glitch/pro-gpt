@@ -1,305 +1,222 @@
 ---
-const title = "AI Visibility Engine";
 const year = new Date().getFullYear();
 ---
 
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{title}</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>AI Visibility Audit</title>
 
 <style>
 :root{
-  --bg:#f7f6f3;
-  --card:#ffffff;
-  --border:#e8e8e3;
-  --ink:#1a1a18;
-  --muted:#6b6b63;
-  --danger:#de350b;
+--bg:#f7f6f3;
+--card:#fff;
+--border:#e8e8e3;
+--ink:#1a1a18;
+--muted:#5a5a52;
+--danger:#de350b;
 }
 
 body{
-  margin:0;
-  font-family:'Geist',sans-serif;
-  background:var(--bg);
-  color:var(--ink);
-}
-
-/* NAV */
-nav{
-  display:flex;
-  justify-content:space-between;
-  padding:14px 20px;
-  border-bottom:1px solid var(--border);
-}
-
-.logo{font-weight:600}
-.nav a{
-  margin-left:16px;
-  text-decoration:none;
-  color:var(--muted);
-  font-size:14px;
+margin:0;
+font-family:sans-serif;
+background:var(--bg);
+color:var(--ink);
 }
 
 /* HERO */
 .hero{
-  max-width:640px;
-  margin:60px auto;
-  padding:0 20px;
+max-width:700px;
+margin:80px auto;
+text-align:center;
+padding:0 20px;
 }
 
 h1{
-  font-family:'Instrument Serif',serif;
-  font-size:clamp(36px,6vw,56px);
-  line-height:1.05;
-  margin:0;
+font-size:40px;
+margin:0;
 }
 
 .sub{
-  margin-top:10px;
-  color:var(--muted);
-  font-size:16px;
+color:var(--muted);
+margin-top:10px;
 }
 
 /* MACHINE */
 .machine{
-  margin-top:24px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  background:var(--card);
-  padding:14px;
+background:var(--card);
+border:1px solid var(--border);
+border-radius:16px;
+padding:20px;
+margin-top:25px;
 }
 
-/* INPUT */
 .input{
-  display:flex;
-  border:1px solid var(--border);
-  border-radius:8px;
-  overflow:hidden;
+display:flex;
+gap:8px;
 }
 
 input{
-  flex:1;
-  border:none;
-  padding:14px;
-  font-size:15px;
-  background:#fafafa;
+flex:1;
+padding:14px;
+border-radius:10px;
+border:1px solid var(--border);
 }
 
 button{
-  border:none;
-  background:var(--ink);
-  color:#fff;
-  padding:14px 16px;
-  font-weight:600;
-  cursor:pointer;
+padding:14px;
+background:var(--ink);
+color:white;
+border:none;
+border-radius:10px;
+cursor:pointer;
 }
 
-/* SYSTEM TEXT */
+/* STATUS */
 .status{
-  margin-top:10px;
-  font-size:12px;
-  color:var(--muted);
-  font-family:monospace;
-}
-
-.log{
-  margin-top:4px;
-  font-size:12px;
-  color:#888;
-  font-family:monospace;
+font-size:12px;
+color:var(--muted);
+margin-top:8px;
+font-family:monospace;
 }
 
 /* SCAN */
-#scan,#result,#gate{display:none;}
+#scan,#report{display:none;}
 
-.bar-bg{
-  height:3px;
-  background:#eee;
-  margin-top:10px;
+.log{
+font-size:12px;
+margin-top:10px;
+color:var(--muted);
+font-family:monospace;
 }
 
-.bar{
-  height:100%;
-  width:0%;
-  background:var(--ink);
-}
-
-/* RESULT */
-.result{
-  margin-top:12px;
-  padding:12px;
-  background:#fafafa;
-  border-radius:8px;
-  font-size:14px;
+/* REPORT */
+.report{
+margin-top:20px;
+padding:16px;
+border:1px solid var(--border);
+border-radius:12px;
+background:#fafafa;
 }
 
 .score{
-  font-size:24px;
-  font-weight:700;
+font-size:28px;
+font-weight:700;
 }
 
-.bad{
-  color:var(--danger);
-  margin-top:4px;
+.bad{color:var(--danger)}
+
+.row{
+display:flex;
+justify-content:space-between;
+margin-top:6px;
+font-size:14px;
 }
 
-ul{
-  padding-left:16px;
-  color:var(--danger);
+.cta{
+margin-top:20px;
+text-align:center;
 }
 
-/* GATE */
-.gate{
-  margin-top:12px;
-}
-
-footer{
-  text-align:center;
-  font-size:12px;
-  color:var(--muted);
-  padding:40px 0;
+.cta a{
+background:var(--ink);
+color:white;
+padding:12px 18px;
+border-radius:8px;
+text-decoration:none;
 }
 </style>
 </head>
 
 <body>
 
-<nav>
-  <div class="logo">AI Visibility</div>
-  <div class="nav">
-    <a href="/blog">Blog</a>
-    <a href="https://discord.gg/progpt">Discord</a>
-  </div>
-</nav>
-
 <div class="hero">
 
-  <h1>
-    AI already chose<br>
-    your competitors.
-  </h1>
+<h1>AI is already ranking your competitors.</h1>
+<p class="sub">Check if your business exists in AI answers.</p>
 
-  <p class="sub">
-    This system checks if you exist in AI answers.
-  </p>
+<div class="machine">
 
-  <div class="machine">
+<div id="inputBox" class="input">
+<input id="url" placeholder="yourwebsite.com">
+<button onclick="run()">Analyze</button>
+</div>
 
-    <div id="inputBox" class="input">
-      <input id="url" placeholder="enter domain">
-      <button onclick="run()">run</button>
-    </div>
+<div class="status">AI index active • scanning queries</div>
 
-    <div id="status" class="status">
-      AI index: active • waiting input
-    </div>
+<div id="scan">
+<div class="log" id="log"></div>
+</div>
 
-    <div id="log" class="log">
-      system idle
-    </div>
+<div id="report" class="report">
 
-    <div id="scan">
-      <div class="bar-bg"><div id="bar" class="bar"></div></div>
-    </div>
+<div class="score" id="score"></div>
+<div class="bad">Not recommended in AI answers</div>
 
-    <div id="result" class="result">
-      <div class="score"><span id="score"></span>/10</div>
-      <div class="bad">not present in AI answers</div>
+<div class="row"><span>Entity Recognition</span><span>❌</span></div>
+<div class="row"><span>Schema Graph</span><span>❌</span></div>
+<div class="row"><span>AI Citations</span><span>❌</span></div>
+<div class="row"><span>Authority</span><span>⚠️</span></div>
 
-      <div style="margin-top:10px;">
-        competitors:
-        <ul id="competitors"></ul>
-      </div>
-    </div>
+<div style="margin-top:10px;font-size:13px;">
+AI is recommending:
+<ul id="competitors"></ul>
+</div>
 
-    <div id="gate" class="gate">
-      <input id="email" placeholder="email to unlock full report">
-      <button onclick="unlock()">unlock →</button>
-    </div>
-
-  </div>
+<div class="cta">
+<a href="https://whop.com/progpt">Unlock Fix Plan →</a>
+</div>
 
 </div>
 
-<footer>
-© {year}
-</footer>
+</div>
+</div>
 
-<script is:inline>
-let scans = localStorage.getItem("scans") || 0;
-
+<script>
 function run(){
-  let url=document.getElementById("url").value;
-  if(!url.includes(".")) return;
+let url=document.getElementById("url").value;
+if(!url) return;
 
-  if(scans >= 3){
-    window.location.href="https://whop.com/progpt";
-    return;
-  }
+document.getElementById("inputBox").style.display="none";
+document.getElementById("scan").style.display="block";
 
-  scans++;
-  localStorage.setItem("scans", scans);
+let steps=[
+"parsing domain...",
+"mapping entity graph...",
+"checking schema...",
+"analyzing citations...",
+"ranking competitors..."
+];
 
-  document.getElementById("scan").style.display="block";
-  document.getElementById("status").innerText="analyzing AI layer...";
-  
-  let logs=[
-    "mapping entities...",
-    "checking citations...",
-    "evaluating ranking...",
-    "finalizing..."
-  ];
+let i=0;
+let log=document.getElementById("log");
 
-  let w=0;
-  let i=0;
+let int=setInterval(()=>{
+log.innerHTML+=steps[i]+"<br>";
+i++;
 
-  let int=setInterval(()=>{
-    w+=5;
-    document.getElementById("bar").style.width=w+"%";
-
-    if(w % 25 === 0 && i < logs.length){
-      document.getElementById("log").innerText=logs[i++];
-    }
-
-    if(w>=100){
-      clearInterval(int);
-      show(url);
-    }
-  },40);
+if(i>=steps.length){
+clearInterval(int);
+show(url);
+}
+},600);
 }
 
 function show(url){
-  document.getElementById("scan").style.display="none";
-  document.getElementById("result").style.display="block";
+document.getElementById("scan").style.display="none";
+document.getElementById("report").style.display="block";
 
-  let score=(1+Math.random()*2).toFixed(1);
-  document.getElementById("score").innerText=score;
+let score=(1+Math.random()*2).toFixed(1);
+document.getElementById("score").innerText=score+"/10";
 
-  let clean=url.split('.')[0];
-  let list=document.getElementById("competitors");
-  list.innerHTML="";
+let base=url.split('.')[0];
+let list=document.getElementById("competitors");
 
-  ["best"+clean+".com","try"+clean+".co","top"+clean+".io"].forEach(c=>{
-    let li=document.createElement("li");
-    li.innerText=c;
-    list.appendChild(li);
-  });
-
-  setTimeout(()=>{
-    document.getElementById("gate").style.display="block";
-  },1000);
-}
-
-function unlock(){
-  let email=document.getElementById("email").value;
-  if(!email.includes("@")) return;
-
-  window.location.href="https://whop.com/progpt";
+["best","top","pro"].forEach(p=>{
+let li=document.createElement("li");
+li.innerText=p+"-"+base+".com";
+list.appendChild(li);
+});
 }
 </script>
 
