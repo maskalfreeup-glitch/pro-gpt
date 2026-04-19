@@ -1,16 +1,20 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ProGPT — AI Visibility Store</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
+---
+// ProGPT Store â€” Main Page
+// Fonts loaded via <link> below; JS is inline (is:inline) to preserve
+// global function scope needed by inline onclick handlers
+---
 
-/* ─────────────────────────────────────────────────
-   WHOP DESIGN SYSTEM — TOKENS
-───────────────────────────────────────────────── */
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@300;400;500&display=swap"
+  rel="stylesheet"
+/>
+
+<style is:global>
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   WHOP DESIGN SYSTEM â€” TOKENS
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 :root {
   --black:   #000000;
   --bg:      #0a0a0a;
@@ -53,9 +57,9 @@ body {
   overflow-x: hidden;
 }
 
-/* ─────────────────────────────────────────────────
-   NAV — Whop-style sticky nav
-───────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   NAV â€” Whop-style sticky nav
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .nav {
   position: sticky; top: 0; z-index: 500;
   height: 52px;
@@ -109,16 +113,16 @@ body {
 .nav-pill.solid:hover { background: var(--gray2); }
 .nav-console-short { display: none; }
 
-/* ─────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    PAGE SYSTEM
-───────────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .page { display: none; scroll-margin-top: 52px; }
 .page.active { display: block; }
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
 
-/* ─────────────────────────────────────────────────
-   STORE PAGE — Hero section
-───────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   STORE PAGE â€” Hero section
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .store-banner {
   background: var(--bg1);
   border-bottom: 1px solid var(--line);
@@ -197,9 +201,9 @@ body {
 .store-nav-tab:hover { color: var(--gray2); }
 .store-nav-tab.active { color: var(--white); border-bottom-color: var(--white); }
 
-/* ─────────────────────────────────────────────────
-   STORE LAYOUT — sidebar + products
-───────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   STORE LAYOUT â€” sidebar + products
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .store-body {
   padding: 32px 0 80px;
 }
@@ -371,7 +375,7 @@ body {
   background: var(--bg3); border: 1px solid var(--line2);
   font-size: 12px; color: var(--gray4);
 }
-.include-pill::before { content: "·"; color: var(--gray6); }
+.include-pill::before { content: "Â·"; color: var(--gray6); }
 
 .product-footer {
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
@@ -425,7 +429,7 @@ body {
   gap: 5px;
 }
 
-/* ─── WHOP TRUST BAR ───────────────────────── */
+/* â”€â”€â”€ WHOP TRUST BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .whop-trust-bar {
   margin-top: 28px;
   padding: 16px 20px;
@@ -473,9 +477,9 @@ body {
 .pay-badge.paypal  { color: #003087; background: #fff; border-color: #e0e0e0; }
 .pay-badge.stripe  { color: #6772e5; background: #fff; border-color: #e0e0e0; }
 
-/* ─────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    DISCORD BIG BLOCK
-───────────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .discord-big-card {
   background: var(--bg1);
   border: 1px solid rgba(88,101,242,.25);
@@ -565,16 +569,16 @@ body {
 }
 .dc-join-big:hover { opacity: .9; transform: scale(1.02); }
 
-/* ─────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    AUDIT DASHBOARD PAGE
-───────────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #page-audit { padding: 40px 0 80px; }
 .audit-page-header { margin-bottom: 28px; }
 .audit-page-header h1 {
   font-size: 32px; font-weight: 800; letter-spacing: -1.2px;
   color: var(--white); margin-bottom: 6px;
 }
-.audit-page-header p { font-size: 14px; color: var(--gray5); max-width: 460px; line-height: 1.6; font-family: var(--m); }
+.audit-page-header p { font-size: 14px; color: var(--gray5); max-width: 460px; line-height: 1.65; }
 
 /* dashboard shell */
 .dash {
@@ -688,10 +692,10 @@ body {
 .rpt-h { color:var(--white); font-weight:500; font-size:11px; letter-spacing:1.5px; margin:14px 0 6px; }
 .rpt-h:first-child { margin-top:0 }
 .rpt-b { display:flex; gap:8px; padding:2.5px 0; }
-.rpt-b::before { content:"→"; color:var(--gray6); flex-shrink:0 }
-.rpt-b.bad::before  { content:"✗"; color:#f87171 }
-.rpt-b.warn::before { content:"△"; color:#fbbf24 }
-.rpt-b.ok::before   { content:"✓"; color:#4ade80 }
+.rpt-b::before { content:"â†’"; color:var(--gray6); flex-shrink:0 }
+.rpt-b.bad::before  { content:"âœ—"; color:#f87171 }
+.rpt-b.warn::before { content:"â–³"; color:#fbbf24 }
+.rpt-b.ok::before   { content:"âœ“"; color:#4ade80 }
 
 /* terminal */
 .dp.terminal { grid-column:1/-1; background:#000; }
@@ -713,15 +717,17 @@ body {
 /* empty + cta */
 .dash-empty {
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  padding:64px 20px; gap:14px; text-align:center;
+  padding:56px 24px 60px; gap:14px; text-align:center;
   border-top: 1px solid var(--line);
   min-height: 260px;
+  background: radial-gradient(ellipse at 50% 60%, rgba(255,255,255,.02) 0%, transparent 70%);
 }
 .empty-icon {
   width:56px;height:56px;border-radius:14px;
-  background:var(--bg2);border:1px solid var(--line2);
+  background:var(--bg3);border:1px solid var(--line3);
   display:flex;align-items:center;justify-content:center;
   position:relative;
+  box-shadow: 0 0 0 6px rgba(255,255,255,.03);
 }
 .empty-icon::after {
   content:"";position:absolute;inset:-6px;border-radius:20px;
@@ -730,8 +736,8 @@ body {
   opacity:0;
 }
 @keyframes emptyRing { 0%{opacity:0;transform:scale(.9)} 50%{opacity:1} 100%{opacity:0;transform:scale(1.05)} }
-.empty-ttl { font-size:15px;font-weight:700;color:var(--white); }
-.empty-sub { font-family:var(--m);font-size:12px;color:var(--gray6);max-width:300px;line-height:1.6; }
+.empty-ttl { font-size:16px;font-weight:700;color:var(--white); }
+.empty-sub { font-size:13px;color:var(--gray5);max-width:300px;line-height:1.6; }
 
 .dash-cta-bar {
   display:flex;align-items:center;justify-content:space-between;
@@ -753,13 +759,13 @@ body {
 .dcb-reset { background:none;border:none;cursor:pointer;font-family:var(--m);font-size:11px;color:var(--gray6);transition:color .15s; }
 .dcb-reset:hover { color:var(--gray3); }
 
-/* ─────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    BLOG PAGE
-───────────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #page-blog { padding:40px 0 80px; }
 .blog-hd { margin-bottom:28px; }
 .blog-hd h1 { font-size:32px;font-weight:800;letter-spacing:-1.2px;color:var(--white);margin-bottom:6px; }
-.blog-hd p  { font-size:14px;color:var(--gray5);max-width:440px;line-height:1.6;font-family:var(--m); }
+.blog-hd p  { font-size:14px;color:var(--gray5);max-width:440px;line-height:1.65; }
 .blog-controls { display:flex;align-items:center;gap:10px;margin-bottom:24px;flex-wrap:wrap; }
 .blog-search-wrap {
   display:flex;align-items:center;gap:8px;
@@ -822,13 +828,13 @@ body {
 .pseo-pill:hover { border-color:var(--line3);color:var(--white);background:var(--bg2); }
 .pseo-slug { color:var(--gray6);font-size:10px;display:block;margin-bottom:3px; }
 
-/* ─────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    ABOUT PAGE
-───────────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #page-about { padding:40px 0 80px; }
 .about-split { display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-bottom:60px; }
 .about-left h1 { font-size:clamp(30px,5vw,52px);font-weight:800;letter-spacing:-2px;color:var(--white);line-height:.92;margin-bottom:16px; }
-.about-left p  { font-family:var(--m);font-size:13px;color:var(--gray5);line-height:1.75; }
+.about-left p  { font-size:14px;color:var(--gray5);line-height:1.7; }
 .about-left p+p{ margin-top:12px; }
 .about-right {
   background:var(--bg1);border:1px solid var(--line);border-radius:var(--r3);padding:28px;
@@ -852,9 +858,9 @@ body {
 .team-bio  { font-family:var(--m);font-size:12px;color:var(--gray5);line-height:1.65; }
 .section-hd { font-size:22px;font-weight:800;letter-spacing:-.8px;color:var(--white);margin-bottom:20px; }
 
-/* ─────────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    FOOTER
-───────────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 footer {
   border-top:1px solid var(--line);padding:32px 0;background:var(--bg1);
 }
@@ -865,9 +871,9 @@ footer {
 .footer-links a:hover { color:var(--gray3); }
 .footer-copy { font-family:var(--m);font-size:11px;color:var(--gray6); }
 
-/* ─────────────────────────────────────────────────
-   UPGRADE BLOCK — post-audit
-───────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   UPGRADE BLOCK â€” post-audit
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .upgrade-block {
   display: flex; align-items: center; justify-content: space-between; gap: 20px;
   padding: 18px 20px;
@@ -894,9 +900,9 @@ footer {
 }
 .ub-cta:hover { background: var(--gray2); }
 
-/* ─────────────────────────────────────────────────
-   RESPONSIVE — Desktop optimisations (1080px+)
-───────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   RESPONSIVE â€” Desktop optimisations (1080px+)
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media(min-width:1080px){
   .wrap { padding:0 24px; }
   .store-layout { grid-template-columns:260px 1fr; gap:32px; }
@@ -905,9 +911,9 @@ footer {
   .dash-panels { grid-template-columns:280px 1fr; }
 }
 
-/* ─────────────────────────────────────────────────
-   RESPONSIVE — Tablet (768–1079px)
-───────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   RESPONSIVE â€” Tablet (768â€“1079px)
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media(min-width:768px) and (max-width:1079px){
   .wrap { padding:0 18px; }
   .store-layout { grid-template-columns:200px 1fr; gap:20px; }
@@ -925,21 +931,22 @@ footer {
   .nav { padding:0 16px; }
 }
 
-/* ─────────────────────────────────────────────────
-   RESPONSIVE — Mobile (≤767px)
-───────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   RESPONSIVE â€” Mobile (â‰¤767px)
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media(max-width:767px){
 
   /* NAV */
   .nav { padding:0 14px; height:48px; }
   .nav-tabs { display:none; }
+  .nav-sep { display:none; }
   .nav-pill.ghost { display:none; }
   .nav-pill.solid { padding:5px 11px; font-size:12px; max-width:140px; overflow:hidden; }
   .nav-pill.solid .nav-console-label { display:none; }
   .nav-pill.solid .nav-console-short { display:inline; }
   .nav-logo { font-size:14px; }
 
-  /* MOBILE NAV — bottom tab bar */
+  /* MOBILE NAV â€” bottom tab bar */
   body { padding-bottom:60px; }
   .mobile-tabbar {
     position:fixed; bottom:0; left:0; right:0; z-index:600;
@@ -973,7 +980,7 @@ footer {
   .store-actions { flex-wrap:wrap; gap:8px; margin-top:16px; }
   .store-btn { padding:8px 14px; font-size:12.5px; }
 
-  /* STORE SUBNAV — scrollable */
+  /* STORE SUBNAV â€” scrollable */
   .store-nav { overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
   .store-nav::-webkit-scrollbar { display:none; }
   .store-nav-tab { padding:10px 14px; font-size:13px; flex-shrink:0; }
@@ -1074,16 +1081,18 @@ footer {
   .footer-links { justify-content:center; }
 }
 
-/* ─── Mobile tabbar: hide on desktop ─── */
+/* â”€â”€â”€ Mobile tabbar: hide on desktop â”€â”€â”€ */
 @media(min-width:768px){
   .mobile-tabbar { display:none !important; }
   body { padding-bottom: 0 !important; }
 }
-</style>
-</head>
-<body>
 
-<!-- ══ NAV ══════════════════════════════════════════ -->
+/* â”€â”€â”€ Hide footer on mobile â€” tabbar handles nav â”€â”€â”€ */
+@media(max-width:767px){ footer { display:none !important; } }
+</style>
+
+
+<!-- â•â• NAV â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <nav class="nav">
   <div class="nav-left">
     <a class="nav-logo" onclick="gotoPage('audit')">
@@ -1107,16 +1116,16 @@ footer {
   </div>
 </nav>
 
-<!-- ══════════════════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      STORE PAGE
-════════════════════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page" id="page-store">
 
   <!-- Store banner -->
   <div class="store-banner">
     <div class="wrap">
       <div class="store-identity">
-        <div class="store-logo">⎔</div>
+        <div class="store-logo">âŽ”</div>
         <div class="store-meta">
           <div class="store-name">
             ProGPT
@@ -1148,10 +1157,10 @@ footer {
               <svg width="13" height="10" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.6 58.6 0 0 0 45.6.9a40 40 0 0 0-1.8 3.7 54.2 54.2 0 0 0-16.3 0A40 40 0 0 0 25.7.9 58.5 58.5 0 0 0 11.1 5C1.6 19.7-1 34.1.3 48.3a59 59 0 0 0 18 9.1 44.7 44.7 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.2 42.2 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 44.5 44.5 0 0 0 3.8 6.2 58.8 58.8 0 0 0 18-9.1C71.8 32 68 17.7 60.1 4.9ZM23.7 39.4c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2 6.5 3.2 6.4 7.2c0 4-2.8 7.2-6.4 7.2Zm23.5 0c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2 6.4 3.2 6.4 7.2c0 4-2.8 7.2-6.4 7.2Z"/></svg>
               Join Operator Console
             </a>
-            <button onclick="gotoPage('audit')" class="store-btn secondary">Run free audit →</button>
+            <button onclick="gotoPage('audit')" class="store-btn secondary">Run free audit â†’</button>
             <a href="https://whop.com/progpt" class="store-btn discord-btn" target="_blank">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Browse on Whop ↗
+              Browse on Whop â†—
             </a>
           </div>
         </div>
@@ -1191,7 +1200,7 @@ footer {
               <button class="sf-btn active">Any price</button>
               <button class="sf-btn">Free</button>
               <button class="sf-btn">Under $100</button>
-              <button class="sf-btn">$100–$500</button>
+              <button class="sf-btn">$100â€“$500</button>
               <button class="sf-btn">$500+</button>
             </div>
           </div>
@@ -1212,7 +1221,7 @@ footer {
               <div class="dc-ws"><strong>94%</strong>active</div>
               <div class="dc-ws"><strong>Free</strong>always</div>
             </div>
-            <a href="https://discord.gg/progpt" class="dc-join-btn-sm" target="_blank">Join Operator Console →</a>
+            <a href="https://discord.gg/progpt" class="dc-join-btn-sm" target="_blank">Join Operator Console â†’</a>
           </a>
         </div>
 
@@ -1228,12 +1237,12 @@ footer {
 
           <div class="product-grid" id="product-grid">
 
-            <!-- CARD: Agency Retainer (WHOP — featured) -->
+            <!-- CARD: Agency Retainer (WHOP â€” featured) -->
             <div class="product-card featured" data-type="retainer">
               <div class="product-thumb" style="background:linear-gradient(160deg,#0d0b1e,#1a1440)">
                 <div class="product-thumb-bg" style="background:radial-gradient(circle at 40% 50%,rgba(168,85,247,.25),transparent 70%)"></div>
-                <div class="product-badge badge-featured">⭐ Featured</div>
-                <div class="product-thumb-emoji">⚙️</div>
+                <div class="product-badge badge-featured">â­ Featured</div>
+                <div class="product-thumb-emoji">âš™ï¸</div>
               </div>
               <div class="product-info">
                 <div class="product-platform-row">
@@ -1243,7 +1252,7 @@ footer {
                   </div>
                   <div class="platform-chip"><div class="platform-chip-dot" style="background:#4ade80"></div>DONE-FOR-YOU</div>
                 </div>
-                <div class="product-title">Agency Retainer — Full GEO Management</div>
+                <div class="product-title">Agency Retainer â€” Full GEO Management</div>
                 <div class="product-desc">We run your entire AI visibility operation. Schema engineering, authority citation building, weekly AI mention monitoring across ChatGPT, Perplexity, Claude & Gemini. Monthly strategy calls and live Slack access to the team.</div>
                 <div class="product-includes">
                   <span class="include-pill">Full GEO implementation</span>
@@ -1255,7 +1264,7 @@ footer {
                 <div class="product-footer">
                   <div class="product-price-block">
                     <div class="product-price">$997</div>
-                    <div class="product-period">per month · cancel anytime</div>
+                    <div class="product-period">per month Â· cancel anytime</div>
                   </div>
                   <div style="display:flex;align-items:center;gap:14px">
                     <div class="product-members">
@@ -1279,8 +1288,8 @@ footer {
             <div class="product-card" data-type="done">
               <div class="product-thumb" style="background:linear-gradient(160deg,#0f1a10,#0d2014)">
                 <div class="product-thumb-bg" style="background:radial-gradient(circle at 40% 50%,rgba(34,197,94,.2),transparent 70%)"></div>
-                <div class="product-badge badge-hot">🔥 Popular</div>
-                <div class="product-thumb-emoji">🗺</div>
+                <div class="product-badge badge-hot">ðŸ”¥ Popular</div>
+                <div class="product-thumb-emoji">ðŸ—º</div>
               </div>
               <div class="product-info">
                 <div class="product-platform-row">
@@ -1290,12 +1299,12 @@ footer {
                   </div>
                   <div class="platform-chip"><div class="platform-chip-dot" style="background:#22c55e"></div>AUDIT + ROADMAP</div>
                 </div>
-                <div class="product-title">Growth Plan — Audit + 90-Day Roadmap</div>
+                <div class="product-title">Growth Plan â€” Audit + 90-Day Roadmap</div>
                 <div class="product-desc">Full GEO playbook plus a human-reviewed audit of your domain, a custom 90-day implementation roadmap, and 3 strategy calls to make sure it gets done right.</div>
                 <div class="product-includes">
                   <span class="include-pill">Human AI audit</span>
                   <span class="include-pill">90-day roadmap</span>
-                  <span class="include-pill">3 × calls</span>
+                  <span class="include-pill">3 Ã— calls</span>
                   <span class="include-pill">Schema templates</span>
                   <span class="include-pill">Priority Discord</span>
                 </div>
@@ -1326,8 +1335,8 @@ footer {
             <div class="product-card" data-type="guide">
               <div class="product-thumb" style="background:linear-gradient(160deg,#1a0a1e,#2d1040)">
                 <div class="product-thumb-bg" style="background:radial-gradient(circle at 40% 50%,rgba(255,144,232,.15),transparent 70%)"></div>
-                <div class="product-badge badge-new">📖 Guide</div>
-                <div class="product-thumb-emoji">📖</div>
+                <div class="product-badge badge-new">ðŸ“– Guide</div>
+                <div class="product-thumb-emoji">ðŸ“–</div>
               </div>
               <div class="product-info">
                 <div class="product-platform-row">
@@ -1337,7 +1346,7 @@ footer {
                   </div>
                   <div class="platform-chip"><div class="platform-chip-dot" style="background:#a855f7"></div>SELF-IMPLEMENT</div>
                 </div>
-                <div class="product-title">GEO Starter Kit — Full Playbook</div>
+                <div class="product-title">GEO Starter Kit â€” Full Playbook</div>
                 <div class="product-desc">The complete 74-page guide to Generative Engine Optimisation. Schema JSON-LD templates, prompt library for AI-optimised content, entity disambiguation checklist, and lifetime updates.</div>
                 <div class="product-includes">
                   <span class="include-pill">74-page guide</span>
@@ -1349,7 +1358,7 @@ footer {
                 <div class="product-footer">
                   <div class="product-price-block">
                     <div class="product-price">$47</div>
-                    <div class="product-period">one-time · instant download</div>
+                    <div class="product-period">one-time Â· instant download</div>
                   </div>
                   <div style="display:flex;align-items:center;gap:14px">
                     <div class="product-members">
@@ -1373,15 +1382,15 @@ footer {
             <div class="product-card" data-type="free" style="border-color:rgba(255,255,255,.08)">
               <div class="product-thumb" style="background:linear-gradient(160deg,#080d1a,#0e1535)">
                 <div class="product-thumb-bg" style="background:radial-gradient(circle at 40% 50%,rgba(59,130,246,.2),transparent 70%)"></div>
-                <div class="product-badge badge-free">✦ Free</div>
-                <div class="product-thumb-emoji">🔍</div>
+                <div class="product-badge badge-free">âœ¦ Free</div>
+                <div class="product-thumb-emoji">ðŸ”</div>
               </div>
               <div class="product-info">
                 <div class="product-platform-row">
                   <div class="platform-chip"><div class="platform-chip-dot" style="background:#3b82f6"></div>FREE TOOL</div>
                   <div class="platform-chip"><div class="platform-chip-dot" style="background:#22d3ee"></div>AI POWERED</div>
                 </div>
-                <div class="product-title">AI Visibility Audit — Free Dashboard</div>
+                <div class="product-title">AI Visibility Audit â€” Free Dashboard</div>
                 <div class="product-desc">Real AI analysis of your domain's GEO gaps. Powered by Claude. Get your AI Trust Score, schema signal audit, competitor mention analysis, and 3 priority fixes in 90 seconds. No email required.</div>
                 <div class="product-includes">
                   <span class="include-pill">AI Trust Score</span>
@@ -1404,7 +1413,7 @@ footer {
                       </div>
                       <span>2,100+ scans</span>
                     </div>
-                    <button onclick="gotoPage('audit')" class="product-buy-btn pbb-white">Run audit →</button>
+                    <button onclick="gotoPage('audit')" class="product-buy-btn pbb-white">Run audit â†’</button>
                   </div>
                 </div>
               </div>
@@ -1426,8 +1435,8 @@ footer {
                   </div>
                   <div class="platform-chip" style="background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.15);color:#4ade80"><div class="platform-chip-dot" style="background:#4ade80"></div>FREE</div>
                 </div>
-                <div class="discord-title">ProGPT Community — Join 1,200+ GEO practitioners</div>
-                <div class="discord-desc">The free Discord where GEO gets figured out in real time. Win posts, schema reviews, template drops, competitor intel, and direct access to the ProGPT team. No pitch, no upsell — just the room where AI search gets decoded.</div>
+                <div class="discord-title">ProGPT Community â€” Join 1,200+ GEO practitioners</div>
+                <div class="discord-desc">The free Discord where GEO gets figured out in real time. Win posts, schema reviews, template drops, competitor intel, and direct access to the ProGPT team. No pitch, no upsell â€” just the room where AI search gets decoded.</div>
                 <div class="discord-channels">
                   <div class="dc-channel-pill">geo-wins</div>
                   <div class="dc-channel-pill">schema-help</div>
@@ -1439,7 +1448,7 @@ footer {
                 <div class="discord-footer">
                   <div class="dc-member-count">
                     <div class="dc-online-pip"></div>
-                    <div class="dc-count-text"><strong>847</strong> online right now · <strong>1,247</strong> total</div>
+                    <div class="dc-count-text"><strong>847</strong> online right now Â· <strong>1,247</strong> total</div>
                   </div>
                   <div class="dc-join-big">
                     <svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.6 58.6 0 0 0 45.6.9a40 40 0 0 0-1.8 3.7 54.2 54.2 0 0 0-16.3 0A40 40 0 0 0 25.7.9 58.5 58.5 0 0 0 11.1 5C1.6 19.7-1 34.1.3 48.3a59 59 0 0 0 18 9.1 44.7 44.7 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.2 42.2 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 44.5 44.5 0 0 0 3.8 6.2 58.8 58.8 0 0 0 18-9.1C71.8 32 68 17.7 60.1 4.9ZM23.7 39.4c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2 6.5 3.2 6.4 7.2c0 4-2.8 7.2-6.4 7.2Zm23.5 0c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2 6.4 3.2 6.4 7.2c0 4-2.8 7.2-6.4 7.2Z"/></svg>
@@ -1459,7 +1468,7 @@ footer {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#c4a8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 Powered by Whop
               </div>
-              <div class="wtb-tagline">Secure checkout · Instant access · Global payments</div>
+              <div class="wtb-tagline">Secure checkout Â· Instant access Â· Global payments</div>
             </div>
             <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
               <div class="wtb-trust-items">
@@ -1490,20 +1499,20 @@ footer {
   </div>
 </div><!-- /page-store -->
 
-<!-- ══════════════════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      AUDIT PAGE
-════════════════════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page active" id="page-audit">
 <div class="wrap">
   <div class="audit-page-header">
     <h1>AI Visibility Audit</h1>
-    <p>Enter any domain. Real AI analysis — schema gaps, competitor signals, AI Trust Score, and priority fixes. Powered by Claude. Free, no account needed.</p>
+    <p>Enter any domain. Real AI analysis â€” schema gaps, competitor signals, AI Trust Score, and priority fixes. Powered by Claude. Free, no account needed.</p>
   </div>
 
   <div class="dash">
     <div class="dash-titlebar">
       <div class="dash-win-btns"><div class="dwb dwb-r"></div><div class="dwb dwb-y"></div><div class="dwb dwb-g"></div></div>
-      <div class="dash-title-text">progpt · ai-scanner · v2</div>
+      <div class="dash-title-text">progpt Â· ai-scanner Â· v2</div>
       <div class="dash-status">LIVE</div>
     </div>
 
@@ -1522,7 +1531,7 @@ footer {
     <div id="a-empty">
       <div class="dash-empty">
         <div class="empty-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gray5)"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gray4)"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
         </div>
         <div class="empty-ttl">AI Visibility Engine</div>
         <div class="empty-sub">Enter a domain to simulate how AI systems evaluate, rank, and cite your business.</div>
@@ -1548,31 +1557,31 @@ footer {
         <div class="dp">
           <div class="dp-hd">AI TRUST SCORE</div>
           <div style="display:flex;align-items:baseline;gap:5px">
-            <div class="score-big-num" id="a-num">—</div>
+            <div class="score-big-num" id="a-num">â€”</div>
             <div class="score-denom">/10</div>
           </div>
-          <div class="score-tag tag-crit" id="a-tag">—</div>
+          <div class="score-tag tag-crit" id="a-tag">â€”</div>
           <div class="score-rows">
-            <div class="score-row"><span class="sr-k">LEAD BLEED/MO</span><span class="sr-v bad" id="a-leads">—</span></div>
-            <div class="score-row"><span class="sr-k">COMPETITORS AHEAD</span><span class="sr-v bad" id="a-comp">—</span></div>
-            <div class="score-row"><span class="sr-k">SCHEMA STATUS</span><span class="sr-v warn" id="a-schema">—</span></div>
-            <div class="score-row"><span class="sr-k">ENTITY CLARITY</span><span class="sr-v warn" id="a-entity">—</span></div>
+            <div class="score-row"><span class="sr-k">LEAD BLEED/MO</span><span class="sr-v bad" id="a-leads">â€”</span></div>
+            <div class="score-row"><span class="sr-k">COMPETITORS AHEAD</span><span class="sr-v bad" id="a-comp">â€”</span></div>
+            <div class="score-row"><span class="sr-k">SCHEMA STATUS</span><span class="sr-v warn" id="a-schema">â€”</span></div>
+            <div class="score-row"><span class="sr-k">ENTITY CLARITY</span><span class="sr-v warn" id="a-entity">â€”</span></div>
           </div>
         </div>
         <div class="dp">
-          <div class="dp-hd">ISSUES DETECTED <span id="a-icount">—</span></div>
+          <div class="dp-hd">ISSUES DETECTED <span id="a-icount">â€”</span></div>
           <div class="issue-items" id="a-issues"></div>
         </div>
         <div class="dp report">
-          <div class="dp-hd">AI ANALYSIS — <span id="a-dlabel">—</span></div>
+          <div class="dp-hd">AI ANALYSIS â€” <span id="a-dlabel">â€”</span></div>
           <div class="report-text" id="a-report"></div>
         </div>
       </div>
       <div class="dash-cta-bar">
-        <div class="dash-cta-note"><button class="dcb-reset" onclick="resetAudit()">↺ new scan</button></div>
+        <div class="dash-cta-note"><button class="dcb-reset" onclick="resetAudit()">â†º new scan</button></div>
         <div class="dash-cta-btns">
           <a href="https://whop.com/progpt" class="dcb" target="_blank">System Access</a>
-          <a href="https://discord.gg/progpt" class="dcb p" target="_blank">Join Operator Console →</a>
+          <a href="https://discord.gg/progpt" class="dcb p" target="_blank">Join Operator Console â†’</a>
         </div>
       </div>
 
@@ -1586,16 +1595,16 @@ footer {
             <div class="ub-sub">Full breakdown + exact fixes distributed through Operator Console.</div>
           </div>
         </div>
-        <a href="https://discord.gg/progpt" target="_blank" class="ub-cta">Join Operator Console →</a>
+        <a href="https://discord.gg/progpt" target="_blank" class="ub-cta">Join Operator Console â†’</a>
       </div>
     </div>
   </div>
 </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      BLOG PAGE
-════════════════════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page" id="page-blog">
 <div class="wrap">
   <div class="blog-hd">
@@ -1604,8 +1613,8 @@ footer {
   </div>
   <div class="blog-controls">
     <div class="blog-search-wrap">
-      <span>⌕</span>
-      <input type="text" placeholder="Search articles…" oninput="blogSearch(this.value)">
+      <span>âŒ•</span>
+      <input type="text" placeholder="Search articlesâ€¦" oninput="blogSearch(this.value)">
     </div>
     <div class="blog-cats">
       <button class="bcat active" onclick="blogFilter(this,'all')">All</button>
@@ -1619,12 +1628,12 @@ footer {
     <div class="bpc feat-card">
       <div class="bpc-img" style="background:linear-gradient(135deg,#080d1a,#0e1535)">
         <div class="bpc-glow" style="background:#6366f1"></div>
-        <span style="position:relative;z-index:1;font-size:52px">🧠</span>
+        <span style="position:relative;z-index:1;font-size:52px">ðŸ§ </span>
       </div>
       <div class="bpc-body">
         <div class="bpc-cat geo">GEO</div>
-        <div class="bpc-title">How ChatGPT Decides Which Businesses to Recommend — The Full Signal Map</div>
-        <div class="bpc-excerpt">LLMs don't browse in real time. They recall entities from training data and live context windows. This is the exact signal hierarchy that pushes your brand into — or out of — an AI answer. Covers entity schemas, citation authority, brand disambiguation, and the structured data types that actually move the needle.</div>
+        <div class="bpc-title">How ChatGPT Decides Which Businesses to Recommend â€” The Full Signal Map</div>
+        <div class="bpc-excerpt">LLMs don't browse in real time. They recall entities from training data and live context windows. This is the exact signal hierarchy that pushes your brand into â€” or out of â€” an AI answer. Covers entity schemas, citation authority, brand disambiguation, and the structured data types that actually move the needle.</div>
         <div class="bpc-meta"><span>Apr 14, 2025</span><div class="bpc-dot"></div><span>12 min read</span><div class="bpc-dot"></div><span>4.2k reads</span></div>
         <div class="bpc-tags"><span class="bpc-tag">entity-schema</span><span class="bpc-tag">chatgpt</span><span class="bpc-tag">authority-signals</span></div>
       </div>
@@ -1639,45 +1648,45 @@ footer {
 </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      ABOUT PAGE
-════════════════════════════════════════════════════ -->
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="page" id="page-about">
 <div class="wrap">
   <div class="about-split">
     <div class="about-left">
       <h1>We built the visibility layer AI forgot.</h1>
-      <p>Search didn't die — it got replaced. AI models now answer questions directly, picking winners based on signals most businesses have never heard of. We built ProGPT to fix that.</p>
+      <p>Search didn't die â€” it got replaced. AI models now answer questions directly, picking winners based on signals most businesses have never heard of. We built ProGPT to fix that.</p>
       <p style="margin-top:14px">We're a small team of SEOs, engineers, and AI researchers who watched clients disappear from AI answers while inferior competitors got recommended. So we mapped the trust signals, built the tooling, and opened it up.</p>
     </div>
     <div class="about-right">
-      <div class="ar-label">// AI VISIBILITY INDEX — INDUSTRY BENCHMARK</div>
+      <div class="ar-label">// AI VISIBILITY INDEX â€” INDUSTRY BENCHMARK</div>
       <div class="av-row"><span class="av-key">Schema Coverage</span><div class="av-bar-wrap"><div class="av-bar" style="width:78%;background:#fff"></div></div><span class="av-val">78%</span></div>
       <div class="av-row"><span class="av-key">Entity Clarity</span><div class="av-bar-wrap"><div class="av-bar" style="width:62%;background:#fff"></div></div><span class="av-val">62%</span></div>
       <div class="av-row"><span class="av-key">Citation Authority</span><div class="av-bar-wrap"><div class="av-bar" style="width:45%;background:#fbbf24"></div></div><span class="av-val">45%</span></div>
       <div class="av-row"><span class="av-key">AI Mention Rate</span><div class="av-bar-wrap"><div class="av-bar" style="width:29%;background:#f87171"></div></div><span class="av-val">29%</span></div>
       <div class="av-row"><span class="av-key">FAQ Extraction</span><div class="av-bar-wrap"><div class="av-bar" style="width:55%;background:#fff"></div></div><span class="av-val">55%</span></div>
-      <div style="font-family:var(--m);font-size:10px;color:var(--gray6);margin-top:18px">Avg across 1,200+ audited domains · 2025</div>
+      <div style="font-family:var(--m);font-size:10px;color:var(--gray6);margin-top:18px">Avg across 1,200+ audited domains Â· 2025</div>
     </div>
   </div>
 
   <div class="section-hd">What we stand for</div>
   <div class="about-values" style="margin-bottom:48px">
-    <div class="aval"><div class="aval-icon">⎔</div><div class="aval-name">Precision over noise</div><div class="aval-desc">Every recommendation traces to a real LLM signal. No vanity metrics, no keyword rankings.</div></div>
-    <div class="aval"><div class="aval-icon">◈</div><div class="aval-name">Real intelligence</div><div class="aval-desc">Our audit uses the same models we're optimising for. No fake scores. No canned outputs.</div></div>
-    <div class="aval"><div class="aval-icon">◉</div><div class="aval-name">Compounding advantage</div><div class="aval-desc">AI visibility compounds like domain authority. The brands that move now own their categories.</div></div>
+    <div class="aval"><div class="aval-icon">âŽ”</div><div class="aval-name">Precision over noise</div><div class="aval-desc">Every recommendation traces to a real LLM signal. No vanity metrics, no keyword rankings.</div></div>
+    <div class="aval"><div class="aval-icon">â—ˆ</div><div class="aval-name">Real intelligence</div><div class="aval-desc">Our audit uses the same models we're optimising for. No fake scores. No canned outputs.</div></div>
+    <div class="aval"><div class="aval-icon">â—‰</div><div class="aval-name">Compounding advantage</div><div class="aval-desc">AI visibility compounds like domain authority. The brands that move now own their categories.</div></div>
   </div>
 
   <div class="section-hd">The team</div>
   <div class="team-grid">
-    <div class="team-card"><div class="team-av">JK</div><div class="team-name">Jordan K.</div><div class="team-role">FOUNDER · GEO STRATEGY</div><div class="team-bio">8 years in SEO, 3 in AI research. Runs all client strategy and product direction.</div></div>
+    <div class="team-card"><div class="team-av">JK</div><div class="team-name">Jordan K.</div><div class="team-role">FOUNDER Â· GEO STRATEGY</div><div class="team-bio">8 years in SEO, 3 in AI research. Runs all client strategy and product direction.</div></div>
     <div class="team-card"><div class="team-av">MC</div><div class="team-name">Maya C.</div><div class="team-role">AI ENGINEER</div><div class="team-bio">Former NLP researcher. Built the audit engine. Obsesses over why LLMs trust what they trust.</div></div>
     <div class="team-card"><div class="team-av">RP</div><div class="team-name">Ravi P.</div><div class="team-role">CONTENT & SCHEMA</div><div class="team-bio">Schema architect and GEO content strategist. 400+ domain implementations and counting.</div></div>
   </div>
 </div>
 </div>
 
-<!-- ══ FOOTER ════════════════════════════════════════ -->
+<!-- â•â• FOOTER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <footer>
 <div class="wrap">
   <div class="footer-inner">
@@ -1687,15 +1696,37 @@ footer {
       <a href="#" onclick="gotoPage('blog')">Blog</a>
       <a href="#" onclick="gotoPage('about')">About</a>
       <a href="https://discord.gg/progpt" target="_blank">Discord</a>
-      <a href="https://whop.com/progpt" target="_blank">Shop on Whop ↗</a>
+      <a href="https://whop.com/progpt" target="_blank">Shop on Whop â†—</a>
     </div>
-    <div class="footer-copy">© 2025 ProGPT</div>
+    <div class="footer-copy">Â© 2025 ProGPT</div>
   </div>
 </div>
 </footer>
 
-<script>
-/* ── ROUTER ──────────────────────────────────── */
+
+
+<!-- â•â• MOBILE BOTTOM TAB BAR â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<nav class="mobile-tabbar">
+  <button class="mtb-tab active" data-page="audit" onclick="gotoPage('audit')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <span>Audit</span>
+  </button>
+  <button class="mtb-tab" data-page="store" onclick="gotoPage('store')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    <span>Shop</span>
+  </button>
+  <button class="mtb-tab" data-page="blog" onclick="gotoPage('blog')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    <span>Blog</span>
+  </button>
+  <button class="mtb-tab" data-page="about" onclick="gotoPage('about')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>About</span>
+  </button>
+</nav>
+
+<script is:inline>
+/* â”€â”€ ROUTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function gotoPage(p) {
   document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
   document.getElementById('page-' + p).classList.add('active');
@@ -1706,7 +1737,7 @@ function gotoPage(p) {
 }
 document.querySelectorAll('a[href="#"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
 
-/* ── STORE FILTERS ───────────────────────────── */
+/* â”€â”€ STORE FILTERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function storeTab(el, type) {
   document.querySelectorAll('.store-nav-tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
@@ -1728,14 +1759,14 @@ function filterProducts(type) {
   document.getElementById('prod-count').textContent = visible + ' product' + (visible !== 1 ? 's' : '');
 }
 
-/* ── BLOG DATA ───────────────────────────────── */
+/* â”€â”€ BLOG DATA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const POSTS = [
-  { cat:'geo',     em:'🗂', bg:'#090c20,#111840', title:'GEO vs SEO: The Signal Map That Actually Matters in 2025', ex:'Why keyword rankings are irrelevant to AI answers, and the six signals that are.', date:'Apr 7', read:'6 min', tags:['geo-basics','signals'] },
-  { cat:'tactics', em:'🔩', bg:'#0a1210,#0d2018', title:'The 5 Schema Types AI Models Actually Trust (And 3 They Ignore)', ex:'Most schema implementations are skipped by LLMs. These five aren\'t.', date:'Mar 28', read:'5 min', tags:['schema','json-ld'] },
-  { cat:'tools',   em:'⚡', bg:'#100c08,#201408', title:'How to Turn Your Audit Into a 90-Day GEO Roadmap', ex:'Walk-through of turning audit output into a prioritised action plan.', date:'Mar 21', read:'8 min', tags:['audit','roadmap'] },
-  { cat:'case',    em:'📈', bg:'#0a0818,#14102a', title:'SaaS Brand: 0 to 80% AI Mention Rate in 6 Weeks', ex:'Full breakdown of exact changes made, timeline, and outcome metrics.', date:'Mar 14', read:'10 min', tags:['case-study','saas'] },
-  { cat:'geo',     em:'🌐', bg:'#081015,#0d1c22', title:'Entity Disambiguation: Why AI Ignores Your Brand', ex:'If AI models can\'t clearly identify your entity, you don\'t exist to them.', date:'Mar 7', read:'7 min', tags:['entity','disambiguation'] },
-  { cat:'tactics', em:'🧪', bg:'#0a100e,#121e18', title:'FAQ Schema as a GEO Weapon: Serve Answers to LLMs Directly', ex:'Structuring FAQ content so AI models extract and cite your exact answers.', date:'Feb 28', read:'5 min', tags:['faq-schema','perplexity'] },
+  { cat:'geo',     em:'ðŸ—‚', bg:'#090c20,#111840', title:'GEO vs SEO: The Signal Map That Actually Matters in 2025', ex:'Why keyword rankings are irrelevant to AI answers, and the six signals that are.', date:'Apr 7', read:'6 min', tags:['geo-basics','signals'] },
+  { cat:'tactics', em:'ðŸ”©', bg:'#0a1210,#0d2018', title:'The 5 Schema Types AI Models Actually Trust (And 3 They Ignore)', ex:'Most schema implementations are skipped by LLMs. These five aren\'t.', date:'Mar 28', read:'5 min', tags:['schema','json-ld'] },
+  { cat:'tools',   em:'âš¡', bg:'#100c08,#201408', title:'How to Turn Your Audit Into a 90-Day GEO Roadmap', ex:'Walk-through of turning audit output into a prioritised action plan.', date:'Mar 21', read:'8 min', tags:['audit','roadmap'] },
+  { cat:'case',    em:'ðŸ“ˆ', bg:'#0a0818,#14102a', title:'SaaS Brand: 0 to 80% AI Mention Rate in 6 Weeks', ex:'Full breakdown of exact changes made, timeline, and outcome metrics.', date:'Mar 14', read:'10 min', tags:['case-study','saas'] },
+  { cat:'geo',     em:'ðŸŒ', bg:'#081015,#0d1c22', title:'Entity Disambiguation: Why AI Ignores Your Brand', ex:'If AI models can\'t clearly identify your entity, you don\'t exist to them.', date:'Mar 7', read:'7 min', tags:['entity','disambiguation'] },
+  { cat:'tactics', em:'ðŸ§ª', bg:'#0a100e,#121e18', title:'FAQ Schema as a GEO Weapon: Serve Answers to LLMs Directly', ex:'Structuring FAQ content so AI models extract and cite your exact answers.', date:'Feb 28', read:'5 min', tags:['faq-schema','perplexity'] },
 ];
 const PSEO = [
   { slug:'/geo-for-saas',          title:'GEO for SaaS' },
@@ -1783,7 +1814,7 @@ function renderBlog() {
 }
 renderBlog();
 
-/* ── AUDIT ENGINE ────────────────────────────── */
+/* â”€â”€ AUDIT ENGINE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 let aTimer = null, aEl = 0;
 function tLog(msg, cls='') {
   const t = document.getElementById('a-term');
@@ -1813,7 +1844,7 @@ function parseMeta(score) {
   const band=s<3?'crit':s<5?'low':s<7?'mid':'ok';
   const label=s<3?'CRITICAL':s<5?'LOW':s<7?'MODERATE':'GOOD';
   const numColor=s<5?'#f87171':s<7?'#fbbf24':'#4ade80';
-  const leads=s<3?`${Math.floor(18+Math.random()*14)}–${Math.floor(32+Math.random()*8)}/mo`:s<5?`${Math.floor(10+Math.random()*8)}–${Math.floor(18+Math.random()*6)}/mo`:`${Math.floor(3+Math.random()*5)}–${Math.floor(9+Math.random()*4)}/mo`;
+  const leads=s<3?`${Math.floor(18+Math.random()*14)}â€“${Math.floor(32+Math.random()*8)}/mo`:s<5?`${Math.floor(10+Math.random()*8)}â€“${Math.floor(18+Math.random()*6)}/mo`:`${Math.floor(3+Math.random()*5)}â€“${Math.floor(9+Math.random()*4)}/mo`;
   const comp=s<3?`${Math.floor(4+Math.random()*4)} domains`:s<5?`${Math.floor(2+Math.random()*2)} domains`:'1 domain';
   const schema=s<4?{v:'Missing',c:'bad'}:s<6?{v:'Partial',c:'warn'}:{v:'Present',c:'ok'};
   const entity=s<4?{v:'Ambiguous',c:'bad'}:s<7?{v:'Unclear',c:'warn'}:{v:'Strong',c:'ok'};
@@ -1826,8 +1857,8 @@ function renderReport(txt) {
     const d=document.createElement('div');
     if(line.startsWith('**')||line.startsWith('##')) {
       d.className='rpt-h'; d.textContent=line.replace(/#{1,3}\s*/,'').replace(/\*\*/g,'');
-    } else if(line.startsWith('- ')||line.startsWith('• ')) {
-      const txt=line.replace(/^[-•]\s*/,'');
+    } else if(line.startsWith('- ')||line.startsWith('â€¢ ')) {
+      const txt=line.replace(/^[-â€¢]\s*/,'');
       const lo=txt.toLowerCase();
       d.className='rpt-b'+(lo.includes('missing')||lo.includes('no ')||lo.includes('absent')||lo.includes('lack')?' bad':lo.includes('partial')||lo.includes('could')?' warn':lo.includes('good')||lo.includes('present')||lo.includes('strong')?' ok':'');
       d.appendChild(document.createTextNode(txt));
@@ -1837,14 +1868,14 @@ function renderReport(txt) {
 }
 function renderIssues(txt) {
   const el=document.getElementById('a-issues'); el.innerHTML='';
-  const lines=txt.split('\n').filter(l=>l.trim().startsWith('- ')||l.trim().startsWith('• ')).slice(0,5);
+  const lines=txt.split('\n').filter(l=>l.trim().startsWith('- ')||l.trim().startsWith('â€¢ ')).slice(0,5);
   document.getElementById('a-icount').textContent=lines.length+' found';
   lines.forEach((line,i)=>{
-    const t=line.replace(/^[-•]\s*/,'').trim();
+    const t=line.replace(/^[-â€¢]\s*/,'').trim();
     const lo=t.toLowerCase();
     const isErr=lo.includes('missing')||lo.includes('no ')||lo.includes('absent')||lo.includes('lack');
     const isOk=lo.includes('good')||lo.includes('present')||lo.includes('strong');
-    const icon=isErr?'✗':isOk?'✓':'△';
+    const icon=isErr?'âœ—':isOk?'âœ“':'â–³';
     const cls=isErr?'err':isOk?'ok':'warn';
     const d=document.createElement('div');
     d.className='ii'; d.style.animationDelay=i*.07+'s';
@@ -1868,23 +1899,23 @@ async function runAudit() {
   aEl=0; aTimer=setInterval(()=>{ aEl++; document.getElementById('a-time').textContent=aEl+'s'; },1000);
 
   const steps=[
-    [0,'dim',`ProGPT Scanner — target: ${domain}`],
-    [7,'dim','Resolving domain metadata…'],
-    [15,'inf','Querying AI entity index…'],
-    [24,'inf','Probing schema signals…'],
-    [33,'inf','Cross-referencing competitor graph…'],
-    [41,'inf','Mapping citation authority…'],
-    [50,'ok','Sending to Claude analysis engine…'],
-    [58,'inf','Streaming AI report…'],
+    [0,'dim',`ProGPT Scanner â€” target: ${domain}`],
+    [7,'dim','Resolving domain metadataâ€¦'],
+    [15,'inf','Querying AI entity indexâ€¦'],
+    [24,'inf','Probing schema signalsâ€¦'],
+    [33,'inf','Cross-referencing competitor graphâ€¦'],
+    [41,'inf','Mapping citation authorityâ€¦'],
+    [50,'ok','Sending to Claude analysis engineâ€¦'],
+    [58,'inf','Streaming AI reportâ€¦'],
   ];
   for(const [pct,cls,msg] of steps) { setP(pct,msg); tLog(msg,cls); await sl(pct<50?440:220); }
 
-  const prompt=`You are ProGPT's AI Visibility Analyst. Analyse the domain "${domain}" for Generative Engine Optimisation (GEO) — how well AI models like ChatGPT, Perplexity, Claude, and Gemini will cite and recommend it.
+  const prompt=`You are ProGPT's AI Visibility Analyst. Analyse the domain "${domain}" for Generative Engine Optimisation (GEO) â€” how well AI models like ChatGPT, Perplexity, Claude, and Gemini will cite and recommend it.
 
 Return a structured audit in this format (plain text, use ** for section headers on own line):
 
 **AI TRUST SCORE**
-Score: [X.X]/10 — [one-line verdict specific to this domain type]
+Score: [X.X]/10 â€” [one-line verdict specific to this domain type]
 
 **VISIBILITY DIAGNOSIS**
 [2-3 sentences specific to what AI models likely know or don't know about this entity]
@@ -1898,7 +1929,7 @@ Score: [X.X]/10 — [one-line verdict specific to this domain type]
 
 **COMPETITOR LANDSCAPE**
 - [2 likely competing domains outranking in AI answers, explain why]
-- [lead bleed estimate e.g. "Est. 18–26 leads/month diverted"]
+- [lead bleed estimate e.g. "Est. 18â€“26 leads/month diverted"]
 
 **PRIORITY FIXES**
 - Fix 1: [specific, actionable]
@@ -1924,12 +1955,12 @@ Under 280 words. Be direct, domain-specific. No generic advice.`;
     score=(1.6+Math.random()*3.4).toFixed(1);
     const base=domain.split('.')[0];
     const lo=Math.floor(14+Math.random()*14),hi=lo+Math.floor(8+Math.random()*8);
-    fullText=`**AI TRUST SCORE**\nScore: ${score}/10 — ${base} shows entity clarity gaps typical for this domain type.\n\n**VISIBILITY DIAGNOSIS**\nAI models lack sufficient structured signals to confidently surface ${base} in competitive answer generation. The entity is either ambiguous or under-represented in authoritative citation sources AI models use during inference.\n\n**SCHEMA & ENTITY SIGNALS**\n- Missing: Organization schema with sameAs entity links to Wikidata and Crunchbase\n- Missing: Product/Service schema with canonical descriptions\n- Partial: Brand name entity — possible disambiguation conflict\n- Absent: FAQ/Q&A schema AI models can extract answers from\n- No detectable knowledge graph anchor for this entity\n\n**COMPETITOR LANDSCAPE**\n- best-${base}.com — richer citation backlinks and schema depth\n- top${base}guide.com — FAQ-dense content AI models extract directly\n- Est. ${lo}–${hi} leads/month diverted to AI-preferred alternatives\n\n**PRIORITY FIXES**\n- Fix 1: Implement Organization schema with sameAs links to Wikidata, LinkedIn, Crunchbase\n- Fix 2: Create a structured /about page as an authoritative entity description (200+ words, JSON-LD)\n- Fix 3: Build FAQ-schema content around 3 core buying-intent queries in your category`;
+    fullText=`**AI TRUST SCORE**\nScore: ${score}/10 â€” ${base} shows entity clarity gaps typical for this domain type.\n\n**VISIBILITY DIAGNOSIS**\nAI models lack sufficient structured signals to confidently surface ${base} in competitive answer generation. The entity is either ambiguous or under-represented in authoritative citation sources AI models use during inference.\n\n**SCHEMA & ENTITY SIGNALS**\n- Missing: Organization schema with sameAs entity links to Wikidata and Crunchbase\n- Missing: Product/Service schema with canonical descriptions\n- Partial: Brand name entity â€” possible disambiguation conflict\n- Absent: FAQ/Q&A schema AI models can extract answers from\n- No detectable knowledge graph anchor for this entity\n\n**COMPETITOR LANDSCAPE**\n- best-${base}.com â€” richer citation backlinks and schema depth\n- top${base}guide.com â€” FAQ-dense content AI models extract directly\n- Est. ${lo}â€“${hi} leads/month diverted to AI-preferred alternatives\n\n**PRIORITY FIXES**\n- Fix 1: Implement Organization schema with sameAs links to Wikidata, LinkedIn, Crunchbase\n- Fix 2: Create a structured /about page as an authoritative entity description (200+ words, JSON-LD)\n- Fix 3: Build FAQ-schema content around 3 core buying-intent queries in your category`;
   }
 
   if(!score) score=(2+Math.random()*3).toFixed(1);
   setP(88,'Processing'); tLog('Score extracted: '+score+'/10','ok'); await sl(350);
-  setP(100,'Complete'); tLog('Analysis complete ✓','ok'); await sl(280);
+  setP(100,'Complete'); tLog('Analysis complete âœ“','ok'); await sl(280);
   clearInterval(aTimer);
 
   const meta=parseMeta(score);
@@ -1950,7 +1981,7 @@ Under 280 words. Be direct, domain-specific. No generic advice.`;
   document.getElementById('a-result').style.display='';
 }
 
-/* ── MOBILE TAB SYNC ───────────────────────── */
+/* â”€â”€ MOBILE TAB SYNC â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 (function(){
   const _orig = gotoPage;
   gotoPage = function(p){
@@ -1961,26 +1992,3 @@ Under 280 words. Be direct, domain-specific. No generic advice.`;
   };
 })();
 </script>
-
-<!-- ══ MOBILE BOTTOM TAB BAR ════════════════════════ -->
-<nav class="mobile-tabbar">
-  <button class="mtb-tab active" data-page="audit" onclick="gotoPage('audit')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <span>Audit</span>
-  </button>
-  <button class="mtb-tab" data-page="store" onclick="gotoPage('store')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-    <span>Shop</span>
-  </button>
-  <button class="mtb-tab" data-page="blog" onclick="gotoPage('blog')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-    <span>Blog</span>
-  </button>
-  <button class="mtb-tab" data-page="about" onclick="gotoPage('about')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    <span>About</span>
-  </button>
-</nav>
-
-</body>
-</html>
