@@ -1917,12 +1917,14 @@ function storeTab(el, type) {
   filterProducts(type);
 }
 function sidebarFilter(el, type) {
-  document.querySelectorAll('.sf-btn').forEach(b => b.classList.remove('active'));
+  /* Only clear active state within the same sidebar section */
+  el.closest('.sidebar-filter').querySelectorAll('.sf-btn').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
   filterProducts(type);
 }
 function filterProducts(type) {
-  const cards = document.querySelectorAll('#product-grid > *');
+  /* Only target elements that have a data-type attribute (product cards) */
+  const cards = document.querySelectorAll('#product-grid > [data-type]');
   let visible = 0;
   cards.forEach(c => {
     const show = type === 'all' || c.dataset.type === type;
@@ -1934,12 +1936,12 @@ function filterProducts(type) {
 
 /* â”€â”€ BLOG DATA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const POSTS = [
-  { cat:'geo',     em:'ðŸ—‚', bg:'#090c20,#111840', title:'GEO vs SEO: The Signal Map That Actually Matters in 2025', ex:'Why keyword rankings are irrelevant to AI answers, and the six signals that are.', date:'Apr 7', read:'6 min', tags:['geo-basics','signals'] },
-  { cat:'tactics', em:'ðŸ”©', bg:'#0a1210,#0d2018', title:'The 5 Schema Types AI Models Actually Trust (And 3 They Ignore)', ex:'Most schema implementations are skipped by LLMs. These five aren\'t.', date:'Mar 28', read:'5 min', tags:['schema','json-ld'] },
-  { cat:'tools',   em:'âš¡', bg:'#100c08,#201408', title:'How to Turn Your Audit Into a 90-Day GEO Roadmap', ex:'Walk-through of turning audit output into a prioritised action plan.', date:'Mar 21', read:'8 min', tags:['audit','roadmap'] },
-  { cat:'case',    em:'ðŸ“ˆ', bg:'#0a0818,#14102a', title:'SaaS Brand: 0 to 80% AI Mention Rate in 6 Weeks', ex:'Full breakdown of exact changes made, timeline, and outcome metrics.', date:'Mar 14', read:'10 min', tags:['case-study','saas'] },
-  { cat:'geo',     em:'ðŸŒ', bg:'#081015,#0d1c22', title:'Entity Disambiguation: Why AI Ignores Your Brand', ex:'If AI models can\'t clearly identify your entity, you don\'t exist to them.', date:'Mar 7', read:'7 min', tags:['entity','disambiguation'] },
-  { cat:'tactics', em:'ðŸ§ª', bg:'#0a100e,#121e18', title:'FAQ Schema as a GEO Weapon: Serve Answers to LLMs Directly', ex:'Structuring FAQ content so AI models extract and cite your exact answers.', date:'Feb 28', read:'5 min', tags:['faq-schema','perplexity'] },
+  { cat:'geo',     em:'ðŸ—‚', bg:'090c20,111840', title:'GEO vs SEO: The Signal Map That Actually Matters in 2025', ex:'Why keyword rankings are irrelevant to AI answers, and the six signals that are.', date:'Apr 7', read:'6 min', tags:['geo-basics','signals'] },
+  { cat:'tactics', em:'ðŸ”©', bg:'0a1210,0d2018', title:'The 5 Schema Types AI Models Actually Trust (And 3 They Ignore)', ex:'Most schema implementations are skipped by LLMs. These five aren\'t.', date:'Mar 28', read:'5 min', tags:['schema','json-ld'] },
+  { cat:'tools',   em:'âš¡', bg:'100c08,201408', title:'How to Turn Your Audit Into a 90-Day GEO Roadmap', ex:'Walk-through of turning audit output into a prioritised action plan.', date:'Mar 21', read:'8 min', tags:['audit','roadmap'] },
+  { cat:'case',    em:'ðŸ“ˆ', bg:'0a0818,14102a', title:'SaaS Brand: 0 to 80% AI Mention Rate in 6 Weeks', ex:'Full breakdown of exact changes made, timeline, and outcome metrics.', date:'Mar 14', read:'10 min', tags:['case-study','saas'] },
+  { cat:'geo',     em:'ðŸŒ', bg:'081015,0d1c22', title:'Entity Disambiguation: Why AI Ignores Your Brand', ex:'If AI models can\'t clearly identify your entity, you don\'t exist to them.', date:'Mar 7', read:'7 min', tags:['entity','disambiguation'] },
+  { cat:'tactics', em:'ðŸ§ª', bg:'0a100e,121e18', title:'FAQ Schema as a GEO Weapon: Serve Answers to LLMs Directly', ex:'Structuring FAQ content so AI models extract and cite your exact answers.', date:'Feb 28', read:'5 min', tags:['faq-schema','perplexity'] },
 ];
 const PSEO = [
   { slug:'/geo-for-saas',          title:'GEO for SaaS' },
@@ -2157,6 +2159,7 @@ Under 280 words. Be direct, domain-specific. No generic advice.`;
   renderReport(fullText); renderIssues(fullText);
   document.getElementById('a-scan').style.display='none';
   document.getElementById('a-result').style.display='';
+  document.getElementById('a-run').disabled=false;
 }
 
 
