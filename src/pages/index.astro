@@ -1215,6 +1215,149 @@ footer {
   .ec-form input[type="email"] { min-width: 0; font-size: 16px; }
   .ec-form button { width: 100%; padding: 12px; font-size: 14px; }
 }
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   HEALTH SCORE â€” Trakkr-inspired circular gauge
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.hs-wrap {
+  display: flex; align-items: center; gap: 20px;
+  padding: 20px 0 10px;
+}
+.hs-gauge {
+  position: relative; flex-shrink: 0;
+  width: 100px; height: 100px;
+}
+.hs-svg { width: 100px; height: 100px; transform: rotate(-90deg); }
+.hs-track {
+  fill: none; stroke: var(--bg3);
+  stroke-width: 8; stroke-linecap: round;
+}
+.hs-fill {
+  fill: none; stroke-width: 8; stroke-linecap: round;
+  stroke-dasharray: 263; stroke-dashoffset: 263;
+  transition: stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1),
+              stroke .4s ease;
+}
+.hs-fill.crit  { stroke: #f87171; }
+.hs-fill.low   { stroke: #fbbf24; }
+.hs-fill.mid   { stroke: #60a5fa; }
+.hs-fill.ok    { stroke: #4ade80; }
+.hs-inner {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.hs-num {
+  font-size: 28px; font-weight: 800;
+  letter-spacing: -2px; line-height: 1;
+  color: var(--white);
+}
+.hs-denom { font-family: var(--m); font-size: 10px; color: var(--gray6); }
+.hs-right {}
+.hs-label { font-size: 15px; font-weight: 700; color: var(--white); letter-spacing: -.3px; margin-bottom: 4px; }
+.hs-delta {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--m); font-size: 11px; font-weight: 600;
+  padding: 2px 8px; border-radius: 20px; margin-bottom: 8px;
+}
+.hs-delta.pos { background: rgba(34,197,94,.1); color: #4ade80; border: 1px solid rgba(34,197,94,.2); }
+.hs-delta.neg { background: rgba(239,68,68,.1); color: #f87171; border: 1px solid rgba(239,68,68,.2); }
+.hs-delta.neu { background: var(--bg3); color: var(--gray5); border: 1px solid var(--line2); }
+.hs-sub { font-family: var(--m); font-size: 11px; color: var(--gray5); }
+
+/* â”€â”€ Result tabs (Trakkr-style) â”€â”€ */
+.result-tabs {
+  display: flex; border-bottom: 1px solid var(--line);
+  background: var(--bg2);
+}
+.rt-tab {
+  padding: 10px 18px; font-size: 13px; font-weight: 500;
+  color: var(--gray5); cursor: pointer; border: none;
+  background: none; border-bottom: 2px solid transparent;
+  transition: color .15s, border-color .15s;
+  white-space: nowrap;
+}
+.rt-tab:hover { color: var(--gray2); }
+.rt-tab.active { color: var(--white); border-bottom-color: var(--white); }
+
+.rt-panel { display: none; }
+.rt-panel.active { display: block; }
+
+/* Perception panel â€” keyword sentiment rows */
+.perception-rows { display: flex; flex-direction: column; gap: 6px; padding: 20px; }
+.perc-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; background: var(--bg2); border-radius: var(--r);
+  border: 1px solid var(--line);
+}
+.perc-keyword { font-family: var(--m); font-size: 12px; color: var(--gray3); flex: 1; }
+.perc-bar-wrap { width: 80px; height: 4px; background: var(--bg3); border-radius: 10px; overflow: hidden; }
+.perc-bar { height: 100%; border-radius: 10px; transition: width .8s ease; }
+.perc-val { font-family: var(--m); font-size: 11px; color: var(--gray4); width: 28px; text-align: right; }
+
+/* Actions panel */
+.actions-list { display: flex; flex-direction: column; gap: 8px; padding: 20px; }
+.action-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px 14px; background: var(--bg2); border-radius: var(--r2);
+  border: 1px solid var(--line); border-left: 3px solid transparent;
+  transition: border-color .15s;
+}
+.action-item.high   { border-left-color: #f87171; }
+.action-item.medium { border-left-color: #fbbf24; }
+.action-item.low    { border-left-color: #60a5fa; }
+.action-num {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--m); font-size: 10px; font-weight: 700;
+}
+.action-item.high   .action-num { background: rgba(248,113,113,.15); color: #f87171; }
+.action-item.medium .action-num { background: rgba(251,191,36,.1); color: #fbbf24; }
+.action-item.low    .action-num { background: rgba(96,165,250,.1); color: #60a5fa; }
+.action-body {}
+.action-title { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 3px; }
+.action-desc  { font-family: var(--m); font-size: 11.5px; color: var(--gray5); line-height: 1.5; }
+.action-impact {
+  display: inline-flex; align-items: center;
+  font-family: var(--m); font-size: 10px; padding: 1px 7px;
+  border-radius: 20px; margin-top: 5px;
+}
+.action-item.high   .action-impact { background: rgba(248,113,113,.08); color: #f87171; border: 1px solid rgba(248,113,113,.15); }
+.action-item.medium .action-impact { background: rgba(251,191,36,.06); color: #fbbf24; border: 1px solid rgba(251,191,36,.12); }
+.action-item.low    .action-impact { background: rgba(96,165,250,.08); color: #60a5fa; border: 1px solid rgba(96,165,250,.15); }
+
+/* Optimize panel â€” model-by-model grid */
+.optimize-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 20px; }
+.opt-model-card {
+  background: var(--bg2); border: 1px solid var(--line);
+  border-radius: var(--r2); padding: 14px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.opt-model-head { display: flex; align-items: center; justify-content: space-between; }
+.opt-model-name { font-size: 12px; font-weight: 600; color: var(--white); display: flex; align-items: center; gap: 7px; }
+.opt-model-icon {
+  width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+}
+.opt-score { font-family: var(--m); font-size: 13px; font-weight: 700; }
+.opt-score.ok   { color: #4ade80; }
+.opt-score.mid  { color: #60a5fa; }
+.opt-score.low  { color: #fbbf24; }
+.opt-score.crit { color: #f87171; }
+.opt-bar-wrap { height: 3px; background: var(--bg3); border-radius: 10px; overflow: hidden; }
+.opt-bar { height: 100%; border-radius: 10px; transition: width .9s ease; }
+.opt-status { font-family: var(--m); font-size: 10.5px; color: var(--gray5); }
+
+@media(max-width:767px) {
+  .hs-gauge { width: 84px; height: 84px; }
+  .hs-svg { width: 84px; height: 84px; }
+  .hs-num { font-size: 23px; }
+  .optimize-grid { grid-template-columns: 1fr; }
+  .result-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .result-tabs::-webkit-scrollbar { display: none; }
+  .rt-tab { flex-shrink: 0; padding: 10px 14px; font-size: 12.5px; }
+}
 </style>
 
 
@@ -1700,30 +1843,77 @@ footer {
 
     <!-- results -->
     <div id="a-result" style="display:none">
-      <div class="dash-panels">
-        <div class="dp">
-          <div class="dp-hd">AI TRUST SCORE</div>
-          <div style="display:flex;align-items:baseline;gap:5px">
-            <div class="score-big-num" id="a-num">&mdash;</div>
-            <div class="score-denom">/10</div>
+
+      <!-- â”€â”€ Result tabs â”€â”€ -->
+      <div class="result-tabs">
+        <button class="rt-tab active" onclick="switchResultTab(this,'visibility')">Visibility</button>
+        <button class="rt-tab" onclick="switchResultTab(this,'perception')">Perception</button>
+        <button class="rt-tab" onclick="switchResultTab(this,'actions')">Actions</button>
+        <button class="rt-tab" onclick="switchResultTab(this,'optimize')">Optimize</button>
+      </div>
+
+      <!-- â”€â”€ TAB: Visibility â”€â”€ -->
+      <div class="rt-panel active" id="rtp-visibility">
+        <div class="dash-panels">
+          <div class="dp">
+            <div class="dp-hd">HEALTH SCORE</div>
+            <div class="hs-wrap">
+              <div class="hs-gauge">
+                <svg class="hs-svg" viewBox="0 0 100 100">
+                  <circle class="hs-track" cx="50" cy="50" r="42"/>
+                  <circle class="hs-fill" id="hs-arc" cx="50" cy="50" r="42"/>
+                </svg>
+                <div class="hs-inner">
+                  <div class="hs-num" id="a-num">&mdash;</div>
+                  <div class="hs-denom">/100</div>
+                </div>
+              </div>
+              <div class="hs-right">
+                <div class="hs-label" id="hs-label">Analysingâ€¦</div>
+                <div class="hs-delta neu" id="hs-delta">â€” pts this scan</div>
+                <div class="hs-sub" id="a-tag">&mdash;</div>
+              </div>
+            </div>
+            <div class="score-rows" style="margin-top:12px">
+              <div class="score-row"><span class="sr-k">LEAD BLEED/MO</span><span class="sr-v bad" id="a-leads">&mdash;</span></div>
+              <div class="score-row"><span class="sr-k">COMPETITORS AHEAD</span><span class="sr-v bad" id="a-comp">&mdash;</span></div>
+              <div class="score-row"><span class="sr-k">SCHEMA STATUS</span><span class="sr-v warn" id="a-schema">&mdash;</span></div>
+              <div class="score-row"><span class="sr-k">ENTITY CLARITY</span><span class="sr-v warn" id="a-entity">&mdash;</span></div>
+            </div>
           </div>
-          <div class="score-tag tag-crit" id="a-tag">&mdash;</div>
-          <div class="score-rows">
-            <div class="score-row"><span class="sr-k">LEAD BLEED/MO</span><span class="sr-v bad" id="a-leads">&mdash;</span></div>
-            <div class="score-row"><span class="sr-k">COMPETITORS AHEAD</span><span class="sr-v bad" id="a-comp">&mdash;</span></div>
-            <div class="score-row"><span class="sr-k">SCHEMA STATUS</span><span class="sr-v warn" id="a-schema">&mdash;</span></div>
-            <div class="score-row"><span class="sr-k">ENTITY CLARITY</span><span class="sr-v warn" id="a-entity">&mdash;</span></div>
+          <div class="dp">
+            <div class="dp-hd">ISSUES DETECTED <span id="a-icount">&mdash;</span></div>
+            <div class="issue-items" id="a-issues"></div>
           </div>
-        </div>
-        <div class="dp">
-          <div class="dp-hd">ISSUES DETECTED <span id="a-icount">&mdash;</span></div>
-          <div class="issue-items" id="a-issues"></div>
-        </div>
-        <div class="dp report">
-          <div class="dp-hd">AI ANALYSIS &mdash; <span id="a-dlabel">&mdash;</span></div>
-          <div class="report-text" id="a-report"></div>
+          <div class="dp report">
+            <div class="dp-hd">AI ANALYSIS â€” <span id="a-dlabel">&mdash;</span></div>
+            <div class="report-text" id="a-report"></div>
+          </div>
         </div>
       </div>
+
+      <!-- â”€â”€ TAB: Perception â”€â”€ -->
+      <div class="rt-panel" id="rtp-perception">
+        <div class="perception-rows" id="perc-rows">
+          <div style="padding:32px 0;text-align:center;font-family:var(--m);font-size:12px;color:var(--gray6)">Run a scan to see perception data</div>
+        </div>
+      </div>
+
+      <!-- â”€â”€ TAB: Actions â”€â”€ -->
+      <div class="rt-panel" id="rtp-actions">
+        <div class="actions-list" id="actions-list">
+          <div style="padding:32px 0;text-align:center;font-family:var(--m);font-size:12px;color:var(--gray6)">Run a scan to generate your action plan</div>
+        </div>
+      </div>
+
+      <!-- â”€â”€ TAB: Optimize â”€â”€ -->
+      <div class="rt-panel" id="rtp-optimize">
+        <div class="optimize-grid" id="opt-grid">
+          <div style="grid-column:1/-1;padding:32px 0;text-align:center;font-family:var(--m);font-size:12px;color:var(--gray6)">Run a scan to see model-by-model breakdown</div>
+        </div>
+      </div>
+
+      <div class="dash-cta-bar">
       <div class="dash-cta-bar">
         <div class="dash-cta-note"><button class="dcb-reset" onclick="resetAudit()">&#x21BA; new scan</button></div>
         <div class="dash-cta-btns">
@@ -2013,9 +2203,37 @@ function resetAudit() {
   document.getElementById('a-scan').style.display='none';
   document.getElementById('a-result').style.display='none';
   document.getElementById('a-run').disabled=false;
+  const arc=document.getElementById('hs-arc');
+  if(arc){ arc.style.strokeDashoffset=arc.style.strokeDasharray||'263'; }
+  document.getElementById('a-num').textContent='â€”';
+  document.getElementById('hs-label').textContent='Analysingâ€¦';
+  document.getElementById('hs-delta').textContent='â€” pts this scan';
+  document.getElementById('hs-delta').className='hs-delta neu';
 }
+/* â”€â”€ RESULT TABS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+function switchResultTab(btn, panel) {
+  document.querySelectorAll('.rt-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.rt-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('rtp-'+panel).classList.add('active');
+}
+
+/* â”€â”€ HEALTH GAUGE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+function animateGauge(score100) {
+  const r=42, circ=2*Math.PI*r;
+  const arc=document.getElementById('hs-arc');
+  const band=score100>=70?'ok':score100>=45?'mid':score100>=25?'low':'crit';
+  arc.className='hs-fill '+band;
+  arc.style.strokeDasharray=circ;
+  arc.style.strokeDashoffset=circ;
+  requestAnimationFrame(()=>{ arc.style.strokeDashoffset=circ*(1-score100/100); });
+  return band;
+}
+
+/* â”€â”€ PARSE META â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function parseMeta(score) {
   const s=parseFloat(score);
+  const s100=Math.round(s*10);
   const band=s<3?'crit':s<5?'low':s<7?'mid':'ok';
   const label=s<3?'CRITICAL':s<5?'LOW':s<7?'MODERATE':'GOOD';
   const numColor=s<5?'#f87171':s<7?'#fbbf24':'#4ade80';
@@ -2023,7 +2241,69 @@ function parseMeta(score) {
   const comp=s<3?`${Math.floor(4+Math.random()*4)} domains`:s<5?`${Math.floor(2+Math.random()*2)} domains`:'1 domain';
   const schema=s<4?{v:'Missing',c:'bad'}:s<6?{v:'Partial',c:'warn'}:{v:'Present',c:'ok'};
   const entity=s<4?{v:'Ambiguous',c:'bad'}:s<7?{v:'Unclear',c:'warn'}:{v:'Strong',c:'ok'};
-  return{band,label,numColor,leads,comp,schema,entity};
+  return{s100,band,label,numColor,leads,comp,schema,entity};
+}
+
+/* â”€â”€ PERCEPTION PANEL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+function renderPerception(domain,score){
+  const s=parseFloat(score);
+  const el=document.getElementById('perc-rows'); el.innerHTML='';
+  const dims=[
+    {k:'Brand Authority', v:Math.min(100,Math.round(s*8+Math.random()*12)), color:'#60a5fa'},
+    {k:'Topic Relevance', v:Math.min(100,Math.round(s*9+Math.random()*10)), color:'#a78bfa'},
+    {k:'Citation Depth',  v:Math.min(100,Math.round(s*7+Math.random()*15)), color:'#4ade80'},
+    {k:'Entity Clarity',  v:Math.min(100,Math.round(s*7.5+Math.random()*14)), color:'#fbbf24'},
+    {k:'Sentiment Score', v:Math.min(100,Math.round(s*8.5+Math.random()*10)), color:'#f472b6'},
+    {k:'Content Density', v:Math.min(100,Math.round(s*6+Math.random()*18)), color:'#34d399'},
+  ];
+  dims.forEach(d=>{
+    const row=document.createElement('div'); row.className='perc-row';
+    row.innerHTML=`<div class="perc-keyword">${d.k}</div><div class="perc-bar-wrap"><div class="perc-bar" style="width:0%;background:${d.color};transition:width .8s ease" data-target="${d.v}"></div></div><div class="perc-val">${d.v}</div>`;
+    el.appendChild(row);
+  });
+  setTimeout(()=>el.querySelectorAll('.perc-bar').forEach(b=>{b.style.width=b.dataset.target+'%';}),80);
+}
+
+/* â”€â”€ ACTIONS PANEL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+function renderActions(fullText){
+  const el=document.getElementById('actions-list'); el.innerHTML='';
+  const fixRe=/Fix\s*\d+[:\s]+(.+)/gi; const rawFixes=[]; let m;
+  while((m=fixRe.exec(fullText))!==null) rawFixes.push(m[1].trim());
+  const pris=['high','high','medium','medium','low'];
+  const impacts=['High Impact â€” citation visibility +40%','High Impact â€” entity clarity resolved','Medium Impact â€” schema coverage +60%','Medium Impact â€” RAG retrieval boost','Low Impact â€” long-term training signal'];
+  const defaults=['Implement Organization schema with sameAs links to Wikidata, LinkedIn, Crunchbase','Create a structured /about page as an authoritative entity anchor (JSON-LD)','Build FAQ-schema content targeting 3 core buying-intent queries','Add knowsAbout and mentions attributes to all primary service pages','Earn 5+ press citations on DA40+ indexed publications this quarter'];
+  const fixes=rawFixes.length>=3?rawFixes:defaults;
+  fixes.slice(0,5).forEach((fix,i)=>{
+    const pri=pris[i]||'low';
+    const div=document.createElement('div'); div.className=`action-item ${pri}`; div.style.opacity=0;
+    const parts=fix.split(':');
+    div.innerHTML=`<div class="action-num">${i+1}</div><div class="action-body"><div class="action-title">${parts[0]}</div><div class="action-desc">${parts.length>1?parts.slice(1).join(':').trim():''}</div><div class="action-impact">${impacts[i]}</div></div>`;
+    el.appendChild(div);
+    setTimeout(()=>{div.style.transition='opacity .3s ease';div.style.opacity=1;},i*80);
+  });
+}
+
+/* â”€â”€ OPTIMIZE PANEL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+function renderOptimize(score){
+  const s=parseFloat(score);
+  const el=document.getElementById('opt-grid'); el.innerHTML='';
+  const models=[
+    {name:'ChatGPT',    icon:'ðŸ¤–', drift:+Math.random()*.8-.2},
+    {name:'Perplexity', icon:'ðŸ”', drift:-Math.random()*.6},
+    {name:'Gemini',     icon:'âœ¦',  drift:+Math.random()*.5-.1},
+    {name:'Claude',     icon:'â—†',  drift:-Math.random()*.4},
+  ];
+  models.forEach(mod=>{
+    const raw=Math.max(.5,Math.min(10,s+mod.drift));
+    const v100=Math.round(raw*10);
+    const band=raw>=7?'ok':raw>=5?'mid':raw>=3?'low':'crit';
+    const clr=band==='ok'?'#4ade80':band==='mid'?'#60a5fa':band==='low'?'#fbbf24':'#f87171';
+    const status=raw>=7?'Citing your entity':raw>=5?'Partial recognition':raw>=3?'Inconsistent citations':'Not citing your brand';
+    const card=document.createElement('div'); card.className='opt-model-card';
+    card.innerHTML=`<div class="opt-model-head"><div class="opt-model-name"><div class="opt-model-icon" style="background:var(--bg3)">${mod.icon}</div>${mod.name}</div><div class="opt-score ${band}">${v100}</div></div><div class="opt-bar-wrap"><div class="opt-bar" style="width:0%;background:${clr};transition:width .9s ease" data-target="${v100}"></div></div><div class="opt-status">${status}</div>`;
+    el.appendChild(card);
+  });
+  setTimeout(()=>el.querySelectorAll('.opt-bar').forEach(b=>{b.style.width=b.dataset.target+'%';}),80);
 }
 function renderReport(txt) {
   const el=document.getElementById('a-report'); el.innerHTML='';
@@ -2144,10 +2424,21 @@ Under 280 words. Be direct, domain-specific. No generic advice.`;
   clearInterval(aTimer);
 
   const meta=parseMeta(score);
-  document.getElementById('a-num').textContent=score;
-  document.getElementById('a-num').style.color=meta.numColor;
+
+  // â”€â”€ Health gauge
+  const band=animateGauge(meta.s100);
+  document.getElementById('a-num').textContent=meta.s100;
+  document.getElementById('hs-label').textContent=meta.label+' SCORE';
+
+  // Delta: simulate +/- pts vs last scan
+  const delta=Math.floor(Math.random()*12)-4;
+  const deltaEl=document.getElementById('hs-delta');
+  deltaEl.textContent=(delta>=0?'+':'')+delta+' pts this scan';
+  deltaEl.className='hs-delta '+(delta>0?'pos':delta<0?'neg':'neu');
+
+  // â”€â”€ Visibility tab
   const tag=document.getElementById('a-tag');
-  tag.textContent=meta.label; tag.className='score-tag tag-'+meta.band;
+  tag.textContent=meta.band.toUpperCase()+' â€” '+domain;
   document.getElementById('a-leads').textContent=meta.leads;
   document.getElementById('a-comp').textContent=meta.comp;
   document.getElementById('a-schema').textContent=meta.schema.v;
@@ -2156,7 +2447,20 @@ Under 280 words. Be direct, domain-specific. No generic advice.`;
   document.getElementById('a-entity').className='sr-v '+meta.entity.c;
   document.getElementById('a-dlabel').textContent=domain;
 
-  renderReport(fullText); renderIssues(fullText);
+  renderReport(fullText);
+  renderIssues(fullText);
+
+  // â”€â”€ Other tabs
+  renderPerception(domain, score);
+  renderActions(fullText);
+  renderOptimize(score);
+
+  // Reset to Visibility tab
+  document.querySelectorAll('.rt-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.rt-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector('.rt-tab').classList.add('active');
+  document.getElementById('rtp-visibility').classList.add('active');
+
   document.getElementById('a-scan').style.display='none';
   document.getElementById('a-result').style.display='';
   document.getElementById('a-run').disabled=false;
