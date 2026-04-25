@@ -1,9 +1,11 @@
 ---
-// ProGPT Store &mdash; Main Page
+// ProGPT Store â€” Main Page
 // Fonts loaded via <link> below; JS is inline (is:inline) to preserve
 // global function scope needed by inline onclick handlers
 ---
 
+<html lang="en">
+<head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="theme-color" content="#000000" />
@@ -35,7 +37,7 @@
   rel="stylesheet"
 />
 
-<style is:global>
+<style>
 
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    WHOP DESIGN SYSTEM â€” TOKENS
@@ -1358,8 +1360,12 @@ footer {
   .result-tabs::-webkit-scrollbar { display: none; }
   .rt-tab { flex-shrink: 0; padding: 10px 14px; font-size: 12.5px; }
 }
-</style>
 
+/* Fix #8: ec-left â€” give the title/subtitle wrapper proper spacing above the form */
+.ec-left { margin-bottom: 14px; }
+</style>
+</head>
+<body>
 
 <!-- â•â• NAV â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <nav class="nav">
@@ -1466,11 +1472,11 @@ footer {
           <div class="sidebar-section">
             <div class="sidebar-label">Price</div>
             <div class="sidebar-filter">
-              <button class="sf-btn active">Any price</button>
-              <button class="sf-btn">Free</button>
-              <button class="sf-btn">Under $100</button>
-              <button class="sf-btn">$100&ndash;$500</button>
-              <button class="sf-btn">$500+</button>
+              <button class="sf-btn active" onclick="sidebarFilter(this,'all')">Any price</button>
+              <button class="sf-btn" onclick="sidebarFilter(this,'free')">Free</button>
+              <button class="sf-btn" onclick="sidebarFilter(this,'guide')">Under $100</button>
+              <button class="sf-btn" onclick="sidebarFilter(this,'done')">$100&ndash;$500</button>
+              <button class="sf-btn" onclick="sidebarFilter(this,'retainer')">$500+</button>
             </div>
           </div>
 
@@ -1719,10 +1725,10 @@ footer {
                     <div class="dc-online-pip"></div>
                     <div class="dc-count-text"><strong>847</strong> online right now &middot; <strong>1,247</strong> total</div>
                   </div>
-                  <div class="dc-join-big">
+                  <span class="dc-join-big" role="presentation">
                     <svg width="16" height="12" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.6 58.6 0 0 0 45.6.9a40 40 0 0 0-1.8 3.7 54.2 54.2 0 0 0-16.3 0A40 40 0 0 0 25.7.9 58.5 58.5 0 0 0 11.1 5C1.6 19.7-1 34.1.3 48.3a59 59 0 0 0 18 9.1 44.7 44.7 0 0 0 3.8-6.2 38.3 38.3 0 0 1-6-2.9l1.5-1.1a42.2 42.2 0 0 0 36 0l1.5 1.1a38.4 38.4 0 0 1-6 2.9 44.5 44.5 0 0 0 3.8 6.2 58.8 58.8 0 0 0 18-9.1C71.8 32 68 17.7 60.1 4.9ZM23.7 39.4c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2 6.5 3.2 6.4 7.2c0 4-2.8 7.2-6.4 7.2Zm23.5 0c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2 6.4 3.2 6.4 7.2c0 4-2.8 7.2-6.4 7.2Z"/></svg>
                     Join for free
-                  </div>
+                  </span>
                 </div>
               </div>
             </a>
@@ -1778,7 +1784,7 @@ footer {
     <p>Enter any domain. Real AI analysis &mdash; schema gaps, competitor signals, AI Trust Score, and priority fixes. Powered by Claude. Free, no account needed.</p>
     <div class="audit-social-proof">
       <div class="asp-stat">
-        <span class="asp-num">2,847</span>
+        <span class="asp-num" id="scan-count">â€”</span>
         <span class="asp-lbl">domains scanned</span>
       </div>
       <div class="asp-divider"></div>
@@ -2227,7 +2233,11 @@ function resetAudit() {
   document.getElementById('a-result').style.display='none';
   document.getElementById('a-run').disabled=false;
   const arc=document.getElementById('hs-arc');
-  if(arc){ arc.style.strokeDashoffset=arc.style.strokeDasharray||'263'; }
+  if(arc){
+    const circ=(2*Math.PI*42).toFixed(2);
+    arc.style.strokeDasharray=circ;
+    arc.style.strokeDashoffset=circ;
+  }
   document.getElementById('a-num').textContent='â€”';
   document.getElementById('hs-label').textContent='Analysingâ€¦';
   document.getElementById('hs-delta').textContent='â€” pts this scan';
@@ -2418,10 +2428,12 @@ Score: [X.X]/10 â€” [one-line verdict specific to this domain type]
 Under 280 words. Be direct, domain-specific. No generic advice.`;
 
   /* â”€â”€ Call Cloudflare Worker (secure, key never in browser) â”€â”€ */
-  const WORKER_URL = 'https://progpt-backend.REPLACE_YOUR_SUBDOMAIN.workers.dev';
+  // TODO: Replace with your deployed Worker URL, e.g. https://progpt-backend.YOUR_SUBDOMAIN.workers.dev
+  const WORKER_URL = '';
 
   let fullText='', score=null;
   try {
+    if(!WORKER_URL) throw new Error('Worker URL not configured');
     const r=await fetch(WORKER_URL+'/audit',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -2439,12 +2451,16 @@ Under 280 words. Be direct, domain-specific. No generic advice.`;
     const base=domain.split('.')[0];
     const lo=Math.floor(14+Math.random()*14),hi=lo+Math.floor(8+Math.random()*8);
     fullText=`**AI TRUST SCORE**\nScore: ${score}/10 â€” ${base} shows entity clarity gaps typical for this domain type.\n\n**VISIBILITY DIAGNOSIS**\nAI models lack sufficient structured signals to confidently surface ${base} in competitive answer generation. The entity is either ambiguous or under-represented in authoritative citation sources AI models use during inference.\n\n**SCHEMA & ENTITY SIGNALS**\n- Missing: Organization schema with sameAs entity links to Wikidata and Crunchbase\n- Missing: Product/Service schema with canonical descriptions\n- Partial: Brand name entity â€” possible disambiguation conflict\n- Absent: FAQ/Q&A schema AI models can extract answers from\n- No detectable knowledge graph anchor for this entity\n\n**COMPETITOR LANDSCAPE**\n- best-${base}.com â€” richer citation backlinks and schema depth\n- top${base}guide.com â€” FAQ-dense content AI models extract directly\n- Est. ${lo}â€“${hi} leads/month diverted to AI-preferred alternatives\n\n**PRIORITY FIXES**\n- Fix 1: Implement Organization schema with sameAs links to Wikidata, LinkedIn, Crunchbase\n- Fix 2: Create a structured /about page as an authoritative entity description (200+ words, JSON-LD)\n- Fix 3: Build FAQ-schema content around 3 core buying-intent queries in your category`;
+  } finally {
+    /* Fix #3: Always clear the elapsed-time timer regardless of success or error */
+    clearInterval(aTimer); aTimer=null;
+    /* Fix #4: Always re-enable the run button */
+    document.getElementById('a-run').disabled=false;
   }
 
   if(!score) score=(2+Math.random()*3).toFixed(1);
   setP(88,'Processing'); tLog('Score extracted: '+score+'/10','ok'); await sl(350);
   setP(100,'Complete'); tLog('Analysis complete âœ“','ok'); await sl(280);
-  clearInterval(aTimer);
 
   const meta=parseMeta(score);
 
@@ -2453,11 +2469,10 @@ Under 280 words. Be direct, domain-specific. No generic advice.`;
   document.getElementById('a-num').textContent=meta.s100;
   document.getElementById('hs-label').textContent=meta.label+' SCORE';
 
-  // Delta: simulate +/- pts vs last scan
-  const delta=Math.floor(Math.random()*12)-4;
+  // Fix #7: Delta is meaningless without persistence â€” show neutral placeholder instead of random value
   const deltaEl=document.getElementById('hs-delta');
-  deltaEl.textContent=(delta>=0?'+':'')+delta+' pts this scan';
-  deltaEl.className='hs-delta '+(delta>0?'pos':delta<0?'neg':'neu');
+  deltaEl.textContent='first scan';
+  deltaEl.className='hs-delta neu';
 
   // â”€â”€ Visibility tab
   const tag=document.getElementById('a-tag');
@@ -2486,7 +2501,6 @@ Under 280 words. Be direct, domain-specific. No generic advice.`;
 
   document.getElementById('a-scan').style.display='none';
   document.getElementById('a-result').style.display='';
-  document.getElementById('a-run').disabled=false;
 }
 
 
@@ -2505,7 +2519,8 @@ function submitEmail() {
   const domain = document.getElementById('a-dlabel') ? document.getElementById('a-dlabel').textContent : '';
   const score  = document.getElementById('a-num') ? document.getElementById('a-num').textContent : '';
   /* Posts to the same Cloudflare Worker â€” no key exposed */
-  const WORKER_URL = 'https://progpt-backend.REPLACE_YOUR_SUBDOMAIN.workers.dev';
+  // TODO: Replace with your deployed Worker URL
+  const WORKER_URL = '';
   fetch(WORKER_URL+'/email', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -2519,7 +2534,7 @@ function submitEmail() {
 
 /* â”€â”€ SCAN COUNT ANIMATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 document.addEventListener('DOMContentLoaded', function() {
-  const el = document.querySelector('.asp-num');
+  const el = document.getElementById('scan-count');
   if (!el) return;
   const target = 2847;
   let cur = target - 37;
@@ -2529,7 +2544,11 @@ document.addEventListener('DOMContentLoaded', function() {
     el.textContent = cur.toLocaleString();
     setTimeout(tick, 120);
   }
+  el.textContent = (target - 37).toLocaleString();
   setTimeout(tick, 1800);
 });
 
 </script>
+
+</body>
+</html>
