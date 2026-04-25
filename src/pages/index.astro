@@ -1979,21 +1979,7 @@ footer {
       <button class="bcat" onclick="blogFilter(this,'case')">Case Studies</button>
     </div>
   </div>
-  <div class="blog-feat" id="b-feat">
-    <div class="bpc feat-card">
-      <div class="bpc-img" style="background:linear-gradient(135deg,#080d1a,#0e1535)">
-        <div class="bpc-glow" style="background:#6366f1"></div>
-        <span style="position:relative;z-index:1;font-size:52px">ðŸ§ </span>
-      </div>
-      <div class="bpc-body">
-        <div class="bpc-cat geo">GEO</div>
-        <div class="bpc-title">How ChatGPT Decides Which Businesses to Recommend &mdash; The Full Signal Map</div>
-        <div class="bpc-excerpt">LLMs don't browse in real time. They recall entities from training data and live context windows. This is the exact signal hierarchy that pushes your brand into &mdash; or out of &mdash; an AI answer. Covers entity schemas, citation authority, brand disambiguation, and the structured data types that actually move the needle.</div>
-        <div class="bpc-meta"><span>Apr 14, 2025</span><div class="bpc-dot"></div><span>12 min read</span><div class="bpc-dot"></div><span>4.2k reads</span></div>
-        <div class="bpc-tags"><span class="bpc-tag">entity-schema</span><span class="bpc-tag">chatgpt</span><span class="bpc-tag">authority-signals</span></div>
-      </div>
-    </div>
-  </div>
+  <div class="blog-feat" id="b-feat"></div>
   <div class="blog-grid" id="b-grid"></div>
   <div class="pseo-block" id="b-pseo">
     <div class="pseo-hd">GEO guides by industry</div>
@@ -2126,7 +2112,11 @@ function filterProducts(type) {
 
 /* â”€â”€ BLOG DATA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const POSTS = [
-  { cat:'geo',     em:'ðŸ—‚', bg:'090c20,111840', title:'GEO vs SEO: The Signal Map That Actually Matters in 2025', ex:'Why keyword rankings are irrelevant to AI answers, and the six signals that are.', date:'Apr 7', read:'6 min', tags:['geo-basics','signals'] },
+  { cat:'geo',     em:'ðŸ§ ', bg:'080d1a,0e1535', feat:true,
+    title:'How ChatGPT Decides Which Businesses to Recommend â€” The Full Signal Map',
+    ex:'LLMs don\'t browse in real time. They recall entities from training data and live context windows. This is the exact signal hierarchy that pushes your brand into â€” or out of â€” an AI answer.',
+    date:'Apr 14', read:'12 min', tags:['entity-schema','chatgpt','authority-signals'] },
+  { cat:'geo',     em:'ðŸ—‚', bg:'090c20,111840', title:'GEO vs SEO: The Signal Map That Actually Matters in 2026', ex:'Why keyword rankings are irrelevant to AI answers, and the six signals that are.', date:'Apr 7', read:'6 min', tags:['geo-basics','signals'] },
   { cat:'tactics', em:'ðŸ”©', bg:'0a1210,0d2018', title:'The 5 Schema Types AI Models Actually Trust (And 3 They Ignore)', ex:'Most schema implementations are skipped by LLMs. These five aren\'t.', date:'Mar 28', read:'5 min', tags:['schema','json-ld'] },
   { cat:'tools',   em:'âš¡', bg:'100c08,201408', title:'How to Turn Your Audit Into a 90-Day GEO Roadmap', ex:'Walk-through of turning audit output into a prioritised action plan.', date:'Mar 21', read:'8 min', tags:['audit','roadmap'] },
   { cat:'case',    em:'ðŸ“ˆ', bg:'0a0818,14102a', title:'SaaS Brand: 0 to 80% AI Mention Rate in 6 Weeks', ex:'Full breakdown of exact changes made, timeline, and outcome metrics.', date:'Mar 14', read:'10 min', tags:['case-study','saas'] },
@@ -2152,32 +2142,65 @@ function blogFilter(el, cat) {
 function blogSearch(q) { bQ = q; renderBlog(); }
 function catColor(c) { return {geo:'#818cf8',tactics:'#4ade80',tools:'#fbbf24',case:'#f87171'}[c]||'#818cf8'; }
 function renderBlog() {
+  const isFiltered = bQ || bCat !== 'all';
   const filtered = POSTS.filter(p => {
-    const cok = bCat==='all'||p.cat===bCat;
-    const qok = !bQ||p.title.toLowerCase().includes(bQ.toLowerCase())||p.ex.toLowerCase().includes(bQ.toLowerCase());
+    const cok = bCat==='all' || p.cat===bCat;
+    const qok = !bQ || p.title.toLowerCase().includes(bQ.toLowerCase()) || p.ex.toLowerCase().includes(bQ.toLowerCase());
     return cok && qok;
   });
-  const isFiltered = bQ || bCat !== 'all';
-  document.getElementById('b-feat').style.display = isFiltered ? 'none' : '';
-  document.getElementById('b-pseo').style.display = isFiltered ? 'none' : '';
-  document.getElementById('b-grid').innerHTML = filtered.map((p,i) => `
-    <div class="bpc" style="animation-delay:${i*.05}s">
-      <div class="bpc-img" style="background:linear-gradient(135deg,#${p.bg})">
-        <div class="bpc-glow" style="background:${catColor(p.cat)}"></div>
-        <span style="position:relative;z-index:1;font-size:34px">${p.em}</span>
-      </div>
-      <div class="bpc-body">
-        <div class="bpc-cat ${p.cat}">${p.cat.toUpperCase()}</div>
-        <div class="bpc-title">${p.title}</div>
-        <div class="bpc-excerpt">${p.ex}</div>
-        <div class="bpc-meta"><span>${p.date}</span><div class="bpc-dot"></div><span>${p.read}</span></div>
-        <div class="bpc-tags">${p.tags.map(t=>`<span class="bpc-tag">${t}</span>`).join('')}</div>
-      </div>
-    </div>`).join('');
+
+  // Featured card â€” first post, only shown unfiltered
+  const featEl = document.getElementById('b-feat');
+  const pseoEl = document.getElementById('b-pseo');
+  if (!featEl || !pseoEl) return;
+
+  if (!isFiltered && filtered.length > 0) {
+    const fp = filtered[0];
+    featEl.style.display = '';
+    featEl.innerHTML = `
+      <div class="bpc feat-card">
+        <div class="bpc-img" style="background:linear-gradient(135deg,#${fp.bg})">
+          <div class="bpc-glow" style="background:${catColor(fp.cat)}"></div>
+          <span style="position:relative;z-index:1;font-size:52px">${fp.em}</span>
+        </div>
+        <div class="bpc-body">
+          <div class="bpc-cat ${fp.cat}">${fp.cat.toUpperCase()}</div>
+          <div class="bpc-title" style="font-size:22px">${fp.title}</div>
+          <div class="bpc-excerpt">${fp.ex}</div>
+          <div class="bpc-meta"><span>${fp.date}</span><div class="bpc-dot"></div><span>${fp.read} read</span></div>
+          <div class="bpc-tags">${fp.tags.map(t=>`<span class="bpc-tag">${t}</span>`).join('')}</div>
+        </div>
+      </div>`;
+    pseoEl.style.display = '';
+  } else {
+    featEl.style.display = 'none';
+    pseoEl.style.display = 'none';
+  }
+
+  // Grid â€” skip featured post when unfiltered (already shown above)
+  const gridPosts = isFiltered ? filtered : filtered.slice(1);
+  document.getElementById('b-grid').innerHTML = gridPosts.length
+    ? gridPosts.map((p,i) => `
+        <div class="bpc" style="animation-delay:${i*.05}s">
+          <div class="bpc-img" style="background:linear-gradient(135deg,#${p.bg})">
+            <div class="bpc-glow" style="background:${catColor(p.cat)}"></div>
+            <span style="position:relative;z-index:1;font-size:34px">${p.em}</span>
+          </div>
+          <div class="bpc-body">
+            <div class="bpc-cat ${p.cat}">${p.cat.toUpperCase()}</div>
+            <div class="bpc-title">${p.title}</div>
+            <div class="bpc-excerpt">${p.ex}</div>
+            <div class="bpc-meta"><span>${p.date}</span><div class="bpc-dot"></div><span>${p.read} read</span></div>
+            <div class="bpc-tags">${p.tags.map(t=>`<span class="bpc-tag">${t}</span>`).join('')}</div>
+          </div>
+        </div>`).join('')
+    : `<div style="padding:48px 0;text-align:center;font-family:var(--m);font-size:13px;color:var(--gray6);grid-column:1/-1">No articles match â€” <button onclick="blogFilter(document.querySelector('.bcat'),'all')" style="background:none;border:none;color:var(--gray4);cursor:pointer;font-family:var(--m);font-size:13px;text-decoration:underline">clear filter</button></div>`;
+
   document.getElementById('b-pseo-grid').innerHTML = PSEO.map(s => `
     <div class="pseo-pill"><span class="pseo-slug">${s.slug}</span>${s.title}</div>`).join('');
 }
-renderBlog();
+
+document.addEventListener('DOMContentLoaded', renderBlog);
 
 /* â”€â”€ AUDIT ENGINE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 let aTimer = null, aEl = 0;
@@ -2495,12 +2518,11 @@ function submitEmail() {
 }
 
 /* â”€â”€ SCAN COUNT ANIMATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
   const el = document.querySelector('.asp-num');
   if (!el) return;
   const target = 2847;
-  const start = target - 37;
-  let cur = start;
+  let cur = target - 37;
   function tick() {
     cur += Math.ceil(Math.random() * 2);
     if (cur >= target) { el.textContent = target.toLocaleString(); return; }
@@ -2508,6 +2530,6 @@ function submitEmail() {
     setTimeout(tick, 120);
   }
   setTimeout(tick, 1800);
-})();
+});
 
 </script>
