@@ -8,6 +8,7 @@ const links = {
 	github: 'https://github.com/maskalfreeup-glitch',
 	email: 'mailto:hello@progpt.store',
 	medium: 'https://medium.com/@YOUR_HANDLE/article-slug',
+	whop: 'https://whop.com/progpt',
 };
 
 const services = [
@@ -111,9 +112,11 @@ const mediumCards = [
 				</p>
 				<div class="hero-actions" aria-label="Primary calls to action">
 					<a class="button primary" href={links.fiverr}>Hire on Fiverr</a>
-					<a class="button secondary" href={links.audit}>Get free audit</a>
 					<a class="button ghost" href={links.discord} target="_blank" rel="noopener noreferrer"
-						>Join Free Discord</a
+						>Join Founder Lab</a
+					>
+					<a class="button whop" href={links.whop} target="_blank" rel="noopener noreferrer"
+						>Browse on Whop</a
 					>
 				</div>
 			</div>
@@ -284,7 +287,7 @@ const mediumCards = [
 				}
 			</div>
 			<a class="button secondary lab-cta" href={links.discord} target="_blank" rel="noopener noreferrer"
-				>Join Free Discord</a
+				>Join Founder Lab</a
 			>
 		</section>
 
@@ -347,7 +350,7 @@ const mediumCards = [
 				<a class="button primary" href={links.fiverr}>Hire on Fiverr</a>
 				<a class="button secondary" href={links.audit}>Get free audit</a>
 				<a class="button ghost" href={links.discord} target="_blank" rel="noopener noreferrer"
-					>Join Free Discord</a
+					>Join Founder Lab</a
 				>
 			</div>
 		</section>
@@ -365,7 +368,7 @@ const mediumCards = [
 				<nav class="footer-links" aria-label="Footer links">
 					<a href={links.fiverr}>Hire on Fiverr</a>
 					<a href={links.audit}>Get Free Audit</a>
-					<a href={links.discord} target="_blank" rel="noopener noreferrer">Join Free Discord</a>
+					<a href={links.discord} target="_blank" rel="noopener noreferrer">Join Founder Lab</a>
 					<a href={links.github} target="_blank" rel="noopener noreferrer">GitHub</a>
 					<a href={links.medium} target="_blank" rel="noopener noreferrer">Medium</a>
 				</nav>
@@ -544,6 +547,22 @@ const mediumCards = [
 	.button.ghost {
 		background: rgba(255, 255, 255, 0.06);
 		color: #f6f7fb;
+	}
+
+	.button.whop {
+		border-color: rgba(122, 167, 255, 0.36);
+		background:
+			linear-gradient(135deg, rgba(122, 167, 255, 0.22), rgba(126, 226, 189, 0.1)),
+			rgba(255, 255, 255, 0.055);
+		color: #f6f9ff;
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+	}
+
+	.button.whop:hover {
+		border-color: rgba(122, 167, 255, 0.62);
+		background:
+			linear-gradient(135deg, rgba(122, 167, 255, 0.28), rgba(126, 226, 189, 0.14)),
+			rgba(255, 255, 255, 0.075);
 	}
 
 	.hero-graphic,
